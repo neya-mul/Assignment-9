@@ -4,3 +4,13 @@
 .body{
     background-color: #F6F1E8;
 }
+
+.nav{
+    /* margin-left: 0; */
+    margin-right: 0;
+}
+
+.bg{
+    background-image: url('/b.png');
+}
+
