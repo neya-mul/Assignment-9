@@ -4,11 +4,14 @@ import Image from 'next/image';
 
 
 export default async function Details({ params }) {
-    const res = await fetch('http://localhost:5000/pets')
-    const pets = await res.json()
+
 
     const { id } = await params
-    const pet = pets.find(p => p._id == id)
+
+
+    const res = await fetch(`http://localhost:5000/pets/${id}`)
+    const pet = await res.json()
+    // const pet = pets.find(p => p._id == id)
     // console.log(pet);
 
 
