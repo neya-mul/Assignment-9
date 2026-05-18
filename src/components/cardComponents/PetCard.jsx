@@ -1,4 +1,5 @@
 import Image from 'next/image';
+import Link from 'next/link';
 import React from 'react'
 
 export default function PetCard({ pet }) {
@@ -19,18 +20,16 @@ export default function PetCard({ pet }) {
 
                 <div className="p-5">
                     <h2 className="text-[17px] font-medium text-[#3B3120] mb-2">
-                        Card Title
-                    </h2>
+                        {pet.name}    </h2>
 
                     <p className="text-sm leading-relaxed text-[#7A6A50] mb-5">
-                        A card component has a figure, a body part, and inside body there
-                        are title and actions parts
+                        {pet.description}
                     </p>
 
                     <div className="flex justify-end">
-                        <button className="bg-[#7C5C2E] hover:bg-[#5E4320] text-[#F6F1E8] rounded-lg px-5 py-2 text-sm font-medium cursor-pointer tracking-wide transition-colors duration-150">
-                            Buy Now
-                        </button>
+                        <Link href={`/${pet._id}`}> <button className="bg-[#7C5C2E] hover:bg-[#5E4320] text-[#F6F1E8] rounded-lg px-5 py-2 text-sm font-medium cursor-pointer w-full tracking-wide transition-colors duration-150">
+                            View Details
+                        </button></Link>
                     </div>
                 </div>
 
