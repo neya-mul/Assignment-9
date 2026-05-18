@@ -19,7 +19,7 @@ export default async function Details({ params }) {
 
                     <div className="relative h-[200px] w-full md:w-[300px] shrink-0 overflow-hidden rounded-2xl">
                         <Image
-                            alt={pet.name}
+                            alt='name'
                             className="object-cover"
                             src={pet.image}
                             width={800}

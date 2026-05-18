@@ -1,6 +1,9 @@
 "use client";
 
 
+
+import { authClient } from "@/lib/auth-client";
+// import { router } from "better-auth/api";
 import Link from "next/link";
 import { useState } from "react";
 
@@ -28,39 +31,75 @@ export default function Register() {
 
 
 
-  const onSubmit = (e) => {
+  const onSubmit = async (e) => {
     e.preventDefault();
-    setError('')
+    setError('');
     setSuccess(false);
+
     const { name, email, url, password, confirmPass } = formData;
+
     if (!name || !email || !url || !password || !confirmPass) {
       setError('All fields are required.');
       return;
-
     }
-    if (password.length < 6) {
-      setError('Password must contain at least one 6 chaarac')
+
+    if (password.length < 8) {
+      setError('Password must be at least 6 characters.');
+      return; // ← fixed: was missing
     }
 
     const hasUppercase = /[A-Z]/.test(password);
     const hasLowercase = /[a-z]/.test(password);
     if (!hasUppercase || !hasLowercase) {
-      setError('Password must contain at least one uppercase and one lowercase letter.')
-      return
-    }
-
-
-    if (password !== confirmPass) {
-      setError('Please confirm your password')
+      setError('Password must contain at least one uppercase and one lowercase letter.');
       return;
     }
 
-    setSuccess(true)
+    if (password !== confirmPass) {
+      setError('Passwords do not match.'); // ← fixed message
+      return;
+    }
+
 
     console.log(formData);
-    
 
-    // alert(`Form submitted with: ${JSON.stringify(data, null, 2)}`);
+
+
+    const { data, error } = await authClient.signUp.email({
+      name: name, // required
+      email: email, // required
+      password: password, // required
+      image: url,
+      callbackURL: "/login",
+    });
+
+
+
+    console.log(data);
+    console.log(error);
+    
+    
+    // const { data, error } = await authClient.signUp.email({
+    //   name,
+    //   email,
+    //   password,
+    //   image: url,
+    //   callbackURL: '/login',
+    // });
+
+    // if (error) {
+    //   setError(error.message || 'Registration failed. Please try again.');
+    //   return;
+    // }
+
+    // setSuccess(true); 
+
+    // console.log(data);
+    // console.log(error);
+
+
+
+
   };
 
   return (
@@ -116,7 +155,7 @@ export default function Register() {
 
           <label className="label font-medium">Password</label>
           <input
-            type="password"
+            type="text"
             className="input w-full border-[#b88e4866]"
             placeholder="Password"
             name='password'
@@ -127,7 +166,7 @@ export default function Register() {
 
           <label className="label font-medium">Confirm Password</label>
           <input
-            type="password"
+            type="text"
             className="input w-full border-[#b88e4866]"
             placeholder="Confirm Password"
             name='confirmPass'
@@ -156,3 +195,4 @@ export default function Register() {
 
 
 
+// Nn1234
