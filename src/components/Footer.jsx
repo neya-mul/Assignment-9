@@ -30,9 +30,9 @@ export default function Footer() {
                     <div>
                         <p className="text-xs font-medium  uppercase tracking-widest mb-4">Follow us</p>
                         <div className="flex flex-col gap-3">
-                            <a href="#" className="text-sm  hover:text-black">Facebook</a>
-                            <a href="#" className="text-sm  hover:text-black">Instagram</a>
-                            <a href="#" className="text-sm  hover:text-black">Twitter / X</a>
+                            <Link href="#" className="text-sm  hover:text-black">Facebook</Link>
+                            <Link href="#" className="text-sm  hover:text-black">Instagram</Link>
+                            <Link href="#" className="text-sm  hover:text-black">Twitter / X</Link>
                         </div>
                     </div>
 

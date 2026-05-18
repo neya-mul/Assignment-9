@@ -4,9 +4,8 @@ import React from 'react'
 
 export default function Navbar() {
     return (
-        <div className='bg-[#264653]'>
-            <div className='container mx-auto bg-[#264653]'>
-                <div className="navbar shadow-sm   ">
+     
+                <div className="navbar shadow-sm fixed z-90  bg-[#264653] ">
                     <div className="navbar-start">
                         <div className="dropdown">
                             <div tabIndex={0} role="button" className="btn btn-ghost lg:hidden">
@@ -35,7 +34,6 @@ export default function Navbar() {
                         <a className="btn">Button</a>
                     </div>
                 </div>
-            </div>
-        </div>
+            
     )
 }
