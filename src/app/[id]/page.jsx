@@ -15,7 +15,7 @@ export default async function Details({ params }) {
     return (
         <div className='text-black flex justify-center items-center min-h-screen'>
             <div className='border p-10'>
-                <Card className="w-full max-w-5xl w-full flex flex-col md:flex-row gap-4">
+                <Card className="w-full max-w-5xl flex flex-col md:flex-row gap-4">
 
                     <div className="relative h-[200px] w-full md:w-[300px] shrink-0 overflow-hidden rounded-2xl">
                         <Image
