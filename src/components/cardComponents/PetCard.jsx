@@ -12,8 +12,8 @@ export default function PetCard({ pet }) {
                     <Image
                         width={600}
                         height={200}
-                        src={pet.image}
-                        alt={pet.name}
+                        src={pet?.image}
+                        alt={pet?.name}
                         className=" "
                     />
                 </figure>

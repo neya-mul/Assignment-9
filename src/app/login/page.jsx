@@ -1,9 +1,35 @@
 'use client'
+import { authClient } from '@/lib/auth-client'
 import Link from 'next/link'
+import { useRouter } from 'next/navigation'
 import React from 'react'
 
 export default function Login() {
-  const loginButton = () =>{
+  const router = useRouter()
+
+  const loginButton = async (e) => {
+    e.preventDefault()
+    const password = e.target.password.value
+    const email = e.target.email.value
+
+
+    const { data, error } = await authClient.signIn.email({
+      email: email, // required
+      password: password, // required
+      rememberMe: true,
+      callbackURL: '/',
+    });
+
+    console.log(data);
+    if (error) {
+      alert(error.message)
+    }
+    else {
+      router.push('/')
+
+    }
+
+
 
   }
   return (

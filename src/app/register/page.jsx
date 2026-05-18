@@ -4,7 +4,9 @@
 
 import { authClient } from "@/lib/auth-client";
 // import { router } from "better-auth/api";
+// import { router } from "better-auth/api";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
 import { useState } from "react";
 
 export default function Register() {
@@ -29,7 +31,7 @@ export default function Register() {
   };
 
 
-
+  const router = useRouter()
 
   const onSubmit = async (e) => {
     e.preventDefault();
@@ -61,7 +63,7 @@ export default function Register() {
     }
 
 
-    console.log(formData);
+
 
 
 
@@ -73,12 +75,19 @@ export default function Register() {
       callbackURL: "/login",
     });
 
+    if (error) {
+      alert(error.message)
+      return;
+    }
+
+    else {
+      router.push('/login')
+    }
 
 
-    console.log(data);
-    console.log(error);
-    
-    
+
+
+
     // const { data, error } = await authClient.signUp.email({
     //   name,
     //   email,
