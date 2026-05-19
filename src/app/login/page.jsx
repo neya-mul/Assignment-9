@@ -1,10 +1,19 @@
 'use client'
 import { authClient } from '@/lib/auth-client'
+import { betterAuth } from 'better-auth'
 import Link from 'next/link'
 import { useRouter } from 'next/navigation'
 import React from 'react'
+import { FaGoogle } from 'react-icons/fa'
 
 export default function Login() {
+  const auth = betterAuth
+
+  const googleButton = async () => {
+    await authClient.signIn.social({
+      provider: "google",
+    });
+  };
   const router = useRouter()
 
   const loginButton = async (e) => {
@@ -48,8 +57,8 @@ export default function Login() {
           <p className='text-sm mt-3'>Don't have any account? <span className='text-[#b59e1c]'><Link href='/register'>Register</Link></span></p>
 
           <div className="divider">OR</div>
-          {/* <button type='button' onClick={googleButton} className='btn btn-neutral w-full border flex items-center button'><FaGoogle />
-            Log in with Google</button> */}
+          <button type='button' onClick={googleButton} className='btn btn-neutral w-full border flex items-center button'><FaGoogle />
+            Log in with Google</button>
         </fieldset>
 
       </form>
