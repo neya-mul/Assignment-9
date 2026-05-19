@@ -1,5 +1,5 @@
 import React from 'react'
-import { Button, Card, CardFooter, CardHeader } from "@heroui/react";
+// import { Button, Card, CardFooter, CardHeader } from "@heroui/react";
 import Image from 'next/image';
 
 export default async function Details({ params }) {
@@ -9,51 +9,165 @@ export default async function Details({ params }) {
 
     const res = await fetch(`http://localhost:5000/pets/${id}`, { cache: 'no-store' })
     const pet = await res.json()
-    console.log("Fetched Pet Data:", pet);
+    // console.log("Fetched Pet Data:", pet);
+    const { species, gender, healthStatus, vaccinationStatus, adoptionFee, location, ownerEmail } = pet
 
     return (
-        <div className='text-black flex justify-center items-center min-h-screen'>
-            <div className='border p-10'>
-                <Card className="w-full max-w-5xl flex flex-col md:flex-row gap-4">
+        <div className='text-black flex justify-center items-center min-h-screen p-4 md:p-8 bg-gray-50/50'>
+            <div className='flex flex-col md:flex-row justify-center gap-6 lg:gap-8 items-stretch w-full max-w-6xl mx-auto mt-30 md:mt-0'>
 
-                    <div className="relative h-[200px] w-full md:w-[300px] shrink-0 overflow-hidden rounded-2xl">
-                        {/* FIX 1: Changed pet?.image to pet?.imageUrl */}
-                        {/* FIX 2: Wrapped in conditional statement so it won't render if empty */}
-                        {pet?.imageUrl ? (
-                            <Image
-                                alt={pet?.petName || 'Pet Image'}
-                                className="object-cover"
-                                src={pet.imageUrl}
-                                width={800}
-                                height={800}
-                                priority
-                            />
-                        ) : (
-                            <div className="w-full h-full bg-gray-200 flex items-center justify-center text-sm text-gray-400">
-                                No Image Available
-                            </div>
-                        )}
-                    </div>
+                {/* Left Side: Pet Card Details */}
+                <div className=' p-6 md:p-8 flex-1 w-full bg-white rounded-3xl shadow-sm flex flex-col justify-between'>
+                    <div className="w-full flex flex-col gap-6">
 
-                    <div className="flex flex-1 flex-col gap-3">
-                        <CardHeader className="flex-col items-start gap-1">
-                            {/* FIX 3: Changed pet.name to pet.petName to match your data */}
-                            <h2 className="font-bold text-xl">{pet?.petName}</h2>
-                            <p className="text-sm text-gray-500 max-w-[400px]">{pet?.description}</p>
-                        </CardHeader>
-
-                        <div>
-                            <p className="text-sm"><span className="font-medium">Breed:</span> {pet?.breed}</p>
-                            <p className="text-sm"><span className="font-medium">Age:</span> {pet?.age}</p>
+                        {/* Pet Image Container */}
+                        <div className="relative h-[180px] w-full h-[210px] shrink-0 overflow-hidden rounded-2xl shadow-inner mx-auto sm:mx-0">
+                            {pet?.imageUrl ? (
+                                <Image
+                                    alt={pet?.petName || 'Pet Image'}
+                                    className="object-cover w-full h-full "
+                                    src={pet.imageUrl}
+                                    width={400}
+                                    height={400}
+                                    priority
+                                />
+                            ) : (
+                                <div className="w-full h-full bg-gray-100 flex items-center justify-center text-sm text-gray-400">
+                                    No Image Available
+                                </div>
+                            )}
                         </div>
 
-                        <CardFooter className="flex justify-between items-center">
-                            <Button className={'bg-[#7C5C2E] text-white border-none'}>Adopt Me</Button>
-                        </CardFooter>
-                    </div>
+                        {/* Pet Details Container */}
+                        <div className="flex flex-1 flex-col gap-4">
+                            {/* Header & Description */}
+                            <div className="flex flex-col gap-1 border-b pb-3">
+                                <h2 className="font-bold text-2xl text-gray-800">{pet?.petName}</h2>
+                                <p className="text-sm text-gray-500 leading-relaxed mt-1">{pet?.description || 'No description provided.'}</p>
+                            </div>
 
-                </Card>
+                            {/* Quick Stats Grid */}
+                            <div className="grid grid-cols-2 gap-x-4 gap-y-2 border-b pb-4">
+                                <p className="text-sm text-gray-600"><span className="font-semibold text-gray-800">Species:</span> {species}</p>
+                                <p className="text-sm text-gray-600"><span className="font-semibold text-gray-800">Breed:</span> {pet?.breed}</p>
+                                <p className="text-sm text-gray-600"><span className="font-semibold text-gray-800">Age:</span> {pet?.age}</p>
+                                <p className="text-sm text-gray-600"><span className="font-semibold text-gray-800">Gender:</span> {gender}</p>
+                            </div>
+
+                            {/* Health & Medical Status */}
+                            <div className="bg-gray-50 p-4 rounded-xl space-y-1.5">
+                                <h3 className="text-xs font-bold uppercase tracking-wider text-gray-400">Health Profile</h3>
+                                <p className="text-sm text-gray-700">
+                                    <span className="font-medium text-gray-900">Health Status:</span> {healthStatus}
+                                </p>
+                                <p className="text-sm text-gray-700">
+                                    <span className="font-medium text-gray-900">Vaccine Status:</span> {vaccinationStatus}
+                                </p>
+                            </div>
+
+                            {/* Logistics & Adoption Details */}
+                            <div className="pt-2 space-y-1">
+                                <p className="text-sm text-gray-700 flex items-center gap-1">
+                                    <span className="font-medium text-gray-900">Location:</span> {location}
+                                </p>
+                                <p className="text-sm text-gray-700">
+                                    <span className="font-medium text-gray-900">Adoption Fee:</span>
+                                    <span className="ml-1 font-semibold text-emerald-600">
+                                        {adoptionFee === 0 || adoptionFee === '0' ? 'Free' : `$${adoptionFee}`}
+                                    </span>
+                                </p>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+
+                {/* Right Side: Adoption Request Form */}
+                <div className='flex-1 w-full rounded-3xl border border-gray-200 bg-white p-6 md:p-8 shadow-sm flex flex-col justify-between'>
+                    <form className="space-y-4 text-sm w-full">
+
+                        {/* 1. Pet Name Field (READ ONLY) */}
+                        <div>
+                            <label className="block text-xs font-semibold text-[#7A6A50] uppercase tracking-wide mb-1">Pet Name</label>
+                            <input
+                                type="text"
+                                name="petName"
+                                readOnly
+                                className="w-full h-11 bg-[#F6F1E8] border border-[#E2D8C5] rounded-xl px-4 font-medium text-[#3B3120] cursor-not-allowed outline-none select-none"
+                            />
+                        </div>
+
+                        {/* 2. User Name Field (READ ONLY) */}
+                        <div>
+                            <label className="block text-xs font-semibold text-[#7A6A50] uppercase tracking-wide mb-1">Applicant Name</label>
+                            <input
+                                type="text"
+                                name="userName"
+                                readOnly
+                                className="w-full h-11 bg-[#F6F1E8] border border-[#E2D8C5] rounded-xl px-4 font-medium text-[#3B3120] cursor-not-allowed outline-none select-none"
+                            />
+                        </div>
+
+                        {/* 3. User Email Field (READ ONLY) */}
+                        <div>
+                            <label className="block text-xs font-semibold text-[#7A6A50] uppercase tracking-wide mb-1">Applicant Email</label>
+                            <input
+                                type="email"
+                                name="userEmail"
+                                readOnly
+                                className="w-full h-11 bg-[#F6F1E8] border border-[#E2D8C5] rounded-xl px-4 font-medium text-[#3B3120] cursor-not-allowed outline-none select-none"
+                            />
+                        </div>
+
+                        {/* 4. Pickup Date Field (EDITABLE) */}
+                        <div>
+                            <label className="block text-xs font-semibold text-[#3B3120] uppercase tracking-wide mb-1">Pickup / Visit Date</label>
+                            <input
+                                type="date"
+                                name="pickupDate"
+                                required
+                                className="w-full h-11 bg-white border border-[#CBD5E1] rounded-xl px-4 text-[#3B3120] focus:ring-2 focus:ring-amber-400 focus:border-transparent outline-none transition"
+                            />
+                        </div>
+
+                        {/* 5. Message Field (EDITABLE) */}
+                        <div>
+                            <label className="block text-xs font-semibold text-[#3B3120] uppercase tracking-wide mb-1">Message to Shelter</label>
+                            <textarea
+                                name="message"
+                                required
+                                rows={4}
+                                placeholder="Describe your living setup, pet experience, or any questions for the shelter..."
+                                className="w-full rounded-xl border border-[#CBD5E1] bg-white px-4 py-2.5 text-[#3B3120] placeholder:text-gray-400 focus:ring-2 focus:ring-amber-400 focus:border-transparent outline-none transition resize-none"
+                            />
+                        </div>
+
+                        {/* 6. Submit Button */}
+                        <button
+                            type="submit"
+                            className="w-full h-12 mt-2 rounded-xl bg-[#7C5C2E] hover:bg-[#5E4320] text-white font-medium tracking-wide shadow-md active:scale-[0.98] transition-all duration-150 cursor-pointer"
+                        >
+                            🐾 Submit Adoption Request
+                        </button>
+                    </form>
+                </div>
+
             </div>
         </div>
     )
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
