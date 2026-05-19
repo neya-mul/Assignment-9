@@ -13,41 +13,41 @@ export default async function Details({ params }) {
 
     const res = await fetch(`http://localhost:5000/pets/${id}`, { cache: 'no-store' });
 
-    // if (!res.ok) {
-    //     return (
-    //         <div className="min-h-screen flex items-center justify-center text-black">
-    //             <p className="text-gray-500">Failed to load pet data (Status: {res.status})</p>
-    //         </div>
-    //     );
-    // }
+    if (!res.ok) {
+        return (
+            <div className="min-h-screen flex items-center justify-center text-black">
+                <p className="text-gray-500">Failed to load pet data (Status: {res.status})</p>
+            </div>
+        );
+    }
 
     const pet = await res.json();
     console.log("Fetched Pet Data:", pet);
 
     // 2. CRITICAL FIX: Check if pet is null BEFORE destructuring properties from it!
-    // if (!pet) {
-    //     return (
-    //         <div className="min-h-screen flex items-center justify-center text-black">
-    //             <div className="text-center">
-    //                 <h2 className="text-2xl font-bold text-gray-800">Pet Not Found 🐾</h2>
-    //                 <p className="text-gray-500 mt-2">We couldn't find a pet matching that ID.</p>
-    //             </div>
-    //         </div>
-    //     );
-    // }
+    if (!pet) {
+        return (
+            <div className="min-h-screen flex items-center justify-center text-black">
+                <div className="text-center">
+                    <h2 className="text-2xl font-bold text-gray-800">Pet Not Found 🐾</h2>
+                    <p className="text-gray-500 mt-2">We couldn't find a pet matching that ID.</p>
+                </div>
+            </div>
+        );
+    }
 
     // 3. Destructure safely now that we are 100% sure 'pet' exists. Added ownerId.
-    const { 
-        petName, 
-        species, 
-        gender, 
-        healthStatus, 
-        vaccinationStatus, 
-        adoptionFee, 
-        location, 
-        ownerEmail, 
+    const {
+        petName,
+        species,
+        gender,
+        healthStatus,
+        vaccinationStatus,
+        adoptionFee,
+        location,
+        ownerEmail,
         ownerName,
-        ownerId 
+        ownerId
     } = pet;
 
     return (
@@ -148,6 +148,7 @@ export default async function Details({ params }) {
                         <div>
                             <label className="block text-xs font-semibold text-[#7A6A50] uppercase tracking-wide mb-1">Applicant Name</label>
                             <input
+                                value={ownerName}
                                 type="text"
                                 name="userName"
                                 readOnly
@@ -159,6 +160,7 @@ export default async function Details({ params }) {
                         <div>
                             <label className="block text-xs font-semibold text-[#7A6A50] uppercase tracking-wide mb-1">Applicant Email</label>
                             <input
+                                value={ownerEmail}
                                 type="email"
                                 name="userEmail"
                                 readOnly
