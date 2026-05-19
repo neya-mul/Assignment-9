@@ -1,22 +1,22 @@
 import dns from "node:dns";
-dns.setServers(['8.8.8.8', '8.8.4.4'])
+dns.setDefaultResultOrder("ipv4first");
 
-import { betterAuth, cidrv4 } from "better-auth";
+import { betterAuth } from "better-auth";
 import { MongoClient } from "mongodb";
 import { mongodbAdapter } from "better-auth/adapters/mongodb";
 
+// ✅ define client FIRST, then connect
 const client = new MongoClient(process.env.MONGO_URI);
-await client.connect()
+client.connect(); // no await needed at top level
+
 const db = client.db("pet-nest");
 
-
-console.log('MONGO_URI:', process.env.MONGO_URI);
 export const auth = betterAuth({
+    secret: process.env.BETTER_AUTH_SECRET,
+    baseURL: "http://localhost:3000",
+    trustedOrigins: ["http://localhost:3000"],
     emailAndPassword: {
         enabled: true,
     },
-    database: mongodbAdapter(db, {
-        // Optional: if you don't provide a client, database transactions won't be enabled.
-        client
-    }),
+    database: mongodbAdapter(db, { client }),
 });
