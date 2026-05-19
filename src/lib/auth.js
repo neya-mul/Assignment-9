@@ -13,6 +13,12 @@ const db = client.db("pet-nest");
 
 export const auth = betterAuth({
     secret: process.env.BETTER_AUTH_SECRET,
+    socialProviders: {
+        google: {
+            clientId: process.env.GOOGLE_CLIENT_ID,
+            clientSecret: process.env.GOOGLE_CLIENT_SECRET,
+        },
+    },
     baseURL: "http://localhost:3000",
     trustedOrigins: ["http://localhost:3000"],
     emailAndPassword: {

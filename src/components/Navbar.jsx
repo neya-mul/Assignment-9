@@ -118,7 +118,11 @@ export default function Navbar() {
 
 
                 ) : (
-                    <Link className="mx-2 btn" href="/login">Login</Link>
+                    <div>
+                        <Link className="mx-2 btn" href="/register">Get Started</Link>
+
+                        <Link className="mx-2 btn" href="/login">Login</Link>
+                    </div>
                 )}
             </div>
         </div>

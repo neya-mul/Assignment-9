@@ -3,13 +3,27 @@
 
 
 import { authClient } from "@/lib/auth-client";
+import { createAuthClient } from "better-auth/react";
 // import { router } from "better-auth/api";
 // import { router } from "better-auth/api";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
+import { FaGoogle } from "react-icons/fa";
 
 export default function Register() {
+  const authClient = createAuthClient()
+
+
+  const googleButton = async () => {
+    await authClient.signIn.social({
+      provider: "google",
+      rememberMe: false,
+      query: {
+        prompt: "select_account",
+      }
+    });
+  }
 
   const [formData, setFormData] = useState({
 
@@ -191,8 +205,8 @@ export default function Register() {
           </p>
 
           <div className="divider">OR</div>
-          {/* Google Button placeholder can go here */}
-        </fieldset>
+          <button type='button' onClick={googleButton} className='btn btn-neutral w-full border flex items-center button'><FaGoogle />
+            Register with Google</button>        </fieldset>
       </form>
     </div>
   );
