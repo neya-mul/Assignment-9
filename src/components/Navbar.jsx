@@ -7,7 +7,7 @@ import React from 'react'
 export default function Navbar() {
     const { data: session } = authClient.useSession()
     const user = session?.user
-    console.log(user);
+    // console.log(user);
 
 
     return (
@@ -57,24 +57,66 @@ export default function Navbar() {
                         </div>
 
                         {/* Dropdown toggle button */}
+
                         <div className="dropdown dropdown-end">
                             <label tabIndex={0} className="btn btn-ghost btn-xs px-1">
-                                <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
-                                </svg>
+                                ▾
                             </label>
-                            {/* Your dropdown menu goes here */}
-                            <ul tabIndex={0} className="dropdown-content menu p-2 shadow bg-base-100 rounded-box w-52 mt-2">
-                                <div>
-                                    <li>{user.name}</li>
-                                    <li>{user.email}</li>
+
+                            <ul tabIndex={0} className="dropdown-content menu p-0 shadow-lg bg-base-100 border border-base-200 rounded-xl w-56 mt-2 overflow-hidden">
+
+                                {/* User info header */}
+                                <li className="px-4 py-3 border-b border-base-200 pointer-events-none">
+                                    <p className="font-semibold text-sm text-base-content leading-tight">{user.name}</p>
+                                    <p className="text-xs text-base-content/40 truncate">{user.email}</p>
+                                </li>
+
+                                {/* Nav items */}
+                                <div className="p-1.5 space-y-0.5">
+                                    <li>
+                                        <Link
+                                            href="/dashboard"
+                                            className="flex items-center gap-2.5 px-3 py-2 rounded-lg text-sm hover:bg-base-200 transition-colors"
+                                        >
+                                            Dashboard
+                                        </Link>
+                                    </li>
+                                    <li>
+                                        <Link
+                                            href="/add-pets"
+                                            className="flex items-center gap-2.5 px-3 py-2 rounded-lg text-sm hover:bg-base-200 transition-colors"
+                                        >
+                                            Add Pets
+                                        </Link>
+                                    </li>
+                                    <li>
+                                        <Link
+                                            href="/my-req"
+                                            className="flex items-center gap-2.5 px-3 py-2 rounded-lg text-sm hover:bg-base-200 transition-colors"
+                                        >
+                                            My Requests
+                                        </Link>
+                                    </li>
                                 </div>
 
-                                <li><Link href={'/dashboard'}>Dashboard</Link></li>
-                                <button onClick={async () => await authClient.signOut()}>Log out</button>
+                                {/* Sign out */}
+                                <div className="p-1.5 border-t border-base-200">
+                                    <li>
+                                        <button
+                                            onClick={async () => await authClient.signOut()}
+                                            className="flex items-center gap-2.5 px-3 py-2 rounded-lg text-sm text-error hover:bg-error/10 transition-colors w-full"
+                                        >
+                                            <span className="text-base">→</span>
+                                            Sign out
+                                        </button>
+                                    </li>
+                                </div>
+
                             </ul>
                         </div>
                     </div>
+
+
                 ) : (
                     <Link className="mx-2 btn" href="/login">Login</Link>
                 )}

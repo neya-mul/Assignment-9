@@ -1,9 +1,13 @@
 'use client'
+import { authClient } from '@/lib/auth-client'
 import { FieldError, Input, Label, TextField, Select, ListBox, TextArea, Button } from '@heroui/react'
 import React from 'react'
 
 
 export default function AddPets() {
+
+    const { data: session } = authClient.useSession()
+    const user = session?.user
 
     const handleSubmit = async (e) => {
         e.preventDefault()
@@ -40,143 +44,194 @@ export default function AddPets() {
 
                         {/* Pet Name */}
                         <div className="md:col-span-2">
-                            <Label className="text-black">Pet Name</Label>
-                            <Input
+                            <label className="block text-sm font-medium text-gray-700 mb-1.5">Pet Name</label>
+                            <input
                                 name="petName"
-                                // value={formData.petName}
-                                // onChange={handleChange}
-                                placeholder="Buddy"
-                                className="w-full rounded-xl bg-white border border-gray-300 h-12 px-4 text-black placeholder:text-gray-500"
+                                placeholder="e.g. Buddy"
+                                required
+                                className="w-full h-12 rounded-xl border border-gray-200 bg-white px-4 text-sm text-gray-900 placeholder:text-gray-400 focus:outline-none focus:ring-2 focus:ring-amber-300 focus:border-transparent transition"
                             />
                         </div>
 
-                        {/* Pet Type */}
+                        {/* Species */}
                         <div>
-                            <Label className="text-black">Pet Type</Label>
-                            <Select
-
-                            >
-                                <Select.Trigger className="w-full h-12 rounded-xl border border-gray-300 bg-white px-4 text-black">
-                                    <Select.Value placeholder="Select type" className="text-black" />
-                                    <Select.Indicator />
-                                </Select.Trigger>
-                                <Select.Popover className="text-black">
-                                    <ListBox className="p-2 flex flex-col gap-1">
-                                        <ListBox.Item className="btn" id="Dog">Dog</ListBox.Item>
-                                        <ListBox.Item className="btn" id="Cat">Cat</ListBox.Item>
-                                        <ListBox.Item className="btn" id="Rabbit">Rabbit</ListBox.Item>
-                                        <ListBox.Item className="btn" id="Parrot">Parrot</ListBox.Item>
-                                        <ListBox.Item className="btn" id="Hamster">Hamster</ListBox.Item>
-                                        <ListBox.Item className="btn" id="Fish">Fish</ListBox.Item>
-                                        <ListBox.Item className="btn" id="Turtle">Turtle</ListBox.Item>
-                                        <ListBox.Item className="btn" id="Other">Other</ListBox.Item>
-                                    </ListBox>
-                                </Select.Popover>
-                            </Select>
+                            <label className="block text-sm font-medium text-gray-700 mb-1.5">Species</label>
+                            <div className="relative">
+                                <select
+                                    name="species"
+                                    required
+                                    defaultValue=""
+                                    className="w-full h-12 rounded-xl border border-gray-200 bg-white px-4 text-sm text-gray-900 appearance-none cursor-pointer focus:outline-none focus:ring-2 focus:ring-amber-300 focus:border-transparent transition"
+                                >
+                                    <option value="" disabled>Select species</option>
+                                    <option value="Dog"> Dog</option>
+                                    <option value="Cat">Cat</option>
+                                    <option value="Bird">Bird</option>
+                                    <option value="Rabbit">Rabbit</option>
+                                    <option value="Hamster">Hamster</option>
+                                    <option value="Fish"> Fish</option>
+                                    <option value="Turtle">Turtle</option>
+                                    <option value="Other">Other</option>
+                                </select>
+                                <span className="pointer-events-none absolute right-4 top-1/2 -translate-y-1/2 text-gray-400 text-xs">▾</span>
+                            </div>
                         </div>
 
                         {/* Breed */}
                         <div>
-                            <Label className="text-black">Breed</Label>
-                            <Input
+                            <label className="block text-sm font-medium text-gray-700 mb-1.5">Breed</label>
+                            <input
                                 name="breed"
-                                // value={formData.breed}
-                                // onChange={handleChange}
-                                placeholder="Golden Retriever"
-                                className="w-full rounded-xl bg-white border border-gray-300 h-12 px-4 text-black placeholder:text-gray-500"
+                                placeholder="e.g. Golden Retriever"
+                                className="w-full h-12 rounded-xl border border-gray-200 bg-white px-4 text-sm text-gray-900 placeholder:text-gray-400 focus:outline-none focus:ring-2 focus:ring-amber-300 focus:border-transparent transition"
                             />
                         </div>
 
                         {/* Age */}
                         <div>
-                            <Label className="text-black">Age</Label>
-                            <Input
+                            <label className="block text-sm font-medium text-gray-700 mb-1.5">Age</label>
+                            <input
                                 name="age"
-                                // value={formData.age}
-                                // onChange={handleChange}
-                                placeholder="2 years"
-                                className="w-full rounded-xl bg-white border border-gray-300 h-12 px-4 text-black placeholder:text-gray-500"
+                                placeholder="e.g. 2 years"
+                                required
+                                className="w-full h-12 rounded-xl border border-gray-200 bg-white px-4 text-sm text-gray-900 placeholder:text-gray-400 focus:outline-none focus:ring-2 focus:ring-amber-300 focus:border-transparent transition"
                             />
                         </div>
 
                         {/* Gender */}
                         <div>
-                            <Label className="text-black">Gender</Label>
-                            <Select
+                            <label className="block text-sm font-medium text-gray-700 mb-1.5">Gender</label>
+                            <div className="relative">
+                                <select
+                                    name="gender"
+                                    required
+                                    defaultValue=""
+                                    className="w-full h-12 rounded-xl border border-gray-200 bg-white px-4 text-sm text-gray-900 appearance-none cursor-pointer focus:outline-none focus:ring-2 focus:ring-amber-300 focus:border-transparent transition"
+                                >
+                                    <option value="" disabled>Select gender</option>
+                                    <option value="Male">♂ Male</option>
+                                    <option value="Female">♀ Female</option>
+                                </select>
+                                <span className="pointer-events-none absolute right-4 top-1/2 -translate-y-1/2 text-gray-400 text-xs">▾</span>
+                            </div>
+                        </div>
 
+                        {/* Health Status */}
+                        <div>
+                            <label className="block text-sm font-medium text-gray-700 mb-1.5">Health Status</label>
+                            <div className="relative">
+                                <select
+                                    name="healthStatus"
+                                    required
+                                    defaultValue=""
+                                    className="w-full h-12 rounded-xl border border-gray-200 bg-white px-4 text-sm text-gray-900 appearance-none cursor-pointer focus:outline-none focus:ring-2 focus:ring-amber-300 focus:border-transparent transition"
+                                >
+                                    <option value="" disabled>Select health status</option>
+                                    <option value="Healthy">Healthy</option>
+                                    <option value="Minor Issues">Minor Issues</option>
+                                    <option value="Under Treatment">Under Treatment</option>
+                                    <option value="Needs Special Care">Needs Special Care</option>
+                                </select>
+                                <span className="pointer-events-none absolute right-4 top-1/2 -translate-y-1/2 text-gray-400 text-xs">▾</span>
+                            </div>
+                        </div>
 
-                            >
-                                <Select.Trigger className="w-full h-12 rounded-xl border border-gray-300 bg-white px-4 text-black">
-                                    <Select.Value placeholder="Select gender" className="text-black" />
-                                    <Select.Indicator />
-                                </Select.Trigger>
-                                <Select.Popover className="text-black">
-                                    <ListBox className="p-2 flex flex-col gap-1">
-                                        <ListBox.Item className="btn" id="Male">♂ Male</ListBox.Item>
-                                        <ListBox.Item className="btn" id="Female">♀ Female</ListBox.Item>
-                                    </ListBox>
-                                </Select.Popover>
-                            </Select>
+                        {/* Vaccination Status */}
+                        <div>
+                            <label className="block text-sm font-medium text-gray-700 mb-1.5">Vaccination Status</label>
+                            <div className="relative">
+                                <select
+                                    name="vaccinationStatus"
+                                    required
+                                    defaultValue=""
+                                    className="w-full h-12 rounded-xl border border-gray-200 bg-white px-4 text-sm text-gray-900 appearance-none cursor-pointer focus:outline-none focus:ring-2 focus:ring-amber-300 focus:border-transparent transition"
+                                >
+                                    <option value="" disabled>Select status</option>
+                                    <option value="Fully Vaccinated">Fully Vaccinated</option>
+                                    <option value="Partially Vaccinated">Partially Vaccinated</option>
+                                    <option value="Not Vaccinated">Not Vaccinated</option>
+                                    <option value="Unknown">Unknown</option>
+                                </select>
+                                <span className="pointer-events-none absolute right-4 top-1/2 -translate-y-1/2 text-gray-400 text-xs">▾</span>
+                            </div>
                         </div>
 
                         {/* Adoption Fee */}
                         <div>
-                            <Label className="text-black">Adoption Fee (USD)</Label>
-                            <Input
-                                type="number"
-                                name="adoptionFee"
-                                // value={formData.adoptionFee}
-                                // onChange={handleChange}
-                                placeholder="50"
-                                className="w-full rounded-xl bg-white border border-gray-300 h-12 px-4 text-black placeholder:text-gray-500"
-                            />
+                            <label className="block text-sm font-medium text-gray-700 mb-1.5">Adoption Fee (USD)</label>
+                            <div className="relative">
+                                <span className="absolute left-4 top-1/2 -translate-y-1/2 text-gray-400 text-sm">$</span>
+                                <input
+                                    type="number"
+                                    name="adoptionFee"
+                                    placeholder="0"
+                                    min="0"
+                                    className="w-full h-12 rounded-xl border border-gray-200 bg-white pl-8 pr-4 text-sm text-gray-900 placeholder:text-gray-400 focus:outline-none focus:ring-2 focus:ring-amber-300 focus:border-transparent transition"
+                                />
+                            </div>
                         </div>
 
-                        {/* Location / Shelter */}
+                        {/* Location */}
                         <div className="md:col-span-2">
-                            <Label className="text-black">Location / Shelter Name</Label>
-                            <Input
+                            <label className="block text-sm font-medium text-gray-700 mb-1.5">Location / Shelter Name</label>
+                            <input
                                 name="location"
-                                // value={formData.location}
-                                // onChange={handleChange}
-                                placeholder="Happy Paws Shelter, New York"
-                                className="w-full rounded-xl bg-white border border-gray-300 h-12 px-4 text-black placeholder:text-gray-500"
+                                placeholder="e.g. Happy Paws Shelter, New York"
+                                required
+                                className="w-full h-12 rounded-xl border border-gray-200 bg-white px-4 text-sm text-gray-900 placeholder:text-gray-400 focus:outline-none focus:ring-2 focus:ring-amber-300 focus:border-transparent transition"
                             />
                         </div>
 
-                        {/* Pet Photo URL */}
+                        {/* Image URL */}
                         <div className="md:col-span-2">
-                            <Label className="text-black">Pet Photo URL</Label>
-                            <Input
+                            <label className="block text-sm font-medium text-gray-700 mb-1.5">
+                                Pet Photo URL
+                                <span className="ml-2 text-xs text-gray-400 font-normal">Upload to imgbb.com or postimages.org first</span>
+                            </label>
+                            <input
                                 type="url"
-                                name="photoUrl"
-                                // value={formData.photoUrl}
-                                // onChange={handleChange}
-                                placeholder="https://example.com/buddy.jpg"
-                                className="w-full rounded-xl bg-white border border-gray-300 h-12 px-4 text-black placeholder:text-gray-500"
+                                name="imageUrl"
+                                placeholder="https://i.ibb.co/your-image.jpg"
+                                className="w-full h-12 rounded-xl border border-gray-200 bg-white px-4 text-sm text-gray-900 placeholder:text-gray-400 focus:outline-none focus:ring-2 focus:ring-amber-300 focus:border-transparent transition"
                             />
                         </div>
 
-                        {/* About this Pet */}
+                        {/* Description */}
                         <div className="md:col-span-2">
-                            <Label className="text-black">About this Pet </Label>
+                            <label className="block text-sm font-medium text-gray-700 mb-1.5">About this Pet</label>
                             <textarea
                                 name="description"
-                                // value={formData.description}
-                                // onChange={handleChange}
                                 placeholder="Tell us about the pet's personality, habits, and what kind of home they need..."
-                                className="w-full max-h-[140px] min-h-[100px] rounded-2xl border border-gray-300 bg-white px-4 py-3 text-black placeholder:text-gray-500 outline-none resize-none"
+                                rows={4}
+                                required
+                                className="w-full min-h-[110px] max-h-[200px] rounded-2xl border border-gray-200 bg-white px-4 py-3 text-sm text-gray-900 placeholder:text-gray-400 focus:outline-none focus:ring-2 focus:ring-amber-300 focus:border-transparent transition resize-none"
                             />
                         </div>
+
+                        {/* Owner Email */}
+                        <div className="md:col-span-2">
+                            <label className="block text-sm font-medium text-gray-700 mb-1.5">
+                                Owner Email
+                                <span className="ml-2 text-xs text-gray-400 font-normal">auto-filled from your account</span>
+                            </label>
+                            <input
+                                type="email"
+                                name="ownerEmail"
+                                value={session?.user?.email ?? ""}
+                                readOnly
+                                className="w-full h-12 rounded-xl border border-gray-200 bg-gray-50 px-4 text-sm text-gray-400 cursor-not-allowed focus:outline-none"
+                            />
+                        </div>
+
                     </div>
 
                     {/* Submit */}
-                    <Button
+                    <button
                         type="submit"
-                        className="w-full h-14 rounded-2xl bg-cyan-500 hover:bg-cyan-600 text-white text-lg font-semibold"
+                        className="w-full h-14 rounded-2xl bg-amber-400 hover:bg-amber-500 active:scale-[0.99] text-white text-base font-semibold transition-all"
                     >
-                        List Pet for Adoption
-                    </Button>
+                        🐾 List Pet for Adoption
+                    </button>
                 </form>
             </div>
         </div>
