@@ -2,7 +2,7 @@ import PetCard from '@/components/cardComponents/PetCard'
 import React from 'react'
 
 
-export default async function AllPets({ params }) {
+export default async function AllPets() {
   const res = await fetch('http://localhost:5000/pets')
   const pets = await res.json()
 

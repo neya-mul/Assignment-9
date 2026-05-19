@@ -1,6 +1,5 @@
 'use client'
 import { authClient } from '@/lib/auth-client'
-import { FieldError, Input, Label, TextField, Select, ListBox, TextArea, Button } from '@heroui/react'
 import React from 'react'
 
 
@@ -11,27 +10,40 @@ export default function AddPets() {
 
     const handleSubmit = async (e) => {
         e.preventDefault()
+
         const formData = new FormData(e.currentTarget)
-        const pet = Object.fromEntries(formData.entries())
-        pet.description = pet.description.replace(/\n/g, ' ').trim()
+        const data = Object.fromEntries(formData.entries())
+        const pet = {
+            petName: data.petName,              // FIXED: Changed 'name' to 'petName'
+            species: data.species,              // FIXED: Changed 'type' to 'species'
+            breed: data.breed || "Unknown",     // Safe fallback
+            age: data.age.toString(),           // FIXED: Saved as string to match your list schema
+            gender: data.gender,
+            healthStatus: data.healthStatus,
+            vaccinationStatus: data.vaccinationStatus,
+            adoptionFee: data.adoptionFee ? data.adoptionFee.toString() : "0", // FIXED: Matches string configuration
+            location: data.location,
+            imageUrl: data.imageUrl,            // FIXED: Changed 'image' to 'imageUrl'
+            description: data.description.replace(/\n/g, ' ').trim(),
+            ownerEmail: data.ownerEmail || user?.email || "unknown@example.com",
+            adopted: false,
+            createdAt: new Date()
+        }
 
-        // console.log(pet);
-
-        const res = await fetch('http://localhost:5000/my-list', {
+        const res = await fetch('http://localhost:5000/pets', {
             method: 'POST',
             headers: {
-                "content-type": 'application/json',
-
+                'content-type': 'application/json',
             },
             body: JSON.stringify(pet)
-
         })
-        const data = await res.json()
-        console.log(data);
 
+        const result = await res.json()
+        console.log(result)
 
-
-
+        if (result.insertedId) {
+            alert('Pet added successfully!')
+        }
     }
     return (
         <div className="min-h-screen bg-[#F6F1E8] px-4 py-20 text-black">
