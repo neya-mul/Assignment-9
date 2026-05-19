@@ -1,6 +1,7 @@
 import Banner from "@/components/Banner";
 import PetCard from "@/components/cardComponents/PetCard";
 import FeaturedPets from "@/components/FeaturedPets";
+import PetCare from "@/components/PetCare";
 import SuccessStories from "@/components/SuccessStories";
 import WhyAdopt from "@/components/WhyAdopt";
 import Image from "next/image";
@@ -14,7 +15,7 @@ export default function Home() {
       <SuccessStories></SuccessStories>
 
       <WhyAdopt></WhyAdopt>
-      {/* <PetCard></PetCard> */}
+      <PetCare></PetCare>
     </>
   );
 }
