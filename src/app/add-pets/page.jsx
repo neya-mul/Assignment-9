@@ -1,34 +1,43 @@
 'use client'
 import { authClient } from '@/lib/auth-client'
 import React from 'react'
-
+import { useRouter } from 'next/navigation'
 
 export default function AddPets() {
-
+    const router = useRouter() // 🌟 ADD THIS LINE
     const { data: session } = authClient.useSession()
     const user = session?.user
+    const name = user?.name
+    // console.log(user); 21
+
+
 
     const handleSubmit = async (e) => {
         e.preventDefault()
 
         const formData = new FormData(e.currentTarget)
         const data = Object.fromEntries(formData.entries())
+
         const pet = {
-            petName: data.petName,              // FIXED: Changed 'name' to 'petName'
-            species: data.species,              // FIXED: Changed 'type' to 'species'
-            breed: data.breed || "Unknown",     // Safe fallback
-            age: data.age.toString(),           // FIXED: Saved as string to match your list schema
+            petName: data.petName,
+            species: data.species,
+            breed: data.breed || "Unknown",
+            age: data.age.toString(),
             gender: data.gender,
             healthStatus: data.healthStatus,
             vaccinationStatus: data.vaccinationStatus,
-            adoptionFee: data.adoptionFee ? data.adoptionFee.toString() : "0", // FIXED: Matches string configuration
+            adoptionFee: data.adoptionFee ? data.adoptionFee.toString() : "0",
             location: data.location,
-            imageUrl: data.imageUrl,            // FIXED: Changed 'image' to 'imageUrl'
+            imageUrl: data.imageUrl, // 🌟 Handled cleanly!
             description: data.description.replace(/\n/g, ' ').trim(),
+            ownerName: name,
             ownerEmail: data.ownerEmail || user?.email || "unknown@example.com",
+            ownerId: user?.id || "unknown_id",
             adopted: false,
             createdAt: new Date()
         }
+
+        console.log("Submitting Pet Object:", pet)
 
         const res = await fetch('http://localhost:5000/pets', {
             method: 'POST',
@@ -39,10 +48,15 @@ export default function AddPets() {
         })
 
         const result = await res.json()
-        console.log(result)
 
         if (result.insertedId) {
             alert('Pet added successfully!')
+
+            // 🌟 FORCE NEXT.JS TO FETCH FRESH DATA FROM THE SERVER
+            router.refresh()
+
+            // 🌟 AUTOMATICALLY SEND THE USER BACK TO THE GALLERY PAGE TO SEE IT WITH THE IMAGE
+            router.push('/')
         }
     }
     return (

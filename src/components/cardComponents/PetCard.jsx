@@ -32,9 +32,10 @@ export default function PetCard({ pet }) {
                     </p>
 
                     <div className="flex justify-end">
-                        <Link className='w-full' href={`/${pet?._id}`}>                            <button className="bg-[#7C5C2E] hover:bg-[#5E4320] btn border-none text-[#F6F1E8] rounded-lg px-5 py-2 text-sm font-medium cursor-pointer w-full tracking-wide transition-colors duration-150">
-                            View Details
-                        </button>
+                        <Link className='w-full' href={`/${pet?._id}`}>
+                            <button className="bg-[#7C5C2E] hover:bg-[#5E4320] btn border-none text-[#F6F1E8] rounded-lg px-5 py-2 text-sm font-medium cursor-pointer w-full tracking-wide transition-colors duration-150">
+                                View Details
+                            </button>
                         </Link>
                     </div>
                 </div>

@@ -1,31 +1,69 @@
 import React from 'react'
-// import { Button, Card, CardFooter, CardHeader } from "@heroui/react";
 import Image from 'next/image';
 
 export default async function Details({ params }) {
 
-    const { id } = await params
+    const { id } = await params;
     console.log("Current Pet ID:", id);
 
-    const res = await fetch(`http://localhost:5000/pets/${id}`, { cache: 'no-store' })
-    const pet = await res.json()
-    // console.log("Fetched Pet Data:", pet);
-    const { species, gender, healthStatus, vaccinationStatus, adoptionFee, location, ownerEmail } = pet
+    // 1. Guard against static asset and auth layout requests
+    if (id === 'favicon.ico' || id === 'site.webmanifest' || id.startsWith('api')) {
+        return null;
+    }
+
+    const res = await fetch(`http://localhost:5000/pets/${id}`, { cache: 'no-store' });
+
+    // if (!res.ok) {
+    //     return (
+    //         <div className="min-h-screen flex items-center justify-center text-black">
+    //             <p className="text-gray-500">Failed to load pet data (Status: {res.status})</p>
+    //         </div>
+    //     );
+    // }
+
+    const pet = await res.json();
+    console.log("Fetched Pet Data:", pet);
+
+    // 2. CRITICAL FIX: Check if pet is null BEFORE destructuring properties from it!
+    // if (!pet) {
+    //     return (
+    //         <div className="min-h-screen flex items-center justify-center text-black">
+    //             <div className="text-center">
+    //                 <h2 className="text-2xl font-bold text-gray-800">Pet Not Found 🐾</h2>
+    //                 <p className="text-gray-500 mt-2">We couldn't find a pet matching that ID.</p>
+    //             </div>
+    //         </div>
+    //     );
+    // }
+
+    // 3. Destructure safely now that we are 100% sure 'pet' exists. Added ownerId.
+    const { 
+        petName, 
+        species, 
+        gender, 
+        healthStatus, 
+        vaccinationStatus, 
+        adoptionFee, 
+        location, 
+        ownerEmail, 
+        ownerName,
+        ownerId 
+    } = pet;
 
     return (
-        <div className='text-black flex justify-center items-center min-h-screen p-4 md:p-8 bg-gray-50/50'>
+        <div className='text-black mt-20 flex justify-center items-center min-h-screen p-4 md:p-8 bg-gray-50/50'>
             <div className='flex flex-col md:flex-row justify-center gap-6 lg:gap-8 items-stretch w-full max-w-6xl mx-auto mt-30 md:mt-0'>
 
                 {/* Left Side: Pet Card Details */}
-                <div className=' p-6 md:p-8 flex-1 w-full bg-white rounded-3xl shadow-sm flex flex-col justify-between'>
+                <div className='p-6 md:p-8 flex-1 w-full bg-white rounded-3xl shadow-sm flex flex-col justify-between'>
                     <div className="w-full flex flex-col gap-6">
 
                         {/* Pet Image Container */}
-                        <div className="relative h-[180px] w-full h-[210px] shrink-0 overflow-hidden rounded-2xl shadow-inner mx-auto sm:mx-0">
+                        <div className="relative h-[210px] w-full shrink-0 overflow-hidden rounded-2xl shadow-inner mx-auto sm:mx-0">
                             {pet?.imageUrl ? (
                                 <Image
-                                    alt={pet?.petName || 'Pet Image'}
-                                    className="object-cover w-full h-full "
+                                    alt={petName || 'Pet Image'}
+                                    className="object-cover w-full h-full"
                                     src={pet.imageUrl}
                                     width={400}
                                     height={400}
@@ -42,15 +80,15 @@ export default async function Details({ params }) {
                         <div className="flex flex-1 flex-col gap-4">
                             {/* Header & Description */}
                             <div className="flex flex-col gap-1 border-b pb-3">
-                                <h2 className="font-bold text-2xl text-gray-800">{pet?.petName}</h2>
+                                <h2 className="font-bold text-2xl text-gray-800">{petName}</h2>
                                 <p className="text-sm text-gray-500 leading-relaxed mt-1">{pet?.description || 'No description provided.'}</p>
                             </div>
 
                             {/* Quick Stats Grid */}
                             <div className="grid grid-cols-2 gap-x-4 gap-y-2 border-b pb-4">
                                 <p className="text-sm text-gray-600"><span className="font-semibold text-gray-800">Species:</span> {species}</p>
-                                <p className="text-sm text-gray-600"><span className="font-semibold text-gray-800">Breed:</span> {pet?.breed}</p>
-                                <p className="text-sm text-gray-600"><span className="font-semibold text-gray-800">Age:</span> {pet?.age}</p>
+                                <p className="text-sm text-gray-600"><span className="font-semibold text-gray-800">Breed:</span> {pet?.breed || 'Unknown'}</p>
+                                <p className="text-sm text-gray-600"><span className="font-semibold text-gray-800">Age:</span> {pet?.age || 'N/A'}</p>
                                 <p className="text-sm text-gray-600"><span className="font-semibold text-gray-800">Gender:</span> {gender}</p>
                             </div>
 
@@ -76,6 +114,11 @@ export default async function Details({ params }) {
                                         {adoptionFee === 0 || adoptionFee === '0' ? 'Free' : `$${adoptionFee}`}
                                     </span>
                                 </p>
+                                {ownerName && (
+                                    <p className="text-sm text-gray-500 pt-1">
+                                        <span className="font-medium">Listed by:</span> {ownerName}
+                                    </p>
+                                )}
                             </div>
                         </div>
 
@@ -86,10 +129,14 @@ export default async function Details({ params }) {
                 <div className='flex-1 w-full rounded-3xl border border-gray-200 bg-white p-6 md:p-8 shadow-sm flex flex-col justify-between'>
                     <form className="space-y-4 text-sm w-full">
 
+                        {/* Hidden Field for tracking the Pet Owner ID inside form submissions */}
+                        <input type="hidden" name="ownerId" value={ownerId || ""} />
+
                         {/* 1. Pet Name Field (READ ONLY) */}
                         <div>
                             <label className="block text-xs font-semibold text-[#7A6A50] uppercase tracking-wide mb-1">Pet Name</label>
                             <input
+                                value={petName || ""}
                                 type="text"
                                 name="petName"
                                 readOnly
@@ -156,18 +203,3 @@ export default async function Details({ params }) {
         </div>
     )
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
