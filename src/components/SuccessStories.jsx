@@ -13,7 +13,7 @@ export default async function SuccessStories() {
                 </h1>
             </div>
 
-            <div className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3'>
+            <div className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 container mx-auto'>
                 {
                     stories.map((storie, ind) => <SuccesssStoryCard key={ind} storie={storie}></SuccesssStoryCard>)
                 }

@@ -26,6 +26,8 @@ export default function SuccesssStoryCard({ storie }) {
                         {storie.story}
                     </p>
 
+                    <p>Adoption Date : {storie.adoptedDate}</p>
+
                     <p>Location: {storie.location}</p>
                 </div>
 
