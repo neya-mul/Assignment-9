@@ -15,3 +15,13 @@
     background-image: url('/b.png');
 }
 
+.ul-type-circle {
+  list-style-type: circle;
+  padding-left: 20px; /* Gives the bullets some breathing room */
+  margin-bottom: 1.5rem; /* Separates the list from any content below it */
+}
+
+.ul-type-circle li {
+  margin-bottom: 0.75rem; /* Adds a nice gap between each bullet point */
+  line-height: 1.6; /* Makes the text easier to read */
+}

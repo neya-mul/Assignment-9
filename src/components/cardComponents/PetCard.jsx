@@ -20,14 +20,14 @@ export default function PetCard({ pet }) {
 
                 <div className="p-5">
                     <h2 className="text-[17px] font-medium text-[#3B3120] mb-2">
-                        {pet.name}    </h2>
+                        {pet?.name}    </h2>
 
                     <p className="text-sm leading-relaxed text-[#7A6A50] mb-5">
-                        {pet.description}
+                        {pet?.description}
                     </p>
 
                     <div className="flex justify-end">
-                        <Link className='w-full' href={`/${pet._id}`}> <button className="bg-[#7C5C2E] hover:bg-[#5E4320] btn border-none text-[#F6F1E8] rounded-lg px-5 py-2 text-sm font-medium cursor-pointer w-full tracking-wide transition-colors duration-150">
+                        <Link className='w-full' href={`/${pet?._id}`}> <button className="bg-[#7C5C2E] hover:bg-[#5E4320] btn border-none text-[#F6F1E8] rounded-lg px-5 py-2 text-sm font-medium cursor-pointer w-full tracking-wide transition-colors duration-150">
                             View Details
                         </button></Link>
                     </div>
