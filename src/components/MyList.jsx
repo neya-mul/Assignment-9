@@ -2,6 +2,7 @@
 import { authClient } from '@/lib/auth-client'
 import React, { useEffect, useState } from 'react'
 import Mypet from './cardComponents/Mypet'
+import { MdOutlinePets } from 'react-icons/md'
 
 export default function MyList() {
 
@@ -20,10 +21,45 @@ export default function MyList() {
   console.log(pets)
 
   return (
-    <div className=' text-black w-full grid gap-3 grid-cols-1 md:grid-cols-2 lg:grid-cols-3'>
-      {
-        pets.map((pet, ind) => <Mypet pet={pet} key={ind}></Mypet>)
-      }
+    <div>
+      <div>
+        <h1 className='text-4xl text-center text-black mb-10'>Your listing</h1>
+        <div className='text-black flex flex-col lg:flex-row justify-between'>
+
+          <div className='flex-1 max-w-[300px] w-full text-center mx-auto bg-white rounded-2xl'>
+            <h1>Total Listings</h1>
+            <p>{pets.length}</p>
+          </div>
+          <div className='flex-1 max-w-[300px] w-full text-center mx-auto bg-white rounded-2xl'>
+            <h1>Available</h1>
+            <p>{pets.length}</p>
+          </div>
+          <div className='flex-1 max-w-[300px] w-full text-center mx-auto bg-white rounded-2xl'>
+            <h1>Adopted</h1>
+            <p>{pets.length}</p>
+          </div>
+
+        </div>
+      </div>
+      <div className="w-full mt-20">
+        {pets.length > 0 ? (
+          <div className="grid gap-3 grid-cols-1 md:grid-cols-2 lg:grid-cols-3">
+            {pets.map((pet, ind) => (
+              <Mypet pet={pet} key={ind} />
+            ))}
+          </div>
+        ) : (
+          <div className="flex flex-col items-center justify-center py-24 gap-4 text-center">
+            <span className="text-6xl text-black"> <MdOutlinePets /></span>
+            <p className="text-xl font-medium text-gray-500 tracking-wide">
+              You haven't added any pets yet
+            </p>
+            <p className="text-sm text-gray-400">
+              Your listings will appear here once you add them.
+            </p>
+          </div>
+        )}
+      </div>
     </div>
   )
 }

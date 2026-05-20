@@ -17,7 +17,7 @@ export default function PetCard({ pet }) {
                             height={200}
                             src={pet?.imageUrl}
                             alt={pet?.petName} /* FIXED: Changed pet?.name to pet?.petName */
-                            className="w-full h-[220px] object-cover"
+                            className="w-full h-[220px] object-cover hover:scale-105 transition-transform duration-300"
                         />
                     )}
                 </figure>

@@ -12,7 +12,7 @@ export default function SuccesssStoryCard({ storie }) {
                         height={200}
                         src={storie?.image}
                         alt={storie?.name}
-                        className="h-60 "
+                        className="h-60 hover:scale-105 transition-transform duration-300"
                     />
                 </figure>
 
