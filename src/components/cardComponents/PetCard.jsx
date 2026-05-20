@@ -6,7 +6,7 @@ export default function PetCard({ pet }) {
     console.log(pet);
 
     return (
-        <div className="flex justify-center mx-auto items-center p-10 bg-[#F6F1E8] rounded-2xl min-h-[480px]">
+        <div className="flex justify-center max-w-96 w-full mx-auto items-center p-10 bg-[#F6F1E8] rounded-2xl min-h-[480px]">
             <div className="max-w-[340px] w-full bg-[#FFFDF8] rounded-2xl overflow-hidden border border-[#E2D8C5] shadow-[0_2px_16px_0_rgba(180,160,110,0.10)]">
 
                 <figure className="m-0 overflow-hidden rounded-t-xl">
