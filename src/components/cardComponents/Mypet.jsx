@@ -2,6 +2,8 @@ import Image from 'next/image'
 import Link from 'next/link'
 import React from 'react'
 import EditModal from '../EditModal'
+import { IoLocationSharp } from 'react-icons/io5'
+import DeleteModal from '../DeleteModal'
 
 export default function MyPet({ pet }) {
 
@@ -49,7 +51,7 @@ export default function MyPet({ pet }) {
                     </div>
 
                     <h3 className="text-lg font-bold text-emerald-600">
-                        ৳{pet.adoptionFee}
+                        ${pet.adoptionFee}
                     </h3>
                 </div>
 
@@ -63,8 +65,9 @@ export default function MyPet({ pet }) {
                         Age {pet.age}
                     </span>
 
-                    <span className="px-3 py-1 rounded-full text-xs bg-gray-100 text-gray-700">
-                        📍 {pet.location}
+                    <span className="px-3 py-1 rounded-full flex items-center text-xs bg-gray-100 text-gray-700">
+                        <IoLocationSharp />
+                        {pet.location}
                     </span>
                 </div>
 
@@ -87,9 +90,7 @@ export default function MyPet({ pet }) {
                     </Link>
 
                     {/* Delete */}
-                    <button className="bg-red-500 hover:bg-red-600 text-white py-2 rounded-xl text-sm font-medium transition">
-                        Delete
-                    </button>
+                    <DeleteModal pet={pet}></DeleteModal>
 
                 </div>
 
