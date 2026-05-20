@@ -108,7 +108,7 @@ export default function Navbar() {
                                         >
                                             <span className="text-base">→</span>
                                             Sign out
-                                        </button>
+                                    </button>
                                     </li>
                                 </div>
 

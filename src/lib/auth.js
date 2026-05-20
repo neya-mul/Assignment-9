@@ -5,7 +5,6 @@ import { betterAuth } from "better-auth";
 import { MongoClient } from "mongodb";
 import { mongodbAdapter } from "better-auth/adapters/mongodb";
 
-// ✅ define client FIRST, then connect
 const client = new MongoClient(process.env.MONGO_URI);
 client.connect(); // no await needed at top level
 
