@@ -1,6 +1,7 @@
 import Image from 'next/image'
 import Link from 'next/link'
 import React from 'react'
+import EditModal from '../EditModal'
 
 export default function MyPet({ pet }) {
 
@@ -76,12 +77,10 @@ export default function MyPet({ pet }) {
                     </button>
 
                     {/* Edit */}
-                    <button className="bg-amber-500 hover:bg-amber-600 text-white py-2 rounded-xl text-sm font-medium transition">
-                        Edit
-                    </button>
+                    <EditModal></EditModal>
 
                     {/* View */}
-                    <Link href={`/pets/${pet._id}`}>
+                    <Link href={`/${pet?._id}`}>
                         <button className="w-full bg-emerald-500 hover:bg-emerald-600 text-white py-2 rounded-xl text-sm font-medium transition">
                             View
                         </button>
