@@ -77,7 +77,7 @@ export default function MyPet({ pet }) {
                     </button>
 
                     {/* Edit */}
-                    <EditModal></EditModal>
+                    <EditModal pet={pet}></EditModal>
 
                     {/* View */}
                     <Link href={`/${pet?._id}`}>

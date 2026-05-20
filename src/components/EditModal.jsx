@@ -1,6 +1,36 @@
+'use client'
+import { authClient } from '@/lib/auth-client'
 import React from 'react'
 
-export default function EditModal() {
+export default function EditModal({ pet }) {
+    const { _id } = pet;
+
+    const handleSubmit = async (e) => {
+        e.preventDefault()
+
+        const formData = new FormData(e.currentTarget)
+        const updatedData = Object.fromEntries(formData.entries())
+        console.log(updatedData);
+        const res = await fetch(`http://localhost:5000/pets/${_id}`,
+            {
+                method: 'PATCH',
+                headers: {
+                    'content-type': 'application/json'
+                },
+                body: JSON.stringify(updatedData)
+
+            })
+        await res.json()
+
+
+        document.getElementById('my_modal_2').close()
+    }
+
+    const { data: session } = authClient.useSession()
+    const user = session?.user
+    const userEmail = user?.email
+    // console.log(userEmail);
+
     return (
         <div>
             {/* Open the modal using document.getElementById('ID').showModal() method */}
@@ -8,7 +38,7 @@ export default function EditModal() {
             <dialog id="my_modal_2" className="modal">
 
                 <form
-                    // onSubmit={handleSubmit}
+                    onSubmit={handleSubmit}
                     className="bg-white border border-gray-100 shadow-md rounded-2xl p-4 md:p-5 max-w-2xl mx-auto"
                 >
 
@@ -234,7 +264,7 @@ export default function EditModal() {
                             <input
                                 type="email"
                                 name="ownerEmail"
-                                // value={session?.user?.email ?? ""}
+                                value={userEmail}
                                 readOnly
                                 className="w-full h-9 rounded-lg border border-gray-200 bg-gray-50 px-3 text-[13px] text-gray-400 cursor-not-allowed focus:outline-none"
                             />
@@ -247,8 +277,7 @@ export default function EditModal() {
                         type="submit"
                         className="w-full h-10 mt-4 rounded-lg bg-amber-400 hover:bg-amber-500 text-white text-[13px] font-medium transition"
                     >
-                        🐾 List Pet for Adoption
-                    </button>
+                        Save                    </button>
 
                 </form>
 
