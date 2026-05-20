@@ -1,7 +1,7 @@
 import React from 'react'
 
 export default function DeleteModal({ pet }) {
-    const { _id } = pet
+    const { _id, ownerName, petName } = pet
 
     const deleteButton = async (e) => {
         e.preventDefault()
@@ -20,6 +20,11 @@ export default function DeleteModal({ pet }) {
         window.location.reload()
 
     }
+
+    const cancel = () => {
+        document.getElementById('my_modal_6').checked = false;
+
+    }
     return (
         <div className='bg-white'>
             {/* The button to open modal */}
@@ -29,10 +34,13 @@ export default function DeleteModal({ pet }) {
             <input type="checkbox" id="my_modal_6" className="modal-toggle" />
             <div className="modal" role="dialog">
                 <div className="modal-box bg-white">
-                    <h3 className="text-lg font-bold">Hey there, </h3>
-                    <p className="py-4">Are you sure you want to delete this pet?</p>
-                    <div className="modal-action">
-                        <label htmlFor="my_modal_6" className="btn" onClick={deleteButton}>Confirm Delete? </label>
+                    <p>Hey <span className='font-bold'>{ownerName},</span> </p>
+                    <p className="py-4">Are you sure you want to delete <span className='font-bold'>{petName}</span> from your list?</p>
+                    {/* <p>It is not recoverable if you delete this once</p> */}
+                    <div className="modal-action flex ">
+                        <button className='btn w-full flex-1' onClick={cancel}>Cancel</button>
+
+                        <label htmlFor="my_modal_6" className="btn flex-1" onClick={deleteButton}>Confirm Delete</label>
                     </div>
                 </div>
             </div>
