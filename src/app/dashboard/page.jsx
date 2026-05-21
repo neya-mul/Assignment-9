@@ -7,15 +7,15 @@ import MyRequest from '../my-requests/page'
 export default function Dashboard() {
     const [section, setSection] = useState('list')
     return (
-        <div className='pt-[90px]'>
+        <div className='mt-[90px]'>
             <div className="drawer lg:drawer-open">
                 <input id="my-drawer-3" type="checkbox" className="drawer-toggle" />
 
-                <div className="drawer-content" style={{ display: 'block' }}>
-                    <div className="w-full p-6">
+                <div className="drawer-content -mt-[100px]" style={{ display: 'block' }}>
+                    <div className="w-full mt-0">
                         {section === 'list' && <MyList />}
                         {section === 'add-pets' && <AddPets />}
-                        {section === 'my-requests' && <h1 className='text-7xl text-black'> <MyRequest /> </h1>}
+                        {section === 'my-requests' &&  <MyRequest /> }
                     </div>
                 </div>
 

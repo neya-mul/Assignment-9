@@ -60,11 +60,11 @@ export default function AddPets() {
         }
     }
     return (
-        <div className="min-h-screen bg-[#F6F1E8] px-4 py-20 text-black">
+        <div className="min-h-screen bg-[#F6F1E8] px-4  text-black ">
             <div className="max-w-4xl mx-auto">
                 <form
                     onSubmit={handleSubmit}
-                    className="bg-white border h-fit mt-6 border-amber-100 shadow-lg rounded-2xl p-5 md:p-7 space-y-5 max-w-3xl mx-auto"                >
+                    className="bg-white border h-fit my-30 border-gray-200  shadow-lg rounded-2xl p-5 md:p-7 space-y-5 max-w-3xl mx-auto"                >
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
 
                         {/* Pet Name */}

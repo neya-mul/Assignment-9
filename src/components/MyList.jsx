@@ -21,7 +21,7 @@ export default function MyList() {
   console.log(pets)
 
   return (
-    <div>
+    <div className='mt-30'>
       <div>
         <h1 className='text-4xl text-center text-black mb-10'>Your listing</h1>
         <div className='text-black flex flex-col lg:flex-row justify-between'>
