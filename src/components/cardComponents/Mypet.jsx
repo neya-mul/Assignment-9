@@ -4,6 +4,7 @@ import React from 'react'
 import EditModal from '../EditModal'
 import { IoLocationSharp } from 'react-icons/io5'
 import DeleteModal from '../DeleteModal'
+import RequestModal from '../RequestModal'
 
 export default function MyPet({ pet }) {
 
@@ -75,9 +76,7 @@ export default function MyPet({ pet }) {
                 <div className="grid grid-cols-2 gap-3">
 
                     {/* Requests */}
-                    <button className="bg-blue-500 hover:bg-blue-600 text-white py-2 rounded-xl text-sm font-medium transition">
-                        Requests
-                    </button>
+                    <RequestModal pet={pet}></RequestModal>
 
                     {/* Edit */}
                     <EditModal pet={pet}></EditModal>
@@ -98,3 +97,14 @@ export default function MyPet({ pet }) {
         </div>
     )
 }
+
+
+
+
+
+
+
+
+
+
+
