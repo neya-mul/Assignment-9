@@ -26,14 +26,14 @@ export default function DeleteModal({ pet }) {
 
     }
     return (
-        <div className='bg-white'>
+        <div className='bg-white '>
             {/* The button to open modal */}
-            <label htmlFor="my_modal_6" className="btn w-full bg-red-500 hover:bg-red-600 border-none text-white py-2 rounded-xl text-sm font-medium transition">Delete</label>
+            <label htmlFor="my_modal_6" className="btn w-full bg-red-500 hover:bg-red-600 border-none  py-2 rounded-xl text-sm font-medium transition">Delete</label>
 
             {/* Put this part before </body> tag */}
             <input type="checkbox" id="my_modal_6" className="modal-toggle" />
             <div className="modal" role="dialog">
-                <div className="modal-box bg-white">
+                <div className="modal-box bg-[#6b6767]">
                     <p>Hey <span className='font-bold'>{ownerName},</span> </p>
                     <p className="py-4">Are you sure you want to delete <span className='font-bold'>{petName}</span> from your list?</p>
                     {/* <p>It is not recoverable if you delete this once</p> */}

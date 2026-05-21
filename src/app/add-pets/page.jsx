@@ -64,8 +64,7 @@ export default function AddPets() {
             <div className="max-w-4xl mx-auto">
                 <form
                     onSubmit={handleSubmit}
-                    className="bg-white border h-fit mt-10 border-amber-100 shadow-lg rounded-3xl p-8 md:p-12 space-y-8"
-                >
+                    className="bg-white border h-fit mt-6 border-amber-100 shadow-lg rounded-2xl p-5 md:p-7 space-y-5 max-w-3xl mx-auto"                >
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
 
                         {/* Pet Name */}
