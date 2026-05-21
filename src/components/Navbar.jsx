@@ -24,7 +24,7 @@ export default function Navbar() {
 
                         <Link className='btn' href='/'>Home</Link>
                         <Link className='btn' href='/all-pets'>All Pets</Link>
-                        <Link className='btn' href='/my-req'>My Requests</Link>
+                        {/* <Link className='btn' href='/my-request'>My Requests</Link> */}
                         <Link className='btn' href='/add-pets'>Add Pet</Link>
                     </ul>
                 </div>
@@ -35,7 +35,7 @@ export default function Navbar() {
 
                     <Link className='mx-2 btn' href='/'>Home</Link>
                     <Link className='mx-2 btn' href='/all-pets'>All Pets</Link>
-                    <Link className='mx-2 btn' href='/my-req'>My Requests</Link>
+                    {/* <Link className='mx-2 btn' href='/my-request'>My Requests</Link> */}
                     <Link className='mx-2 btn' href='/add-pets'>Add Pet</Link>
                     {/* <Link className='mx-2 btn' href='/login'>Login</Link> */}
                 </ul>
@@ -81,22 +81,9 @@ export default function Navbar() {
                                             Dashboard
                                         </Link>
                                     </li>
-                                    <li>
-                                        <Link
-                                            href="/add-pets"
-                                            className="flex items-center gap-2.5 px-3 py-2 rounded-lg text-sm hover:bg-base-200 transition-colors"
-                                        >
-                                            Add Pets
-                                        </Link>
-                                    </li>
-                                    <li>
-                                        <Link
-                                            href="/my-req"
-                                            className="flex items-center gap-2.5 px-3 py-2 rounded-lg text-sm hover:bg-base-200 transition-colors"
-                                        >
-                                            My Requests
-                                        </Link>
-                                    </li>
+                                    
+                                   
+                                    
                                 </div>
 
                                 {/* Sign out */}
@@ -108,7 +95,7 @@ export default function Navbar() {
                                         >
                                             <span className="text-base">→</span>
                                             Sign out
-                                    </button>
+                                        </button>
                                     </li>
                                 </div>
 

@@ -8,7 +8,7 @@ export default async function Details({ params }) {
     // console.log("Current Pet ID:", id);
 
     // 1. Guard against static asset and auth layout requests
-    if (id === 'favicon.ico' || id === 'site.webmanifest' || id.startsWith('api')) {
+    if (id === 'favicon.ico' || id === 'site.webmanifest' || id.startsWith('api') || id === 'my-requests'){
         return null;
     }
 
@@ -38,18 +38,18 @@ export default async function Details({ params }) {
     }
 
     // 3. Destructure safely now that we are 100% sure 'pet' exists. Added ownerId.
-    const {
-        petName,
-        species,
-        gender,
-        healthStatus,
-        vaccinationStatus,
-        adoptionFee,
-        location,
-        ownerEmail,
-        ownerName,
-        ownerId
-    } = pet;
+    // const {
+    //     petName,
+    //     species,
+    //     gender,
+    //     healthStatus,
+    //     vaccinationStatus,
+    //     adoptionFee,
+    //     location,
+    //     ownerEmail,
+    //     ownerName,
+    //     ownerId
+    // } = pet;
 
 
   
