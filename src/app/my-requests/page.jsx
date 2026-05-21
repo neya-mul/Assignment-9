@@ -1,11 +1,19 @@
 'use client'
+import { authClient } from '@/lib/auth-client'
 import React, { useEffect, useState } from 'react'
 
 export default function MyRequest() {
+  const {data: session} = authClient.useSession()
+  const user = session?.user
+  // console.log(user);
+  
 
   const [requests, setRequests] = useState([])
   useEffect(() => {
-    fetch('http://localhost:5000/adoption-requests')
+    if(!user){
+      return
+    }
+    fetch(`http://localhost:5000/adoption-requests?adopterId=${user?.id}`)
       .then(res => res.json())
       .then(data => {
         console.log(data)
@@ -14,7 +22,7 @@ export default function MyRequest() {
 
       )
 
-  }, [])
+  }, [user])
 
   console.log(requests);
   const statusStyle = {
