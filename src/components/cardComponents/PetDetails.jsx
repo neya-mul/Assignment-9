@@ -32,7 +32,7 @@ export default function PetDetails({ pet }) {
       
         e.preventDefault()
 
-        if (user?.id != ownerId || expectedPet) {
+        if (user?.id != ownerId ) {
             const formData = new FormData(e.currentTarget)
             const res = await fetch('http://localhost:5000/adoption-requests', {
                 method: 'POST',

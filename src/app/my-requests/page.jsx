@@ -1,5 +1,6 @@
 'use client'
 import { authClient } from '@/lib/auth-client'
+import Link from 'next/link'
 import React, { useEffect, useState } from 'react'
 
 export default function MyRequest() {
@@ -30,6 +31,9 @@ export default function MyRequest() {
     Approved: 'bg-green-100  text-green-800',
     Rejected: 'bg-red-100    text-red-800',
   }
+
+  console.log(requests);
+  
 
 
   return (
@@ -132,9 +136,9 @@ export default function MyRequest() {
                 </span>
 
                 <div className="flex justify-center gap-3">
-                  <button className="bg-green-500 hover:bg-green-600 text-white px-5 py-2 rounded-xl text-sm font-medium transition">
+                  <Link href={`/${req?.petId}`}>  <button className="bg-green-500 hover:bg-green-600 text-white px-5 py-2 rounded-xl text-sm font-medium transition">
                     View
-                  </button>
+                  </button></Link>
 
                   <button className="bg-red-500 hover:bg-red-600 text-white px-5 py-2 rounded-xl text-sm font-medium transition">
                     Cancel
