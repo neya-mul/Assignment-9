@@ -30,7 +30,7 @@ export default async function Details({ params }) {
         return (
             <div className="min-h-screen flex items-center justify-center text-black">
                 <div className="text-center">
-                    <h2 className="text-2xl font-bold text-gray-800">Pet Not Found 🐾</h2>
+                    <h2 className="text-2xl font-bold text-gray-800">Pet Not Found </h2>
                     <p className="text-gray-500 mt-2">We couldn't find a pet matching that ID.</p>
                 </div>
             </div>

@@ -2,49 +2,51 @@ import React from 'react'
 
 export default function DeleteModal({ pet }) {
     const { _id, ownerName, petName } = pet
+    const petId = _id?.toString()
+
+    const openModal = () => {
+        document.getElementById(`delete_modal_${petId}`).showModal()
+    }
+
+    const closeModal = () => {
+        document.getElementById(`delete_modal_${petId}`).close()
+    }
 
     const deleteButton = async (e) => {
         e.preventDefault()
-        const res = await fetch(`http://localhost:5000/pets/${_id}`,
-            {
-                method: 'DELETE',
-                headers: {
-                    'content-type': 'application/json',
-
-                }
-            }
-        )
-        const data = await res.json()
-        document.getElementById('my_modal_6').checked = false;
+        const res = await fetch(`http://localhost:5000/pets/${_id}`, {
+            method: 'DELETE',
+            headers: { 'content-type': 'application/json' }
+        })
+        await res.json()
+        closeModal()
         alert('data deleted')
         window.location.reload()
-
     }
 
-    const cancel = () => {
-        document.getElementById('my_modal_6').checked = false;
-
-    }
     return (
-        <div className='bg-white '>
-            {/* The button to open modal */}
-            <label htmlFor="my_modal_6" className="btn w-full bg-red-500 hover:bg-red-600 border-none  py-2 rounded-xl text-sm font-medium transition">Delete</label>
+        <div>
+            <button
+                className="btn w-full bg-red-500 hover:bg-red-600 border-none py-2 rounded-xl text-sm font-medium transition"
+                onClick={openModal}
+            >
+                Delete
+            </button>
 
-            {/* Put this part before </body> tag */}
-            <input type="checkbox" id="my_modal_6" className="modal-toggle" />
-            <div className="modal" role="dialog">
+            <dialog id={`delete_modal_${petId}`} className="modal">
                 <div className="modal-box bg-[#6b6767]">
-                    <p>Hey <span className='font-bold'>{ownerName},</span> </p>
+                    <p>Hey <span className='font-bold'>{ownerName},</span></p>
                     <p className="py-4">Are you sure you want to delete <span className='font-bold'>{petName}</span> from your list?</p>
-                    {/* <p>It is not recoverable if you delete this once</p> */}
-                    <div className="modal-action flex ">
-                        <button className='btn w-full flex-1' onClick={cancel}>Cancel</button>
-
-                        <label htmlFor="my_modal_6" className="btn flex-1" onClick={deleteButton}>Confirm Delete</label>
+                    <div className="modal-action flex">
+                        <button className='btn w-full flex-1' onClick={closeModal}>Cancel</button>
+                        <button className="btn flex-1" onClick={deleteButton}>Confirm Delete</button>
                     </div>
                 </div>
-            </div>
 
+                <form method="dialog" className="modal-backdrop">
+                    <button>close</button>
+                </form>
+            </dialog>
         </div>
     )
 }

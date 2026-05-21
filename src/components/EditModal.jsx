@@ -3,50 +3,35 @@ import { authClient } from '@/lib/auth-client'
 import React from 'react'
 
 export default function EditModal({ pet }) {
-    // 1. Get auth session details first
     const { data: session } = authClient.useSession()
     const user = session?.user
     const userEmail = user?.email
 
-    // 2. Destructure pet properties cleanly 
     const {
-        _id,
-        petName,
-        species,
-        breed = "Unknown",
-        age,
-        gender,
-        healthStatus,
-        vaccinationStatus,
-        adoptionFee,
-        location,
-        imageUrl,
-        description,
+        _id, petName, species, breed = "Unknown", age, gender,
+        healthStatus, vaccinationStatus, adoptionFee, location,
+        imageUrl, description,
     } = pet || {};
 
     const petId = _id?.toString()
 
     const closeButton = () => {
-        const modal = document.getElementById(`my_modal_${petId}`)
+        const modal = document.getElementById(`edit_modal_${petId}`)
         if (modal) modal.close()
     }
 
     const handleSubmit = async (e) => {
         e.preventDefault()
-
         const formData = new FormData(e.currentTarget)
         const updatedData = Object.fromEntries(formData.entries())
 
         try {
             const res = await fetch(`http://localhost:5000/pets/${_id}`, {
                 method: 'PATCH',
-                headers: {
-                    'content-type': 'application/json'
-                },
+                headers: { 'content-type': 'application/json' },
                 body: JSON.stringify(updatedData)
             })
             await res.json()
-
             closeButton()
             window.location.reload()
         } catch (error) {
@@ -56,25 +41,21 @@ export default function EditModal({ pet }) {
 
     return (
         <div>
-            {/* Open Button Trigger */}
             <button
                 className="w-full bg-emerald-500 hover:bg-emerald-600 text-white py-2 rounded-xl text-sm font-medium transition"
-                onClick={() => document.getElementById(`my_modal_${petId}`).showModal()}
+                onClick={() => document.getElementById(`edit_modal_${petId}`).showModal()}
             >
                 Edit
             </button>
 
-            <dialog id={`my_modal_${petId}`} className="modal">
+            <dialog id={`edit_modal_${petId}`} className="modal">
                 <div className="bg-white border border-gray-100 shadow-md rounded-2xl p-4 md:p-5 max-w-2xl mx-auto w-full">
-
                     <form onSubmit={handleSubmit}>
                         <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
 
                             {/* Pet Name */}
                             <div className="md:col-span-2">
-                                <label className="block text-[13px] font-medium text-gray-700 mb-0.5">
-                                    Pet Name
-                                </label>
+                                <label className="block text-[13px] font-medium text-gray-700 mb-0.5">Pet Name</label>
                                 <input
                                     defaultValue={petName}
                                     name="petName"
@@ -86,9 +67,7 @@ export default function EditModal({ pet }) {
 
                             {/* Species */}
                             <div>
-                                <label className="block text-[13px] font-medium text-gray-700 mb-0.5">
-                                    Species
-                                </label>
+                                <label className="block text-[13px] font-medium text-gray-700 mb-0.5">Species</label>
                                 <div className="relative">
                                     <select
                                         defaultValue={species || ""}
@@ -106,17 +85,13 @@ export default function EditModal({ pet }) {
                                         <option value="Turtle">Turtle</option>
                                         <option value="Other">Other</option>
                                     </select>
-                                    <span className="pointer-events-none absolute right-3 top-1/2 -translate-y-1/2 text-gray-400 text-[10px]">
-                                        ▾
-                                    </span>
+                                    <span className="pointer-events-none absolute right-3 top-1/2 -translate-y-1/2 text-gray-400 text-[10px]">▾</span>
                                 </div>
                             </div>
 
                             {/* Breed */}
                             <div>
-                                <label className="block text-[13px] font-medium text-gray-700 mb-0.5">
-                                    Breed
-                                </label>
+                                <label className="block text-[13px] font-medium text-gray-700 mb-0.5">Breed</label>
                                 <input
                                     defaultValue={breed}
                                     name="breed"
@@ -127,9 +102,7 @@ export default function EditModal({ pet }) {
 
                             {/* Age */}
                             <div>
-                                <label className="block text-[13px] font-medium text-gray-700 mb-0.5">
-                                    Age
-                                </label>
+                                <label className="block text-[13px] font-medium text-gray-700 mb-0.5">Age</label>
                                 <input
                                     defaultValue={age}
                                     name="age"
@@ -141,9 +114,7 @@ export default function EditModal({ pet }) {
 
                             {/* Gender */}
                             <div>
-                                <label className="block text-[13px] font-medium text-gray-700 mb-0.5">
-                                    Gender
-                                </label>
+                                <label className="block text-[13px] font-medium text-gray-700 mb-0.5">Gender</label>
                                 <div className="relative">
                                     <select
                                         name="gender"
@@ -155,17 +126,13 @@ export default function EditModal({ pet }) {
                                         <option value="Male">♂ Male</option>
                                         <option value="Female">♀ Female</option>
                                     </select>
-                                    <span className="pointer-events-none absolute right-3 top-1/2 -translate-y-1/2 text-gray-400 text-[10px]">
-                                        ▾
-                                    </span>
+                                    <span className="pointer-events-none absolute right-3 top-1/2 -translate-y-1/2 text-gray-400 text-[10px]">▾</span>
                                 </div>
                             </div>
 
                             {/* Health Status */}
                             <div>
-                                <label className="block text-[13px] font-medium text-gray-700 mb-0.5">
-                                    Health Status
-                                </label>
+                                <label className="block text-[13px] font-medium text-gray-700 mb-0.5">Health Status</label>
                                 <div className="relative">
                                     <select
                                         name="healthStatus"
@@ -179,17 +146,13 @@ export default function EditModal({ pet }) {
                                         <option value="Under Treatment">Under Treatment</option>
                                         <option value="Needs Special Care">Needs Special Care</option>
                                     </select>
-                                    <span className="pointer-events-none absolute right-3 top-1/2 -translate-y-1/2 text-gray-400 text-[10px]">
-                                        ▾
-                                    </span>
+                                    <span className="pointer-events-none absolute right-3 top-1/2 -translate-y-1/2 text-gray-400 text-[10px]">▾</span>
                                 </div>
                             </div>
 
                             {/* Vaccination Status */}
                             <div>
-                                <label className="block text-[13px] font-medium text-gray-700 mb-0.5">
-                                    Vaccination Status
-                                </label>
+                                <label className="block text-[13px] font-medium text-gray-700 mb-0.5">Vaccination Status</label>
                                 <div className="relative">
                                     <select
                                         name="vaccinationStatus"
@@ -203,21 +166,15 @@ export default function EditModal({ pet }) {
                                         <option value="Not Vaccinated">Not Vaccinated</option>
                                         <option value="Unknown">Unknown</option>
                                     </select>
-                                    <span className="pointer-events-none absolute right-3 top-1/2 -translate-y-1/2 text-gray-400 text-[10px]">
-                                        ▾
-                                    </span>
+                                    <span className="pointer-events-none absolute right-3 top-1/2 -translate-y-1/2 text-gray-400 text-[10px]">▾</span>
                                 </div>
                             </div>
 
                             {/* Adoption Fee */}
                             <div>
-                                <label className="block text-[13px] font-medium text-gray-700 mb-0.5">
-                                    Adoption Fee (USD)
-                                </label>
+                                <label className="block text-[13px] font-medium text-gray-700 mb-0.5">Adoption Fee (USD)</label>
                                 <div className="relative">
-                                    <span className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400 text-xs">
-                                        $
-                                    </span>
+                                    <span className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400 text-xs">$</span>
                                     <input
                                         defaultValue={adoptionFee}
                                         type="number"
@@ -231,9 +188,7 @@ export default function EditModal({ pet }) {
 
                             {/* Location */}
                             <div className="md:col-span-2">
-                                <label className="block text-[13px] font-medium text-gray-700 mb-0.5">
-                                    Location / Shelter Name
-                                </label>
+                                <label className="block text-[13px] font-medium text-gray-700 mb-0.5">Location / Shelter Name</label>
                                 <input
                                     defaultValue={location}
                                     name="location"
@@ -245,9 +200,7 @@ export default function EditModal({ pet }) {
 
                             {/* Image URL */}
                             <div className="md:col-span-2">
-                                <label className="block text-[13px] font-medium text-gray-700 mb-0.5">
-                                    Pet Photo URL
-                                </label>
+                                <label className="block text-[13px] font-medium text-gray-700 mb-0.5">Pet Photo URL</label>
                                 <input
                                     defaultValue={imageUrl}
                                     type="url"
@@ -259,9 +212,7 @@ export default function EditModal({ pet }) {
 
                             {/* Description */}
                             <div className="md:col-span-2">
-                                <label className="block text-[13px] font-medium text-gray-700 mb-0.5">
-                                    About this Pet
-                                </label>
+                                <label className="block text-[13px] font-medium text-gray-700 mb-0.5">About this Pet</label>
                                 <textarea
                                     defaultValue={description}
                                     name="description"
@@ -274,9 +225,7 @@ export default function EditModal({ pet }) {
 
                             {/* Owner Email */}
                             <div className="md:col-span-2">
-                                <label className="block text-[13px] font-medium text-gray-700 mb-0.5">
-                                    Owner Email
-                                </label>
+                                <label className="block text-[13px] font-medium text-gray-700 mb-0.5">Owner Email</label>
                                 <input
                                     type="email"
                                     name="ownerEmail"
@@ -288,7 +237,7 @@ export default function EditModal({ pet }) {
 
                         </div>
 
-                        {/* Button Grid Row */}
+                        {/* Buttons */}
                         <div className="grid grid-cols-2 gap-3 mt-4">
                             <button
                                 type="button"
@@ -305,10 +254,8 @@ export default function EditModal({ pet }) {
                             </button>
                         </div>
                     </form>
-
                 </div>
 
-                {/* Click outside to close layout wrapper */}
                 <form method="dialog" className="modal-backdrop">
                     <button>close</button>
                 </form>

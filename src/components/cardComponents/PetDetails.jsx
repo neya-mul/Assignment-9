@@ -3,9 +3,12 @@ import { authClient } from '@/lib/auth-client';
 import Image from 'next/image';
 import { useRouter } from 'next/navigation';
 // import { useRouter } from 'next/router';
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 
 export default function PetDetails({ pet }) {
+
+
+
     const router = useRouter()
     const { data: session } = authClient.useSession()
     const user = session?.user
@@ -25,9 +28,11 @@ export default function PetDetails({ pet }) {
 
 
     const adoptButton = async (e) => {
+
+      
         e.preventDefault()
 
-        if (user?.id != ownerId) {
+        if (user?.id != ownerId || expectedPet) {
             const formData = new FormData(e.currentTarget)
             const res = await fetch('http://localhost:5000/adoption-requests', {
                 method: 'POST',
@@ -49,6 +54,7 @@ export default function PetDetails({ pet }) {
                 })
             })
             const data = await res.json()
+
             if (data.insertedId) {
                 alert('success')
             }
