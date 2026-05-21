@@ -24,8 +24,10 @@ export default function EditModal({ pet }) {
         description,
     } = pet || {};
 
+    const petId = _id?.toString()
+
     const closeButton = () => {
-        const modal = document.getElementById('my_modal_2')
+        const modal = document.getElementById(`my_modal_${petId}`)
         if (modal) modal.close()
     }
 
@@ -34,7 +36,7 @@ export default function EditModal({ pet }) {
 
         const formData = new FormData(e.currentTarget)
         const updatedData = Object.fromEntries(formData.entries())
-        
+
         try {
             const res = await fetch(`http://localhost:5000/pets/${_id}`, {
                 method: 'PATCH',
@@ -44,7 +46,7 @@ export default function EditModal({ pet }) {
                 body: JSON.stringify(updatedData)
             })
             await res.json()
-            
+
             closeButton()
             window.location.reload()
         } catch (error) {
@@ -55,16 +57,16 @@ export default function EditModal({ pet }) {
     return (
         <div>
             {/* Open Button Trigger */}
-            <button 
-                className="w-full bg-emerald-500 hover:bg-emerald-600 text-white py-2 rounded-xl text-sm font-medium transition" 
-                onClick={() => document.getElementById('my_modal_2').showModal()}
+            <button
+                className="w-full bg-emerald-500 hover:bg-emerald-600 text-white py-2 rounded-xl text-sm font-medium transition"
+                onClick={() => document.getElementById(`my_modal_${petId}`).showModal()}
             >
                 Edit
             </button>
-            
-            <dialog id="my_modal_2" className="modal">
+
+            <dialog id={`my_modal_${petId}`} className="modal">
                 <div className="bg-white border border-gray-100 shadow-md rounded-2xl p-4 md:p-5 max-w-2xl mx-auto w-full">
-                    
+
                     <form onSubmit={handleSubmit}>
                         <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
 
@@ -305,7 +307,7 @@ export default function EditModal({ pet }) {
                     </form>
 
                 </div>
-                
+
                 {/* Click outside to close layout wrapper */}
                 <form method="dialog" className="modal-backdrop">
                     <button>close</button>
