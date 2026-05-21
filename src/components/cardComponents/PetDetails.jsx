@@ -1,10 +1,13 @@
 'use client'
 import { authClient } from '@/lib/auth-client';
 import Image from 'next/image';
+import { useRouter } from 'next/navigation';
+// import { useRouter } from 'next/router';
 import React from 'react'
 
 export default function PetDetails({ pet }) {
-    const {data: session} = authClient.useSession()
+    const router = useRouter()
+    const { data: session } = authClient.useSession()
     const user = session?.user
     const {
         _id,
@@ -23,32 +26,41 @@ export default function PetDetails({ pet }) {
 
     const adoptButton = async (e) => {
         e.preventDefault()
-        const formData = new FormData(e.currentTarget)
-        const res = await fetch('http://localhost:5000/adoption-requests', {
-            method: 'POST',
-            headers: {
-                'content-type': 'application/json'
-            },
-            body: JSON.stringify({
-                petId: _id,
-                petName: petName,
-                ownerId: ownerId,
-                adopterId: user?.id,
-                adopterName: user?.name,
-                adopterEmail: user?.email,
-                pickupDate: formData.get('pickupDate'),
-                message: formData.get('message'),
-                status: 'pending',
-                createdAt: new Date()
 
+        if (user?.id != ownerId) {
+            const formData = new FormData(e.currentTarget)
+            const res = await fetch('http://localhost:5000/adoption-requests', {
+                method: 'POST',
+                headers: {
+                    'content-type': 'application/json'
+                },
+                body: JSON.stringify({
+                    petId: _id,
+                    petName: petName,
+                    ownerId: ownerId,
+                    adopterId: user?.id,
+                    adopterName: user?.name,
+                    adopterEmail: user?.email,
+                    pickupDate: formData.get('pickupDate'),
+                    message: formData.get('message'),
+                    status: 'pending',
+                    createdAt: new Date()
+
+                })
             })
-        })
-        const data = await res.json()
-        if (data.insertedId) {
-            alert('success')
+            const data = await res.json()
+            if (data.insertedId) {
+                alert('success')
+            }
+
         }
-        console.log(data);
-        
+        else {
+            alert('This pet has added by you')
+
+        }
+        router.push('/')
+
+
     }
     return (
         <div className='text-black mt-2 lg:mt-20 flex justify-center items-center min-h-screen p-4 md:p-8 bg-gray-50/50'>
