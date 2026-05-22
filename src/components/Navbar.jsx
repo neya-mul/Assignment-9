@@ -2,14 +2,26 @@
 import { authClient } from '@/lib/auth-client'
 import Image from 'next/image'
 import Link from 'next/link'
+import { useRouter } from 'next/navigation'
+// import { useRouter } from 'next/router'
 import React from 'react'
 
 export default function Navbar() {
     const { data: session } = authClient.useSession()
     const user = session?.user
     // console.log(user);
+    const router = useRouter()
+    const logOutButton = async () => {
 
-
+        await authClient.signOut({
+            fetchOptions: {
+                onSuccess: () => {
+                    router.push("/login");
+                    // toast.info("Logged out successfully")
+                },
+            },
+        });
+    }
     return (
 
         <div className="navbar shadow-sm fixed z-50  bg-[#264653] ">
@@ -90,7 +102,7 @@ export default function Navbar() {
                                 <div className="p-1.5 border-t border-base-200">
                                     <li>
                                         <button
-                                            onClick={async () => await authClient.signOut()}
+                                            onClick={logOutButton}
                                             className="flex items-center gap-2.5 px-3 py-2 rounded-lg text-sm text-error hover:bg-error/10 transition-colors w-full"
                                         >
                                             <span className="text-base">→</span>

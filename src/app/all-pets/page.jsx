@@ -1,6 +1,7 @@
 'use client'
 import PetCard from '@/components/cardComponents/PetCard'
 import React, { useEffect, useState } from 'react'
+import { FaArrowAltCircleDown } from 'react-icons/fa'
 
 export default function AllPets() {
   const [pets, setPets] = useState([])
@@ -28,8 +29,7 @@ export default function AllPets() {
   const handleSpecies = (e) => {
     setSpecies(e.target.value)
   }
-  console.log(name);
-  console.log(pets);
+ 
 
 
   return (
@@ -49,8 +49,9 @@ export default function AllPets() {
 
 
           <div className='relative w-full sm:flex-1'>
-            <button onClick={() => setIsOpen(!isOpen)} className='w-full max-w-[140px] h-12 px-4 bg-white border border-gray-200 rounded-lg text-sm text-left'>
-              {species || 'All Species'} ▼
+            <button onClick={() => setIsOpen(!isOpen)} className='w-full max-w-[140px] flex gap-3 items-center justify-center h-12 px-4 bg-white border border-gray-200 rounded-lg text-sm text-left'>
+              {species || 'All Species'} <FaArrowAltCircleDown />
+
             </button>
             {isOpen && (
               <ul className='absolute  w-full bg-white border rounded-lg shadow z-[9999]'>
