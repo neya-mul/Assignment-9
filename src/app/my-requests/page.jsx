@@ -1,4 +1,5 @@
 'use client'
+import CancelModal from '@/components/CancelModal'
 import { authClient } from '@/lib/auth-client'
 import Link from 'next/link'
 import React, { useEffect, useState } from 'react'
@@ -33,7 +34,24 @@ export default function MyRequest() {
   }
 
   console.log(requests);
-  
+
+
+
+  // const cancelButton = async (e) => {
+  //   e.preventDefault()
+  //   const res = await fetch(`http://localhost:5000/adoption-requests/pet/${id}`, {
+  //     method: '2',
+  //     headers: {
+  //       'content-type': 'application/json'
+  //     },
+
+  //   })
+  //   const data = await res.json()
+  //   alert('successffully deleted')
+  //   setRequests(prev => prev.filter(r => r._id !== id))
+
+  // }
+
 
 
   return (
@@ -140,9 +158,10 @@ export default function MyRequest() {
                     View
                   </button></Link>
 
-                  <button className="bg-red-500 hover:bg-red-600 text-white px-5 py-2 rounded-xl text-sm font-medium transition">
-                    Cancel
-                  </button>
+
+                  <CancelModal req={req} onDelete={(id) => setRequests(prev => prev.filter(r => r._id !== id))}></CancelModal>
+
+
                 </div>
               </div>
             </div>
@@ -156,3 +175,20 @@ export default function MyRequest() {
 
 
 
+//  <button
+//                 onClick={async (e) => {
+//                   e.preventDefault()
+//                   console.log('deleting id:', req._id)  // 👈 add this
+
+//                   const res = await fetch(`http://localhost:5000/adoption-requests/pet/${req._id}`, {
+//                     method: 'DELETE',
+//                     headers: { 'content-type': 'application/json' }
+//                   })
+//                   await res.json()
+//                   alert('Successfully deleted')
+//                   setRequests(prev => prev.filter(r => r._id !== req._id))
+//                 }}
+//                 className="bg-red-500 hover:bg-red-600 text-white px-5 py-2 rounded-xl text-sm font-medium transition"
+//               >
+//                 Cancel
+//               </button>
