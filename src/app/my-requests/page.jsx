@@ -174,21 +174,3 @@ export default function MyRequest() {
 
 
 
-
-//  <button
-//                 onClick={async (e) => {
-//                   e.preventDefault()
-//                   console.log('deleting id:', req._id)  // 👈 add this
-
-//                   const res = await fetch(`http://localhost:5000/adoption-requests/pet/${req._id}`, {
-//                     method: 'DELETE',
-//                     headers: { 'content-type': 'application/json' }
-//                   })
-//                   await res.json()
-//                   alert('Successfully deleted')
-//                   setRequests(prev => prev.filter(r => r._id !== req._id))
-//                 }}
-//                 className="bg-red-500 hover:bg-red-600 text-white px-5 py-2 rounded-xl text-sm font-medium transition"
-//               >
-//                 Cancel
-//               </button>

@@ -8,8 +8,31 @@ export default function RequestModal({ pet }) {
         fetch(`http://localhost:5000/adoption-requests/pet/${pet._id}`)
             .then(res => res.json())
             .then(data => setUsers(data))
-    }, [])
+    }, [pet._id])
     console.log(users);
+
+    const handleApprove = async (userId) => {
+        const res = await fetch(`http://localhost:5000/adoption-requests/${userId}`, {
+            method: 'PATCH',
+            headers: { 'content-type': 'application/json' },
+            body: JSON.stringify({ status: 'Approved' })
+        })
+        await res.json()
+        setUsers(prev => prev.map(u => u._id === userId ? { ...u, status: 'Approved' } : u))
+        alert('done')
+
+    }
+
+
+    const handleReject = async (userId) => {
+        const res = await fetch(`http://localhost:5000/adoption-requests/${userId}`, {
+            method: 'PATCH',
+            headers: { 'content-type': 'application/json' },
+            body: JSON.stringify({ status: 'Rejected' })
+        })
+        await res.json()
+        setUsers(prev => prev.map(u => u._id === userId ? { ...u, status: 'Rejected' } : u))
+    }
 
 
     return (
@@ -42,8 +65,11 @@ export default function RequestModal({ pet }) {
                                             </p>
                                         </div>
 
-                                        <span className="px-3 py-1 rounded-full text-xs font-medium bg-yellow-500/20 text-yellow-400 border border-yellow-500/30">
-                                            Pending
+                                        <span className={`px-3 py-1 rounded-full text-xs font-medium border ${user.status === 'Approved' ? 'bg-emerald-500/20 text-emerald-400 border-emerald-500/30' :
+                                            user.status === 'Rejected' ? 'bg-red-500/20 text-red-400 border-red-500/30' :
+                                                'bg-yellow-500/20 text-yellow-400 border-yellow-500/30'
+                                            }`}>
+                                            {user.status || 'Pending'}
                                         </span>
                                     </div>
 
@@ -67,11 +93,10 @@ export default function RequestModal({ pet }) {
 
                                     {/* Buttons */}
                                     <div className="flex gap-3 mt-5">
-                                        <button className="flex-1 bg-emerald-500 hover:bg-emerald-600 text-white py-2 rounded-xl transition">
+                                        <button onClick={() => handleApprove(user._id)} className="flex-1 bg-emerald-500 hover:text-white py-2 rounded-xl transition">
                                             Approve
                                         </button>
-
-                                        <button className="flex-1 border border-red-500 text-red-400 hover:bg-red-500 hover:text-white py-2 rounded-xl transition">
+                                        <button onClick={() => handleReject(user._id)} className="flex-1 border hover:text-white py-2 rounded-xl transition">
                                             Reject
                                         </button>
                                     </div>
