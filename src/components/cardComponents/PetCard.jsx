@@ -3,7 +3,7 @@ import Link from 'next/link';
 import React from 'react'
 
 export default function PetCard({ pet }) {
-    console.log(pet);
+    // console.log(pet);
 
     return (
         <div className="flex justify-center max-w-96 w-full mx-auto items-center p-10 bg-[#F6F1E8] rounded-2xl min-h-[480px]">
