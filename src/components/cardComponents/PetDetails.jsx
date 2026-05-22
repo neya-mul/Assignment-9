@@ -7,6 +7,8 @@ import React, { useEffect, useState } from 'react'
 
 export default function PetDetails({ pet }) {
 
+    const requestedCollection = [];
+
 
 
     const router = useRouter()
@@ -64,6 +66,9 @@ export default function PetDetails({ pet }) {
             alert('This pet has added by you')
 
         }
+
+
+        
         router.push('/')
 
 
