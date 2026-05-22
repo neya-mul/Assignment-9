@@ -3,6 +3,7 @@ import PetCard from "@/components/cardComponents/PetCard";
 import FeaturedPets from "@/components/FeaturedPets";
 import Marquee from "@/components/Marqueee";
 import PetCare from "@/components/PetCare";
+import Stats from "@/components/Stats";
 import SuccessStories from "@/components/SuccessStories";
 import WhyAdopt from "@/components/WhyAdopt";
 import Image from "next/image";
@@ -13,6 +14,7 @@ export default function Home() {
     <>
       <Marquee></Marquee>
       <Banner></Banner>
+      <Stats></Stats>
       <FeaturedPets></FeaturedPets>
       <SuccessStories></SuccessStories>
 
