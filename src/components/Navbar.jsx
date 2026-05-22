@@ -12,7 +12,7 @@ export default function Navbar() {
 
     return (
 
-        <div className="navbar shadow-sm fixed z-90  bg-[#264653] ">
+        <div className="navbar shadow-sm fixed z-50  bg-[#264653] ">
             <div className="navbar-start">
                 <div className="dropdown">
                     <div tabIndex={0} role="button" className="btn btn-ghost lg:hidden">
@@ -20,7 +20,7 @@ export default function Navbar() {
                     </div>
                     <ul
                         tabIndex="-1"
-                        className="menu menu-sm dropdown-content bg-[#264653] rounded-box z-1 mt-10 h-screen w-52 p-2 shadow">
+                        className="menu menu-sm dropdown-content bg-[#264653] rounded-box z-1 mt-10 h-auto w-52 p-2 shadow">
 
                         <Link className='btn' href='/'>Home</Link>
                         <Link className='btn' href='/all-pets'>All Pets</Link>
@@ -81,9 +81,9 @@ export default function Navbar() {
                                             Dashboard
                                         </Link>
                                     </li>
-                                    
-                                   
-                                    
+
+
+
                                 </div>
 
                                 {/* Sign out */}
@@ -112,7 +112,7 @@ export default function Navbar() {
                     </div>
                 )}
             </div>
-        </div>
+        </div >
 
     )
 }
