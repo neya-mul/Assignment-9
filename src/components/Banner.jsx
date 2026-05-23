@@ -4,7 +4,7 @@ import Image from 'next/image'
 
 export default function Banner() {
     return (
-        <div className="min-h-screen flex flex-col lg:flex-row justify-around container mx-auto items-center "   >
+        <div className="min-h-screen text-center lg:text-left py-10 lg:py-0 flex flex-col lg:flex-row gap-20 justify-around container mx-auto items-center "   >
 
             <div className="space-y-5 text-[#3E2C20] max-w-[600px]">
                 <h1 className="text-6xl font-bold ">Find Your Forever Companion</h1>
