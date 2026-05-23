@@ -11,7 +11,7 @@ export default function Banner() {
                 <p className="max-w-4xl">Thousands of lovable pets are waiting for a place to call home. Connect with local shelters and open your heart to a lifetime of unconditional love.</p>
                 <button className="btn bg-[#6B4226] border-none">Adopt Now</button>
             </div>
-            <div className="relative w-[550px] h-[550px] rounded-full overflow-hidden border-8 border-white shadow-2xl">
+            <div className="relative w-[550px] h-[550px] rounded-full overflow-hidden border-8 border-white shadow-2xl ">
 
                 <div className="absolute inset-0 bg-[#FFD8A8] blur-3xl opacity-40 rounded-full"></div>
 
@@ -19,7 +19,7 @@ export default function Banner() {
                     src={hero}
                     alt="Cute pets"
                     fill
-                    className="object-cover"
+                    className="object-cover "
                     priority
                 />
             </div>

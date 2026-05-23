@@ -36,22 +36,6 @@ export default async function Details({ params }) {
             </div>
         );
     }
-
-    // 3. Destructure safely now that we are 100% sure 'pet' exists. Added ownerId.
-    // const {
-    //     petName,
-    //     species,
-    //     gender,
-    //     healthStatus,
-    //     vaccinationStatus,
-    //     adoptionFee,
-    //     location,
-    //     ownerEmail,
-    //     ownerName,
-    //     ownerId
-    // } = pet;
-
-
   
 
     return (

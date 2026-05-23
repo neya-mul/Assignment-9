@@ -2,14 +2,11 @@
 import { authClient } from '@/lib/auth-client';
 import Image from 'next/image';
 import { useRouter } from 'next/navigation';
-// import { useRouter } from 'next/router';
 import React, { useEffect, useState } from 'react'
 
 export default function PetDetails({ pet }) {
 
     const requestedCollection = [];
-
-
 
     const router = useRouter()
     const { data: session } = authClient.useSession()
@@ -28,19 +25,13 @@ export default function PetDetails({ pet }) {
         ownerId
     } = pet;
 
-
     const adoptButton = async (e) => {
-
-      
         e.preventDefault()
-
-        if (user?.id != ownerId ) {
+        if (user?.id != ownerId) {
             const formData = new FormData(e.currentTarget)
             const res = await fetch('http://localhost:5000/adoption-requests', {
                 method: 'POST',
-                headers: {
-                    'content-type': 'application/json'
-                },
+                headers: { 'content-type': 'application/json' },
                 body: JSON.stringify({
                     petId: _id,
                     petName: petName,
@@ -52,110 +43,121 @@ export default function PetDetails({ pet }) {
                     message: formData.get('message'),
                     status: 'pending',
                     createdAt: new Date()
-
                 })
             })
             const data = await res.json()
-
-            if (data.insertedId) {
-                alert('success')
-            }
-
-        }
-        else {
+            if (data.insertedId) { alert('success') }
+        } else {
             alert('This pet has added by you')
-
         }
-
-
-        
         router.push('/')
-
-
     }
-    return (
-        <div className='text-black mt-2 lg:mt-20 flex justify-center items-center min-h-screen p-4 md:p-8 bg-gray-50/50'>
-            <div className='flex flex-col md:flex-row justify-center gap-6 lg:gap-8 items-stretch w-full max-w-6xl mx-auto mt-30 md:mt-0'>
 
-                {/* Left Side: Pet Card Details */}
-                <div className='p-6 md:p-8 flex-1 w-full bg-white rounded-3xl shadow-sm flex flex-col justify-between'>
+    return (
+        <div className="text-black mt-2 lg:mt-20 flex justify-center items-center min-h-screen p-4 md:p-8 bg-[#FDF6EC]">
+            <div className="flex flex-col md:flex-row justify-center gap-6 lg:gap-8 items-stretch w-full max-w-6xl mx-auto mt-30 md:mt-0">
+
+                {/* ── Left: Pet Details Card ── */}
+                <div className="p-6 md:p-8 flex-1 w-full bg-[#FFFDF8] rounded-3xl border border-[#E2D8C5] shadow-[0_4px_24px_rgba(196,132,74,0.08)] flex flex-col justify-between">
                     <div className="w-full flex flex-col gap-6">
 
-                        {/* Pet Image Container */}
-                        <div className="relative h-[210px] w-full shrink-0 overflow-hidden rounded-2xl shadow-inner mx-auto sm:mx-0">
+                        {/* Pet Image */}
+                        <div className="relative h-[210px] w-full shrink-0 overflow-hidden rounded-2xl shadow-inner mx-auto sm:mx-0 border border-[#E2D8C5]">
                             {pet?.imageUrl ? (
                                 <Image
                                     alt={petName || 'Pet Image'}
-                                    className="object-cover w-full h-full"
+                                    className="object-cover w-full h-full hover:scale-105 transition-transform duration-500"
                                     src={pet.imageUrl}
                                     width={400}
                                     height={400}
                                     priority
                                 />
                             ) : (
-                                <div className="w-full h-full bg-gray-100 flex items-center justify-center text-sm text-gray-400">
-                                    No Image Available
+                                <div className="w-full h-full bg-[#F6F1E8] flex items-center justify-center text-sm text-[#9E7E6A]">
+                                    🐾 No Image Available
                                 </div>
                             )}
                         </div>
 
-                        {/* Pet Details Container */}
+                        {/* Pet Details */}
                         <div className="flex flex-1 flex-col gap-4">
-                            {/* Header & Description */}
-                            <div className="flex flex-col gap-1 border-b pb-3">
-                                <h2 className="font-bold text-2xl text-gray-800">{petName}</h2>
-                                <p className="text-sm text-gray-500 leading-relaxed mt-1">{pet?.description || 'No description provided.'}</p>
-                            </div>
 
-                            {/* Quick Stats Grid */}
-                            <div className="grid grid-cols-2 gap-x-4 gap-y-2 border-b pb-4">
-                                <p className="text-sm text-gray-600"><span className="font-semibold text-gray-800">Species:</span> {species}</p>
-                                <p className="text-sm text-gray-600"><span className="font-semibold text-gray-800">Breed:</span> {pet?.breed || 'Unknown'}</p>
-                                <p className="text-sm text-gray-600"><span className="font-semibold text-gray-800">Age:</span> {pet?.age || 'N/A'}</p>
-                                <p className="text-sm text-gray-600"><span className="font-semibold text-gray-800">Gender:</span> {gender}</p>
-                            </div>
-
-                            {/* Health & Medical Status */}
-                            <div className="bg-gray-50 p-4 rounded-xl space-y-1.5">
-                                <h3 className="text-xs font-bold uppercase tracking-wider text-gray-400">Health Profile</h3>
-                                <p className="text-sm text-gray-700">
-                                    <span className="font-medium text-gray-900">Health Status:</span> {healthStatus}
-                                </p>
-                                <p className="text-sm text-gray-700">
-                                    <span className="font-medium text-gray-900">Vaccine Status:</span> {vaccinationStatus}
+                            {/* Name & Description */}
+                            <div className="flex flex-col gap-1 border-b border-[#E2D8C5] pb-3">
+                                <h2 className="font-bold text-2xl text-[#3D2B1F]">{petName}</h2>
+                                <p className="text-sm text-[#9E7E6A] leading-relaxed mt-1">
+                                    {pet?.description || 'No description provided.'}
                                 </p>
                             </div>
 
-                            {/* Logistics & Adoption Details */}
+                            {/* Quick Stats */}
+                            <div className="grid grid-cols-2 gap-x-4 gap-y-2 border-b border-[#E2D8C5] pb-4">
+                                <p className="text-sm text-[#7A6A50]">
+                                    <span className="font-semibold text-[#3D2B1F]">Species:</span> {species}
+                                </p>
+                                <p className="text-sm text-[#7A6A50]">
+                                    <span className="font-semibold text-[#3D2B1F]">Breed:</span> {pet?.breed || 'Unknown'}
+                                </p>
+                                <p className="text-sm text-[#7A6A50]">
+                                    <span className="font-semibold text-[#3D2B1F]">Age:</span> {pet?.age || 'N/A'}
+                                </p>
+                                <p className="text-sm text-[#7A6A50]">
+                                    <span className="font-semibold text-[#3D2B1F]">Gender:</span> {gender}
+                                </p>
+                            </div>
+
+                            {/* Health Profile */}
+                            <div className="bg-[#F6F1E8] border border-[#E2D8C5] p-4 rounded-xl space-y-1.5">
+                                <h3 className="text-xs font-bold uppercase tracking-wider text-[#C4844A]">
+                                    Health Profile
+                                </h3>
+                                <p className="text-sm text-[#7A6A50]">
+                                    <span className="font-medium text-[#3D2B1F]">Health Status:</span> {healthStatus}
+                                </p>
+                                <p className="text-sm text-[#7A6A50]">
+                                    <span className="font-medium text-[#3D2B1F]">Vaccine Status:</span> {vaccinationStatus}
+                                </p>
+                            </div>
+
+                            {/* Logistics */}
                             <div className="pt-2 space-y-1">
-                                <p className="text-sm text-gray-700 flex items-center gap-1">
-                                    <span className="font-medium text-gray-900">Location:</span> {location}
+                                <p className="text-sm text-[#7A6A50]">
+                                    <span className="font-medium text-[#3D2B1F]">Location:</span> {location}
                                 </p>
-                                <p className="text-sm text-gray-700">
-                                    <span className="font-medium text-gray-900">Adoption Fee:</span>
-                                    <span className="ml-1 font-semibold text-emerald-600">
+                                <p className="text-sm text-[#7A6A50]">
+                                    <span className="font-medium text-[#3D2B1F]">Adoption Fee:</span>
+                                    <span className="ml-1 font-semibold text-[#7A9E7E]">
                                         {adoptionFee === 0 || adoptionFee === '0' ? 'Free' : `$${adoptionFee}`}
                                     </span>
                                 </p>
                                 {ownerName && (
-                                    <p className="text-sm text-gray-500 pt-1">
-                                        <span className="font-medium">Listed by:</span> {ownerName}
+                                    <p className="text-sm text-[#9E7E6A] pt-1">
+                                        <span className="font-medium text-[#3D2B1F]">Listed by:</span> {ownerName}
                                     </p>
                                 )}
                             </div>
-                        </div>
 
+                        </div>
                     </div>
                 </div>
 
-                {/* Right Side: Adoption Request Form */}
-                <div className='flex-1 w-full rounded-3xl border border-gray-200 bg-white p-6 md:p-8 shadow-sm flex flex-col justify-between'>
+                {/* ── Right: Adoption Form ── */}
+                <div className="flex-1 w-full rounded-3xl border border-[#E2D8C5] bg-[#FFFDF8] p-6 md:p-8 shadow-[0_4px_24px_rgba(196,132,74,0.08)] flex flex-col justify-between">
+
+                    {/* Form header */}
+                    <div className="mb-6">
+                        <span className="inline-flex items-center rounded-full bg-[#F2C4A0] border border-[#C4844A]/30 px-4 py-1.5 text-xs font-semibold text-[#3D2B1F] mb-3">
+                            🐾 Adoption Request
+                        </span>
+                        <h3 className="text-xl font-bold text-[#3D2B1F]">Apply to Adopt {petName}</h3>
+                        <p className="text-sm text-[#9E7E6A] mt-1">Fill in your details and we'll connect you with the owner.</p>
+                    </div>
+
                     <form className="space-y-4 text-sm w-full" onSubmit={adoptButton}>
 
-                        {/* Hidden Field for tracking the Pet Owner ID inside form submissions */}
                         <input type="hidden" name="ownerId" value={ownerId || ""} />
 
-                        {/* 1. Pet Name Field (READ ONLY) */}
+                        {/* Pet Name */}
                         <div>
                             <label className="block text-xs font-semibold text-[#7A6A50] uppercase tracking-wide mb-1">Pet Name</label>
                             <input
@@ -167,7 +169,7 @@ export default function PetDetails({ pet }) {
                             />
                         </div>
 
-                        {/* 2. User Name Field (READ ONLY) */}
+                        {/* Applicant Name */}
                         <div>
                             <label className="block text-xs font-semibold text-[#7A6A50] uppercase tracking-wide mb-1">Applicant Name</label>
                             <input
@@ -179,7 +181,7 @@ export default function PetDetails({ pet }) {
                             />
                         </div>
 
-                        {/* 3. User Email Field (READ ONLY) */}
+                        {/* Applicant Email */}
                         <div>
                             <label className="block text-xs font-semibold text-[#7A6A50] uppercase tracking-wide mb-1">Applicant Email</label>
                             <input
@@ -191,36 +193,41 @@ export default function PetDetails({ pet }) {
                             />
                         </div>
 
-                        {/* 4. Pickup Date Field (EDITABLE) */}
+                        {/* Pickup Date */}
                         <div>
-                            <label className="block text-xs font-semibold text-[#3B3120] uppercase tracking-wide mb-1">Pickup / Visit Date</label>
+                            <label className="block text-xs font-semibold text-[#3D2B1F] uppercase tracking-wide mb-1">Pickup / Visit Date</label>
                             <input
                                 type="date"
                                 name="pickupDate"
                                 required
-                                className="w-full h-11 bg-white border border-[#CBD5E1] rounded-xl px-4 text-[#3B3120] focus:ring-2 focus:ring-amber-400 focus:border-transparent outline-none transition"
+                                className="w-full h-11 bg-white border border-[#E2D8C5] rounded-xl px-4 text-[#3B3120] focus:ring-2 focus:ring-[#C4844A] focus:border-transparent outline-none transition"
                             />
                         </div>
 
-                        {/* 5. Message Field (EDITABLE) */}
+                        {/* Message */}
                         <div>
-                            <label className="block text-xs font-semibold text-[#3B3120] uppercase tracking-wide mb-1">Message to Shelter</label>
+                            <label className="block text-xs font-semibold text-[#3D2B1F] uppercase tracking-wide mb-1">Message to Shelter</label>
                             <textarea
                                 name="message"
                                 required
                                 rows={4}
                                 placeholder="Describe your living setup, pet experience, or any questions for the shelter..."
-                                className="w-full rounded-xl border border-[#CBD5E1] bg-white px-4 py-2.5 text-[#3B3120] placeholder:text-gray-400 focus:ring-2 focus:ring-amber-400 focus:border-transparent outline-none transition resize-none"
+                                className="w-full rounded-xl border border-[#E2D8C5] bg-white px-4 py-2.5 text-[#3B3120] placeholder:text-[#9E7E6A] focus:ring-2 focus:ring-[#C4844A] focus:border-transparent outline-none transition resize-none"
                             />
                         </div>
 
-                        {/* 6. Submit Button */}
+                        {/* Submit */}
                         <button
                             type="submit"
-                            className="w-full h-12 mt-2 rounded-xl bg-[#7C5C2E] hover:bg-[#5E4320] text-white font-medium tracking-wide shadow-md active:scale-[0.98] transition-all duration-150 cursor-pointer"
+                            className="relative w-full h-12 mt-2 rounded-xl overflow-hidden bg-[#3D2B1F] hover:bg-[#C4844A] text-[#FDF6EC] font-semibold tracking-wide shadow-md active:scale-[0.98] transition-all duration-300 cursor-pointer group"
                         >
-                            🐾 Submit Adoption Request
+                            <span className="absolute inset-0 -translate-x-full group-hover:translate-x-full bg-gradient-to-r from-transparent via-white/10 to-transparent transition-transform duration-700 ease-in-out" />
+                            <span className="relative flex items-center justify-center gap-2">
+                                🐾 Submit Adoption Request
+                                <span className="transition-transform duration-300 group-hover:translate-x-1">→</span>
+                            </span>
                         </button>
+
                     </form>
                 </div>
 
