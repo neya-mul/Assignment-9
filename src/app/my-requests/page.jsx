@@ -37,23 +37,6 @@ export default function MyRequest() {
 
 
 
-  // const cancelButton = async (e) => {
-  //   e.preventDefault()
-  //   const res = await fetch(`http://localhost:5000/adoption-requests/pet/${id}`, {
-  //     method: '2',
-  //     headers: {
-  //       'content-type': 'application/json'
-  //     },
-
-  //   })
-  //   const data = await res.json()
-  //   alert('successffully deleted')
-  //   setRequests(prev => prev.filter(r => r._id !== id))
-
-  // }
-
-
-
   return (
     <div className='min-h-screen mt-30'>
       <div className='mb-10'>

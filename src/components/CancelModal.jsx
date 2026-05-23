@@ -14,15 +14,24 @@ export default function CancelModal({ req, onDelete }) {
         onDelete(req._id)
     }
 
+    console.log(req.status);
+
     return (
         <div>
             {/* Trigger button */}
             <button
                 onClick={openModal}
-                className="relative overflow-hidden bg-red-50 hover:bg-red-500 border border-red-100 hover:border-red-500 text-red-400 hover:text-white px-5 py-2 rounded-xl text-sm font-semibold transition-all duration-300 cursor-pointer group"
+                disabled={req.status.toLowerCase() !== 'pending'}
+                className={`relative overflow-hidden px-5 py-2 rounded-xl text-sm font-semibold transition-all duration-300 w-full
+            ${req.status.toLowerCase() !== 'pending'
+                        ? 'bg-[#F6F1E8] border border-[#E2D8C5] text-[#9E7E6A] cursor-not-allowed opacity-50 select-none'
+                        : 'bg-red-50 hover:bg-red-500 border border-red-100 hover:border-red-500 text-red-400 hover:text-white cursor-pointer group'
+                    }`}
             >
                 <span className="absolute inset-0 -translate-x-full group-hover:translate-x-full bg-gradient-to-r from-transparent via-white/10 to-transparent transition-transform duration-700" />
-                <span className="relative">Cancel</span>
+                <span className="relative">
+                    {req.status.toLowerCase() !== 'pending' ? req.status : 'Cancel Request'}
+                </span>
             </button>
 
             {/* Modal */}

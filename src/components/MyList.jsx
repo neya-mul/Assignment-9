@@ -23,8 +23,8 @@ export default function MyList() {
   return (
     <div className='mt-30'>
       <div>
-        <h1 className='text-4xl text-center text-black mb-10'>Your listing</h1>
-        <div className='text-black flex flex-col lg:flex-row justify-between'>
+        <h1 className='text-4xl text-center text-[#3D2B1F] font-extrabold mb-10'>Your listing</h1>
+        <div className='text-[#3D2B1F] font-semibold flex flex-col lg:flex-row justify-between'>
 
           <div className='flex-1 max-w-[300px] w-full text-center mx-auto bg-white rounded-2xl'>
             <h1>Total Listings</h1>

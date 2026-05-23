@@ -31,3 +31,17 @@ button{
 
   background-color: #6B4226;
 }
+
+.hero {
+  animation: bounce 3s ease-in-out infinite alternate;
+}
+@keyframes bounce {
+  from {
+    transform: translateY(70%); /* Starts down low (100% of its own height) */
+    opacity: 0;                  /* Optional: fades in as it moves up */
+  }
+  to {
+    transform: translateY(0);    /* Settles into its natural position */
+    opacity: 1;
+  }
+}
