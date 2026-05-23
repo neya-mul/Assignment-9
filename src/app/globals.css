@@ -3,7 +3,7 @@
 
 
 .body{
-    background-color: #F6F1E8;
+    background-color: #FBF2E6;
 }
 
 .nav{
@@ -24,4 +24,9 @@
 .ul-type-circle li {
   margin-bottom: 0.75rem; /* Adds a nice gap between each bullet point */
   line-height: 1.6; /* Makes the text easier to read */
+}
+
+button{
+
+  background-color: #6B4226;
 }

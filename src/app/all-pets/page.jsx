@@ -34,6 +34,7 @@ export default function AllPets() {
 
   return (
     <div className='mt-30 text-black min-h-screen'>
+      
       <div>
         <h1 className='text-center text-4xl'>Adopt your new family member</h1>
 

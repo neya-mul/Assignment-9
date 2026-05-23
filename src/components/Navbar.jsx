@@ -5,6 +5,7 @@ import Link from 'next/link'
 import { useRouter } from 'next/navigation'
 // import { useRouter } from 'next/router'
 import React from 'react'
+import NavLink from './NavLink'
 
 export default function Navbar() {
     const { data: session } = authClient.useSession()
@@ -24,7 +25,7 @@ export default function Navbar() {
     }
     return (
 
-        <div className="navbar shadow-sm fixed z-50  bg-[#264653] ">
+        <div className="navbar fixed top-0 z-50 px-4 lg:px-10 bg-[#FBF2E6]/90 backdrop-blur-md border-b border-[#E8D5BE] shadow-sm text-[#3E2C20]">
             <div className="navbar-start">
                 <div className="dropdown">
                     <div tabIndex={0} role="button" className="btn btn-ghost lg:hidden">
@@ -32,23 +33,23 @@ export default function Navbar() {
                     </div>
                     <ul
                         tabIndex="-1"
-                        className="menu menu-sm dropdown-content bg-[#264653] rounded-box z-1 mt-10 h-auto w-52 p-2 shadow">
+                        className="menu menu-sm dropdown-content bg-[#FBF2E6] rounded-box z-1 mt-10 h-auto w-52 p-2 shadow">
 
-                        <Link className='btn' href='/'>Home</Link>
-                        <Link className='btn' href='/all-pets'>All Pets</Link>
+                        <NavLink href='/'>Home</NavLink>
+                        <NavLink href='/all-pets'>All Pets</NavLink>
                         {/* <Link className='btn' href='/my-request'>My Requests</Link> */}
-                        <Link className='btn' href='/add-pets'>Add Pet</Link>
+                        <NavLink href='/add-pets'>Add Pet</NavLink>
                     </ul>
                 </div>
                 <Image width={80} height={80} alt='logo' src={'/logo.png'} />
             </div>
             <div className="navbar-center hidden lg:flex ">
-                <ul className="menu menu-horizontal px-1">
+                <ul className="menu menu-horizontal px-1 bg-[#FBF2E6]">
 
-                    <Link className='mx-2 btn' href='/'>Home</Link>
-                    <Link className='mx-2 btn' href='/all-pets'>All Pets</Link>
+                    <NavLink href='/'>Home</NavLink>
+                    <NavLink href='/all-pets'>All Pets</NavLink>
                     {/* <Link className='mx-2 btn' href='/my-request'>My Requests</Link> */}
-                    <Link className='mx-2 btn' href='/add-pets'>Add Pet</Link>
+                    <NavLink href='/add-pets'>Add Pet</NavLink>
                     {/* <Link className='mx-2 btn' href='/login'>Login</Link> */}
                 </ul>
             </div>
@@ -57,7 +58,7 @@ export default function Navbar() {
                     <div className="flex items-center gap-2 mx-2">
                         {/* Profile picture */}
                         <div className="avatar">
-                            <div className="w-9 rounded-full ring ring-primary ring-offset-base-100 ring-offset-2">
+                            <div className="w-9 rounded-full ring ring-[#FDF6EC] ring-offset-base-100 ring-offset-2">
                                 {session.user?.image ? (
                                     <Image src={session.user.image} alt={session.user?.name ?? "User"} width={80} height={80} />
                                 ) : (
