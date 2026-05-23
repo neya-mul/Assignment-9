@@ -50,7 +50,7 @@ export default function PetCard({ pet }) {
 
                     {/* Button */}
                     <div className="flex justify-end">
-                        <Link className="w-full" href={`/${pet?._id}`}>
+                        <Link className="w-full" href={`details/${pet?._id}`}>
                             <button className="relative w-full overflow-hidden bg-[#7C5C2E] hover:bg-[#C4844A] btn border-none text-[#F6F1E8] rounded-lg px-5 py-3 text-sm font-medium cursor-pointer tracking-wide transition-all duration-300 group/btn hover:shadow-[0_8px_20px_rgba(196,132,74,0.35)] hover:scale-[1.02] active:scale-95">
 
                                 {/* Shine sweep */}

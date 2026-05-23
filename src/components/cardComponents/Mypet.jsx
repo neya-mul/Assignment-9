@@ -84,7 +84,7 @@ export default function MyPet({ pet }) {
                     <EditModal pet={pet} />
 
                     {/* View */}
-                    <Link href={`/${pet?._id}`} className="w-full">
+                    <Link href={`/details/${pet?._id}`} className="w-full">
                         <button className="relative w-full overflow-hidden bg-[#3D2B1F] hover:bg-[#C4844A] text-[#FDF6EC] py-2.5 rounded-xl text-xs font-semibold transition-all duration-300 group/btn cursor-pointer">
                             <span className="absolute inset-0 -translate-x-full group-hover/btn:translate-x-full bg-gradient-to-r from-transparent via-white/10 to-transparent transition-transform duration-700" />
                             <span className="relative flex items-center justify-center gap-1">
