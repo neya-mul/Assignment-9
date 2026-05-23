@@ -15,7 +15,7 @@ export default function MyRequest() {
     if (!user) {
       return
     }
-    fetch(`http://localhost:5000/adoption-requests?adopterId=${user?.id}`)
+    fetch(`${process.env.NEXT_PUBLIC_SERVER_URL}adoption-requests?adopterId=${user?.id}`)
       .then(res => res.json())
       .then(data => {
         console.log(data)

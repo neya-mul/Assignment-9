@@ -13,7 +13,7 @@ export default function AllPets() {
   const petCategory = ['All Species', 'Dog', 'Cat', 'Bird', 'Rabbit', 'Hamster', 'Fish', 'Turtle', 'Other']
 
   useEffect(() => {
-    fetch(`http://localhost:5000/pets?searchName=${name}&species=${species}`)
+    fetch(`${process.env.NEXT_PUBLIC_SERVER_URL}pets?searchName=${name}&species=${species}`)
       .then(res => res.json())
       .then(data => setPets(data))
   }, [name, species])

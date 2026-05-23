@@ -5,7 +5,7 @@ import { MdOutlinePets } from 'react-icons/md'
 // import SuccessStoryCard from './cardComponents/SuccessStoryCard'
 
 export default async function SuccessStories() {
-    const res = await fetch('http://localhost:5000/success-storie')
+    const res = await fetch(`${process.env.NEXT_PUBLIC_SERVER_URL}success-storie`)
     const stories = await res.json()
 
     return (

@@ -8,13 +8,13 @@ export default function RequestModal({ pet }) {
     const [users, setUsers] = useState([])
 
     useEffect(() => {
-        fetch(`http://localhost:5000/adoption-requests/pet/${pet._id}`)
+        fetch(`${process.env.NEXT_PUBLIC_SERVER_URL}adoption-requests/pet/${pet._id}`)
             .then(res => res.json())
             .then(data => setUsers(data))
     }, [pet._id])
 
     const handleApprove = async (userId) => {
-        const res = await fetch(`http://localhost:5000/adoption-requests/${userId}`, {
+        const res = await fetch(`${process.env.NEXT_PUBLIC_SERVER_URL}adoption-requests/${userId}`, {
             method: 'PATCH',
             headers: { 'content-type': 'application/json' },
             body: JSON.stringify({ status: 'Approved' })
@@ -25,7 +25,7 @@ export default function RequestModal({ pet }) {
     }
 
     const handleReject = async (userId) => {
-        const res = await fetch(`http://localhost:5000/adoption-requests/${userId}`, {
+        const res = await fetch(`${process.env.NEXT_PUBLIC_SERVER_URL}adoption-requests/${userId}`, {
             method: 'PATCH',
             headers: { 'content-type': 'application/json' },
             body: JSON.stringify({ status: 'Rejected' })

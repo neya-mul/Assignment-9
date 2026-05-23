@@ -5,7 +5,7 @@ export default function CancelModal({ req, onDelete }) {
     const closeModal = () => document.getElementById(`cancel_modal_${req._id}`).close()
 
     const handleDelete = async () => {
-        const res = await fetch(`http://localhost:5000/adoption-requests/pet/${req._id}`, {
+        const res = await fetch(`${process.env.NEXT_PUBLIC_SERVER_URL}adoption-requests/pet/${req._id}`, {
             method: 'DELETE',
             headers: { 'content-type': 'application/json' }
         })

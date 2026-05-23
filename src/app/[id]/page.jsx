@@ -18,7 +18,7 @@ export default async function Details({ params }) {
         notFound();
     }
 
-    const res = await fetch(`http://localhost:5000/pets/${id}`, { cache: 'no-store' });
+    const res = await fetch(`${process.env.NEXT_PUBLIC_SERVER_URL}pets/${id}`, { cache: 'no-store' });
 
     // If API request fails
     if (!res.ok) {

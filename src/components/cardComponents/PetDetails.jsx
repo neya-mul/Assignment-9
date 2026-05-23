@@ -32,7 +32,7 @@ export default function PetDetails({ pet }) {
     useEffect(() => {
         if (!user?.id) { setLoading(false); return }
 
-        fetch(`http://localhost:5000/adoption-requests?adopterId=${user.id}`)
+        fetch(`${process.env.NEXT_PUBLIC_SERVER_URL}adoption-requests?adopterId=${user.id}`)
             .then(res => res.json())
             .then(data => {
                 const already = data.some(req => req.petId === _id)
@@ -52,7 +52,7 @@ export default function PetDetails({ pet }) {
         }
 
         const formData = new FormData(e.currentTarget)
-        const res = await fetch('http://localhost:5000/adoption-requests', {
+        const res = await fetch(`${process.env.NEXT_PUBLIC_SERVER_URL}adoption-requests`, {
             method: 'POST',
             headers: { 'content-type': 'application/json' },
             body: JSON.stringify({

@@ -11,7 +11,7 @@ export default function MyList() {
 
   useEffect(() => {
     if (session?.user?.id) {
-      fetch(`http://localhost:5000/pets?ownerId=${session.user.id}`)
+      fetch(`${process.env.NEXT_PUBLIC_SERVER_URL}pets?ownerId=${session.user.id}`)
         .then(res => res.json())
         .then(data => setPets(data))
     }

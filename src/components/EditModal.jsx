@@ -27,7 +27,7 @@ export default function EditModal({ pet }) {
         const updatedData = Object.fromEntries(formData.entries())
 
         try {
-            const res = await fetch(`http://localhost:5000/pets/${_id}`, {
+            const res = await fetch(`${process.env.NEXT_PUBLIC_SERVER_URL}pets/${_id}`, {
                 method: 'PATCH',
                 headers: { 'content-type': 'application/json' },
                 body: JSON.stringify(updatedData)

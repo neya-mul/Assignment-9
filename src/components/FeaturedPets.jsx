@@ -2,7 +2,7 @@ import React from 'react'
 import PetCard from './cardComponents/PetCard'
 
 export default async function FeaturedPets() {
-    const res = await fetch('http://localhost:5000/pets')
+    const res = await fetch(`${process.env.NEXT_PUBLIC_SERVER_URL}pets`)
     const pets = await res.json()
     // console.log(pets);
 
