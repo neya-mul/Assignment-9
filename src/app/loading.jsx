@@ -1,13 +1,10 @@
 import React from 'react'
-import {  PropagateLoader } from 'react-spinners'
+import { PropagateLoader } from 'react-spinners'
 
-export default function loder() {
+export default function Loader() {
     return (
-        <div className='flex justify-center items-center min-h-screen 
-        '>
-            <span><PropagateLoader className='text-[#3D2B1F]'/>
-
-            </span>
+        <div className="flex justify-center items-center min-h-screen">
+            <PropagateLoader color="#3D2B1F" size={15} />
         </div>
     )
 }

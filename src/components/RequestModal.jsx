@@ -43,7 +43,7 @@ export default function RequestModal({ pet }) {
             >
                 <span className="absolute inset-0 -translate-x-full group-hover:translate-x-full bg-gradient-to-r from-transparent via-white/10 to-transparent transition-transform duration-700" />
                 <span className="relative flex items-center justify-center gap-1.5">
-                    🐾 Requests
+                     Requests
                     {users.length > 0 && (
                         <span className="inline-flex items-center justify-center w-4 h-4 rounded-full bg-[#C4844A] group-hover:bg-white text-white group-hover:text-[#C4844A] text-[10px] font-bold transition-colors duration-300">
                             {users.length}

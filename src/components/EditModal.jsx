@@ -1,6 +1,7 @@
 'use client'
 import { authClient } from '@/lib/auth-client'
 import React from 'react'
+import { MdModeEditOutline } from 'react-icons/md'
 
 export default function EditModal({ pet }) {
     const { data: session } = authClient.useSession()
@@ -42,10 +43,16 @@ export default function EditModal({ pet }) {
     return (
         <div>
             <button
-                className="w-full bg-emerald-500 hover:bg-emerald-600 text-white py-2 rounded-xl text-sm font-medium transition"
                 onClick={() => document.getElementById(`edit_modal_${petId}`).showModal()}
+                className="relative w-full overflow-hidden bg-[#F2C4A0]/40 hover:bg-[#C4844A] border border-[#C4844A]/30 hover:border-[#C4844A] text-[#8B5E3C] hover:text-white py-2.5 rounded-xl text-xs font-semibold transition-all duration-300 cursor-pointer group"
             >
-                Edit
+                {/* Reflective shine effect on hover */}
+                <span className="absolute inset-0 -translate-x-full group-hover:translate-x-full bg-gradient-to-r from-transparent via-white/10 to-transparent transition-transform duration-700" />
+
+                {/* Content layer */}
+                <span className="relative flex items-center justify-center gap-1.5">
+                    Edit <span  className="inline-flex items-center justify-center w-4 h-4 rounded-full bg-[#C4844A] group-hover:bg-white text-white group-hover:text-[#C4844A] text-[10px] font-bold transition-colors duration-300"><MdModeEditOutline /></span>
+                </span>
             </button>
 
             <dialog id={`edit_modal_${petId}`} className="modal">
