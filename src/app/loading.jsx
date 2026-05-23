@@ -5,7 +5,7 @@ export default function loder() {
     return (
         <div className='flex justify-center items-center min-h-screen 
         '>
-            <span><PropagateLoader />
+            <span><PropagateLoader className='text-[#3D2B1F]'/>
 
             </span>
         </div>

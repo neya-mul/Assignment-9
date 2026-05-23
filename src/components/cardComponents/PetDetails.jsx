@@ -6,7 +6,6 @@ import React, { useEffect, useState } from 'react'
 
 export default function PetDetails({ pet }) {
 
-    const requestedCollection = [];
 
     const router = useRouter()
     const { data: session } = authClient.useSession()
@@ -25,32 +24,63 @@ export default function PetDetails({ pet }) {
         ownerId
     } = pet;
 
+
+    const [alreadyRequested, setAlreadyRequested] = useState(false)
+    const [loading, setLoading] = useState(true)
+
+
+    useEffect(() => {
+        if (!user?.id) { setLoading(false); return }
+
+        fetch(`http://localhost:5000/adoption-requests?adopterId=${user.id}`)
+            .then(res => res.json())
+            .then(data => {
+                const already = data.some(req => req.petId === _id)
+                setAlreadyRequested(already)
+                setLoading(false)
+            })
+            .catch(() => setLoading(false))
+    }, [user?.id, _id])
+
+
     const adoptButton = async (e) => {
         e.preventDefault()
-        if (user?.id != ownerId) {
-            const formData = new FormData(e.currentTarget)
-            const res = await fetch('http://localhost:5000/adoption-requests', {
-                method: 'POST',
-                headers: { 'content-type': 'application/json' },
-                body: JSON.stringify({
-                    petId: _id,
-                    petName: petName,
-                    ownerId: ownerId,
-                    adopterId: user?.id,
-                    adopterName: user?.name,
-                    adopterEmail: user?.email,
-                    pickupDate: formData.get('pickupDate'),
-                    message: formData.get('message'),
-                    status: 'pending',
-                    createdAt: new Date()
-                })
-            })
-            const data = await res.json()
-            if (data.insertedId) { alert('success') }
-        } else {
-            alert('This pet has added by you')
+
+        if (user?.id === ownerId) {
+            alert('This pet was added by you.')
+            return
         }
-        router.push('/')
+
+        const formData = new FormData(e.currentTarget)
+        const res = await fetch('http://localhost:5000/adoption-requests', {
+            method: 'POST',
+            headers: { 'content-type': 'application/json' },
+            body: JSON.stringify({
+                petId: _id,
+                petName,
+                ownerId,
+                adopterId: user?.id,
+                adopterName: user?.name,
+                adopterEmail: user?.email,
+                pickupDate: formData.get('pickupDate'),
+                message: formData.get('message'),
+                status: 'pending',
+                createdAt: new Date()
+            })
+        })
+
+        const data = await res.json()
+
+        if (data.alreadyRequested) {
+            alert('You have already sent an adoption request for this pet.')
+            return
+        }
+
+        if (data.insertedId) {
+            setAlreadyRequested(true)
+            alert('Request sent successfully!')
+            router.push('/')
+        }
     }
 
     return (
@@ -153,6 +183,19 @@ export default function PetDetails({ pet }) {
                         <p className="text-sm text-[#9E7E6A] mt-1">Fill in your details and we'll connect you with the owner.</p>
                     </div>
 
+
+
+                    {alreadyRequested && (
+                        <div className="mb-6 flex items-center gap-3 bg-[#C8DFC9]/30 border border-[#7A9E7E]/40 rounded-2xl px-5 py-4">
+                            <span className="text-2xl">✅</span>
+                            <div>
+                                <p className="text-sm font-bold text-[#3D2B1F]">Request Already Sent</p>
+                                <p className="text-xs text-[#9E7E6A] mt-0.5">You've already applied to adopt {petName}. We'll notify you of any updates.</p>
+                            </div>
+                        </div>
+                    )}
+
+
                     <form className="space-y-4 text-sm w-full" onSubmit={adoptButton}>
 
                         <input type="hidden" name="ownerId" value={ownerId || ""} />
@@ -217,16 +260,23 @@ export default function PetDetails({ pet }) {
                         </div>
 
                         {/* Submit */}
-                        <button
-                            type="submit"
-                            className="relative w-full h-12 mt-2 rounded-xl overflow-hidden bg-[#3D2B1F] hover:bg-[#C4844A] text-[#FDF6EC] font-semibold tracking-wide shadow-md active:scale-[0.98] transition-all duration-300 cursor-pointer group"
-                        >
-                            <span className="absolute inset-0 -translate-x-full group-hover:translate-x-full bg-gradient-to-r from-transparent via-white/10 to-transparent transition-transform duration-700 ease-in-out" />
-                            <span className="relative flex items-center justify-center gap-2">
-                                🐾 Submit Adoption Request
-                                <span className="transition-transform duration-300 group-hover:translate-x-1">→</span>
-                            </span>
-                        </button>
+                        {alreadyRequested ? (
+                            <div className="w-full h-12 mt-2 rounded-xl bg-[#C8DFC9]/40 border border-[#7A9E7E]/40 text-[#4A7A4E] font-semibold flex items-center justify-center gap-2 cursor-not-allowed select-none">
+                                ✅ Request Already Submitted
+                            </div>
+                        ) : (
+                            <button
+                                type="submit"
+                                disabled={loading}
+                                className="relative w-full h-12 mt-2 rounded-xl overflow-hidden bg-[#3D2B1F] hover:bg-[#C4844A] text-[#FDF6EC] font-semibold tracking-wide shadow-md active:scale-[0.98] transition-all duration-300 cursor-pointer group disabled:opacity-60 disabled:cursor-not-allowed"
+                            >
+                                <span className="absolute inset-0 -translate-x-full group-hover:translate-x-full bg-gradient-to-r from-transparent via-white/10 to-transparent transition-transform duration-700 ease-in-out" />
+                                <span className="relative flex items-center justify-center gap-2">
+                                    🐾 Submit Adoption Request
+                                    <span className="transition-transform duration-300 group-hover:translate-x-1">→</span>
+                                </span>
+                            </button>
+                        )}
 
                     </form>
                 </div>

@@ -7,32 +7,32 @@ import DeleteModal from '../DeleteModal'
 import RequestModal from '../RequestModal'
 
 export default function MyPet({ pet }) {
-
     return (
-        <div className="bg-white border border-gray-100 rounded-3xl overflow-hidden shadow-sm hover:shadow-lg transition-all duration-300">
+        <div className="group bg-[#FFFDF8] border border-[#E2D8C5] rounded-3xl overflow-hidden shadow-[0_2px_16px_rgba(196,132,74,0.07)] hover:-translate-y-2 hover:shadow-[0_20px_40px_rgba(196,132,74,0.15)] hover:border-[#C4844A]/40 transition-all duration-500">
 
             {/* Image */}
-            <div className="relative h-64 w-full overflow-hidden">
+            <div className="relative h-56 w-full overflow-hidden">
                 <Image
                     src={pet.imageUrl}
                     alt={pet.petName}
                     fill
-                    className="object-cover hover:scale-105 transition-transform duration-300"
+                    className="object-cover transition-transform duration-700 group-hover:scale-110"
                 />
 
-                {/* Status */}
-                <div className="absolute top-4 right-4">
-                    {
-                        pet.adopted ? (
-                            <span className="px-3 py-1 text-xs font-medium rounded-full bg-orange-100 text-orange-700">
-                                Adopted
-                            </span>
-                        ) : (
-                            <span className="px-3 py-1 text-xs font-medium rounded-full bg-green-100 text-green-700">
-                                Available
-                            </span>
-                        )
-                    }
+                {/* Overlay on hover */}
+                <div className="absolute inset-0 bg-gradient-to-t from-[#3D2B1F]/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+
+                {/* Status badge */}
+                <div className="absolute top-3 right-3">
+                    {pet.adopted ? (
+                        <span className="px-3 py-1 text-xs font-bold rounded-full bg-[#F2C4A0] text-[#8B5E3C] border border-[#C4844A]/20">
+                            Adopted
+                        </span>
+                    ) : (
+                        <span className="px-3 py-1 text-xs font-bold rounded-full bg-[#C8DFC9]/80 text-[#4A7A4E] border border-[#7A9E7E]/20">
+                            Available
+                        </span>
+                    )}
                 </div>
             </div>
 
@@ -40,71 +40,65 @@ export default function MyPet({ pet }) {
             <div className="p-5">
 
                 {/* Title + Price */}
-                <div className="flex items-start justify-between mb-2">
+                <div className="flex items-start justify-between mb-3">
                     <div>
-                        <h2 className="text-xl font-semibold text-gray-900">
+                        <h2 className="text-lg font-bold text-[#3D2B1F] transition-colors duration-300 group-hover:text-[#C4844A]">
                             {pet.petName}
                         </h2>
-
-                        <p className="text-sm text-gray-500">
+                        <p className="text-xs text-[#9E7E6A] mt-0.5">
                             {pet.species} • {pet.breed}
                         </p>
                     </div>
-
-                    <h3 className="text-lg font-bold text-emerald-600">
-                        ${pet.adoptionFee}
-                    </h3>
+                    <div className="text-right">
+                        <p className="text-xs text-[#9E7E6A] mb-0.5">Fee</p>
+                        <h3 className="text-base font-bold text-[#7A9E7E]">
+                            {pet.adoptionFee === '0' || pet.adoptionFee === 0 ? 'Free' : `$${pet.adoptionFee}`}
+                        </h3>
+                    </div>
                 </div>
 
-                {/* Meta */}
-                <div className="flex flex-wrap gap-2 mt-4 mb-5">
-                    <span className="px-3 py-1 rounded-full text-xs bg-gray-100 text-gray-700">
+                {/* Animated divider */}
+                <div className="h-px bg-[#E2D8C5] mb-4 transition-all duration-500 group-hover:bg-[#C4844A]/30" />
+
+                {/* Meta tags */}
+                <div className="flex flex-wrap gap-2 mb-5">
+                    <span className="px-3 py-1 rounded-full text-xs font-medium bg-[#F6F1E8] text-[#7A6A50] border border-[#E2D8C5]">
                         {pet.gender}
                     </span>
-
-                    <span className="px-3 py-1 rounded-full text-xs bg-gray-100 text-gray-700">
+                    <span className="px-3 py-1 rounded-full text-xs font-medium bg-[#F6F1E8] text-[#7A6A50] border border-[#E2D8C5]">
                         Age {pet.age}
                     </span>
-
-                    <span className="px-3 py-1 rounded-full flex items-center text-xs bg-gray-100 text-gray-700">
-                        <IoLocationSharp />
+                    <span className="px-3 py-1 rounded-full text-xs font-medium bg-[#F6F1E8] text-[#7A6A50] border border-[#E2D8C5] flex items-center gap-1">
+                        <IoLocationSharp className="text-[#C4844A]" />
                         {pet.location}
                     </span>
                 </div>
 
                 {/* Buttons */}
-                <div className="grid grid-cols-2 gap-3">
+                <div className="grid grid-cols-2 gap-2.5">
 
                     {/* Requests */}
-                    <RequestModal pet={pet}></RequestModal>
+                    <RequestModal pet={pet} />
 
                     {/* Edit */}
-                    <EditModal pet={pet}></EditModal>
+                    <EditModal pet={pet} />
 
                     {/* View */}
-                    <Link href={`/${pet?._id}`}>
-                        <button className="w-full bg-emerald-500 hover:bg-emerald-600 text-white py-2 rounded-xl text-sm font-medium transition">
-                            View
+                    <Link href={`/${pet?._id}`} className="w-full">
+                        <button className="relative w-full overflow-hidden bg-[#3D2B1F] hover:bg-[#C4844A] text-[#FDF6EC] py-2.5 rounded-xl text-xs font-semibold transition-all duration-300 group/btn cursor-pointer">
+                            <span className="absolute inset-0 -translate-x-full group-hover/btn:translate-x-full bg-gradient-to-r from-transparent via-white/10 to-transparent transition-transform duration-700" />
+                            <span className="relative flex items-center justify-center gap-1">
+                                View
+                                <span className="transition-transform duration-200 group-hover/btn:translate-x-1">→</span>
+                            </span>
                         </button>
                     </Link>
 
                     {/* Delete */}
-                    <DeleteModal pet={pet}></DeleteModal>
+                    <DeleteModal pet={pet} />
 
                 </div>
-
             </div>
         </div>
     )
 }
-
-
-
-
-
-
-
-
-
-
-

@@ -72,16 +72,23 @@ export default function Navbar() {
                         {/* Dropdown toggle button */}
 
                         <div className="dropdown dropdown-end">
-                            <label tabIndex={0} className="btn btn-ghost btn-xs px-1">
+                            <label tabIndex={0} className="btn btn-ghost btn-xs px-1 text-[#F2C4A0] hover:text-[#C4844A] hover:bg-transparent transition-colors duration-200">
                                 ▾
                             </label>
 
-                            <ul tabIndex={0} className="dropdown-content menu p-0 shadow-lg bg-base-100 border border-base-200 rounded-xl w-56 mt-2 overflow-hidden">
+                            <ul tabIndex={0} className="dropdown-content menu p-0 shadow-[0_8px_32px_rgba(61,43,31,0.15)] bg-[#FFFDF8] border border-[#E2D8C5] rounded-2xl w-60 mt-2 overflow-hidden">
 
                                 {/* User info header */}
-                                <li className="px-4 py-3 border-b border-base-200 pointer-events-none">
-                                    <p className="font-semibold text-sm text-base-content leading-tight">{user.name}</p>
-                                    <p className="text-xs text-base-content/40 truncate">{user.email}</p>
+                                <li className="px-4 py-3 border-b border-[#E2D8C5] pointer-events-none bg-[#F6F1E8]">
+                                    <div className="flex items-center gap-3">
+                                        <div className="w-8 h-8 rounded-full bg-[#C4844A] flex items-center justify-center text-white text-sm font-bold flex-shrink-0">
+                                            {user.name?.[0]?.toUpperCase() ?? "U"}
+                                        </div>
+                                        <div className="overflow-hidden">
+                                            <p className="font-semibold text-sm text-[#3D2B1F] leading-tight truncate">{user.name}</p>
+                                            <p className="text-xs text-[#9E7E6A] truncate">{user.email}</p>
+                                        </div>
+                                    </div>
                                 </li>
 
                                 {/* Nav items */}
@@ -89,24 +96,22 @@ export default function Navbar() {
                                     <li>
                                         <Link
                                             href="/dashboard"
-                                            className="flex items-center gap-2.5 px-3 py-2 rounded-lg text-sm hover:bg-base-200 transition-colors"
+                                            className="flex items-center gap-2.5 px-3 py-2 rounded-xl text-sm text-[#3D2B1F] hover:bg-[#F6F1E8] hover:text-[#C4844A] transition-all duration-200 font-medium"
                                         >
+                                            <span className="w-6 h-6 rounded-lg bg-[#F2C4A0]/40 flex items-center justify-center text-[#C4844A] text-xs">🏠</span>
                                             Dashboard
                                         </Link>
                                     </li>
-
-
-
                                 </div>
 
                                 {/* Sign out */}
-                                <div className="p-1.5 border-t border-base-200">
+                                <div className="p-1.5 border-t border-[#E2D8C5]">
                                     <li>
                                         <button
                                             onClick={logOutButton}
-                                            className="flex items-center gap-2.5 px-3 py-2 rounded-lg text-sm text-error hover:bg-error/10 transition-colors w-full"
+                                            className="flex items-center gap-2.5 px-3 py-2 rounded-xl text-sm text-red-400 hover:bg-red-50 hover:text-red-500 transition-all duration-200 w-full font-medium"
                                         >
-                                            <span className="text-base">→</span>
+                                            <span className="w-6 h-6 rounded-lg bg-red-50 flex items-center justify-center text-red-400 text-xs">→</span>
                                             Sign out
                                         </button>
                                     </li>
@@ -119,9 +124,9 @@ export default function Navbar() {
 
                 ) : (
                     <div>
-                        <Link className="mx-2 btn" href="/register">Get Started</Link>
+                        <Link className="mx-2 btn border-none bg-[#6B4226]" href="/register">Get Started</Link>
 
-                        <Link className="mx-2 btn" href="/login">Login</Link>
+                        <Link className="mx-2 btn border-none bg-[#6B4226]" href="/login">Login</Link>
                     </div>
                 )}
             </div>

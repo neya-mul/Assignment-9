@@ -49,7 +49,7 @@ export default function Stats() {
 
         {/* Header */}
         <div className="mx-auto max-w-3xl text-center">
-          <span className="inline-flex items-center rounded-full bg-[#F2C4A0] border border-[#C4844A]/30 px-5 py-2 text-sm font-semibold text-[#3D2B1F]">
+          <span className="inline-flex items-center rounded-full animate-bounce bg-[#F2C4A0] border border-[#C4844A]/30 px-5 py-2 text-sm font-semibold text-[#3D2B1F]">
             Trusted by Pet Lovers 
           </span>
 
