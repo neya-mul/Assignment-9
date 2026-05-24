@@ -1,5 +1,6 @@
 import React from 'react'
 import toast from 'react-hot-toast'
+import { MdDeleteOutline } from 'react-icons/md'
 
 export default function DeleteModal({ pet }) {
     const { _id, ownerName, petName } = pet
@@ -28,10 +29,15 @@ export default function DeleteModal({ pet }) {
     return (
         <div>
             <button
-                className="btn w-full bg-red-500 hover:bg-red-600 border-none py-2 rounded-xl text-sm font-medium transition"
                 onClick={openModal}
+                className="relative w-full overflow-hidden bg-red-50  border  hover:text-white py-2.5 rounded-xl text-xs font-semibold transition-all duration-300 cursor-pointer group"
             >
-                Delete
+                <span className="absolute inset-0 -translate-x-full group-hover:translate-x-full bg-gradient-to-r from-transparent via-white/10 to-transparent transition-transform duration-700" />
+                <span className="relative flex items-center justify-center gap-1.5">
+                   
+                    Delete
+                     <MdDeleteOutline className="text-base" />
+                </span>
             </button>
 
             <dialog id={`delete_modal_${petId}`} className="modal">

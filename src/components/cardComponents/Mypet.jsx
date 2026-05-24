@@ -5,6 +5,7 @@ import EditModal from '../EditModal'
 import { IoLocationSharp } from 'react-icons/io5'
 import DeleteModal from '../DeleteModal'
 import RequestModal from '../RequestModal'
+import { FaArrowRightLong } from 'react-icons/fa6'
 
 export default function MyPet({ pet }) {
     return (
@@ -85,11 +86,11 @@ export default function MyPet({ pet }) {
 
                     {/* View */}
                     <Link href={`/details/${pet?._id}`} className="w-full">
-                        <button className="relative w-full overflow-hidden bg-[#3D2B1F] hover:bg-[#C4844A] text-[#FDF6EC] py-2.5 rounded-xl text-xs font-semibold transition-all duration-300 group/btn cursor-pointer">
-                            <span className="absolute inset-0 -translate-x-full group-hover/btn:translate-x-full bg-gradient-to-r from-transparent via-white/10 to-transparent transition-transform duration-700" />
-                            <span className="relative flex items-center justify-center gap-1">
+                        <button className="relative w-full overflow-hidden bg-[#3D2B1F] hover:bg-[#C4844A] text-[#FDF6EC] border border-[#3D2B1F] hover:border-[#C4844A] py-2.5 rounded-xl text-xs font-semibold transition-all duration-300 cursor-pointer group">
+                            <span className="absolute inset-0 -translate-x-full group-hover:translate-x-full bg-gradient-to-r from-transparent via-white/10 to-transparent transition-transform duration-700" />
+                            <span className="relative flex items-center justify-center gap-1.5">
                                 View
-                                <span className="transition-transform duration-200 group-hover/btn:translate-x-1">→</span>
+                                <FaArrowRightLong className="text-xs transition-transform duration-300 group-hover:translate-x-1" />
                             </span>
                         </button>
                     </Link>
@@ -99,6 +100,6 @@ export default function MyPet({ pet }) {
 
                 </div>
             </div>
-        </div>
+        </div >
     )
 }
