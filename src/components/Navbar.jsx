@@ -7,7 +7,9 @@ import { useRouter } from 'next/navigation'
 import React from 'react'
 import NavLink from './NavLink'
 
+
 export default function Navbar() {
+    
     const { data: session } = authClient.useSession()
     const user = session?.user
     // console.log(user);
@@ -26,6 +28,9 @@ export default function Navbar() {
     return (
 
         <div className="navbar fixed top-0 z-50 px-4 lg:px-10 bg-[#FBF2E6]/90 backdrop-blur-md border-b border-[#E8D5BE] shadow-sm text-[#3E2C20]">
+
+
+
             <div className="navbar-start">
                 <div className="dropdown">
                     <div tabIndex={0} role="button" className="btn btn-ghost lg:hidden">

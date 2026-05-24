@@ -1,33 +1,42 @@
 @import "tailwindcss";
-@plugin "daisyui";
 
-
-.body{
-    background-color: #FBF2E6;
+@plugin "daisyui" {
+  themes: light --default, dark --prefersdark, cupcake, retro;
 }
 
-.nav{
-    /* margin-left: 0; */
-    margin-right: 0;
+
+
+
+.body {
+  background-color: #FBF2E6;
 }
 
-.bg{
-    background-image: url('/b.png');
+.nav {
+  /* margin-left: 0; */
+  margin-right: 0;
+}
+
+.bg {
+  background-image: url('/b.png');
 }
 
 .ul-type-circle {
   list-style-type: circle;
-  padding-left: 20px; /* Gives the bullets some breathing room */
-  margin-bottom: 1.5rem; /* Separates the list from any content below it */
+  padding-left: 20px;
+  /* Gives the bullets some breathing room */
+  margin-bottom: 1.5rem;
+  /* Separates the list from any content below it */
 }
 
 .ul-type-circle li {
-  margin-bottom: 0.75rem; /* Adds a nice gap between each bullet point */
-  line-height: 1.6; /* Makes the text easier to read */
+  margin-bottom: 0.75rem;
+  /* Adds a nice gap between each bullet point */
+  line-height: 1.6;
+  /* Makes the text easier to read */
 }
 
-button{
-    color: wheat;
+button {
+  color: wheat;
 
   background-color: #6B4226;
 }
@@ -35,13 +44,18 @@ button{
 .hero {
   animation: bounce 3s ease-in-out infinite alternate;
 }
+
 @keyframes bounce {
   from {
-    transform: translateY(70%); /* Starts down low (100% of its own height) */
-    opacity: 0;                  /* Optional: fades in as it moves up */
+    transform: translateY(70%);
+    /* Starts down low (100% of its own height) */
+    opacity: 0;
+    /* Optional: fades in as it moves up */
   }
+
   to {
-    transform: translateY(0);    /* Settles into its natural position */
+    transform: translateY(0);
+    /* Settles into its natural position */
     opacity: 1;
   }
 }
