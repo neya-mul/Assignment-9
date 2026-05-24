@@ -1,4 +1,5 @@
 import React from 'react'
+import toast from 'react-hot-toast'
 
 export default function DeleteModal({ pet }) {
     const { _id, ownerName, petName } = pet
@@ -20,7 +21,7 @@ export default function DeleteModal({ pet }) {
         })
         await res.json()
         closeModal()
-        alert('data deleted')
+        toast.warning('Pet deleted')
         window.location.reload()
     }
 

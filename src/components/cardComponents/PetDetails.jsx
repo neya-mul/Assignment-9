@@ -3,6 +3,7 @@ import { authClient } from '@/lib/auth-client';
 import Image from 'next/image';
 import { useRouter } from 'next/navigation';
 import React, { useEffect, useState } from 'react'
+import toast from 'react-hot-toast';
 
 export default function PetDetails({ pet }) {
 
@@ -47,7 +48,7 @@ export default function PetDetails({ pet }) {
         e.preventDefault()
 
         if (user?.id === ownerId) {
-            alert('This pet was added by you.')
+            toast.info('This pet was added by you.')
             return
         }
 
@@ -72,13 +73,13 @@ export default function PetDetails({ pet }) {
         const data = await res.json()
 
         if (data.alreadyRequested) {
-            alert('You have already sent an adoption request for this pet.')
+            toast.info('You have already sent an adoption request for this pet.')
             return
         }
 
         if (data.insertedId) {
             setAlreadyRequested(true)
-            alert('Request sent successfully!')
+            toast.success('Request sent successfully!')
             router.push('/')
         }
     }

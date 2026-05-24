@@ -5,6 +5,7 @@ import { createAuthClient } from "better-auth/react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
+import toast from "react-hot-toast";
 import { FaGoogle } from "react-icons/fa";
 import { FaPaw } from "react-icons/fa";
 
@@ -72,7 +73,7 @@ export default function Register() {
     });
 
     if (error) {
-      alert(error.message)
+      toast.error(error.message)
       return;
     } else {
       router.push('/login')
@@ -99,14 +100,12 @@ export default function Register() {
             <p className="text-sm text-[#9E7E6A] mt-1">Join PetNest and find your forever friend</p>
           </div>
 
-          {/* Error alert */}
           {error && (
             <div className="bg-red-50 border border-red-200 text-red-700 p-3 rounded-xl mb-5 text-sm font-medium">
               ⚠️ {error}
             </div>
           )}
 
-          {/* Success alert */}
           {success && (
             <div className="bg-[#C8DFC9]/40 border border-[#7A9E7E] text-[#4A7A4E] p-3 rounded-xl mb-5 text-sm font-medium">
               ✅ Registration successful! Redirecting...

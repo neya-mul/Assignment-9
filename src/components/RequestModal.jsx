@@ -3,6 +3,7 @@ import React, { useEffect, useState } from 'react'
 import { FaPaw } from 'react-icons/fa'
 import { MdEmail } from 'react-icons/md'
 import { IoCalendar } from 'react-icons/io5'
+import toast from 'react-hot-toast'
 
 export default function RequestModal({ pet }) {
     const [users, setUsers] = useState([])
@@ -21,7 +22,7 @@ export default function RequestModal({ pet }) {
         })
         await res.json()
         setUsers(prev => prev.map(u => u._id === userId ? { ...u, status: 'Approved' } : u))
-        alert('done')
+        toast.success('Successfull')
     }
 
     const handleReject = async (userId) => {
