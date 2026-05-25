@@ -1,10 +1,24 @@
-import React from 'react'
+'use client'
+import { authClient } from '@/lib/auth-client'
+import React, { useEffect, useState } from 'react'
 import toast from 'react-hot-toast'
 import { MdDeleteOutline } from 'react-icons/md'
 
 export default function DeleteModal({ pet }) {
     const { _id, ownerName, petName } = pet
     const petId = _id?.toString()
+
+    const [token, setToken] = useState(null)
+    useEffect(() => {
+        const getToken = async () => {
+            const { data: tokenData } = await authClient.token()
+            setToken(tokenData?.token)
+        }
+        getToken()
+    })
+
+    // console.log(token);
+    
 
     const openModal = () => {
         document.getElementById(`delete_modal_${petId}`).showModal()
@@ -17,11 +31,12 @@ export default function DeleteModal({ pet }) {
     const deleteButton = async (e) => {
         e.preventDefault()
 
-      
+
         const res = await fetch(`${process.env.NEXT_PUBLIC_SERVER_URL}pets/${_id}`, {
             method: 'DELETE',
             headers: {
                 'content-type': 'application/json',
+                authorization: `Bearer ${token}`
 
             }
         })
