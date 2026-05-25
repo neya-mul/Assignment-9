@@ -1,6 +1,6 @@
 'use client'
 import { authClient } from '@/lib/auth-client'
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import { MdModeEditOutline } from 'react-icons/md'
 
 export default function EditModal({ pet }) {
@@ -22,11 +22,24 @@ export default function EditModal({ pet }) {
     }
 
 
+    const [token, setToken] = useState(null)
+
+    useEffect(() => {
+        const getToken = async () => {
+            const { data: tokenData } = await authClient.token()
+            setToken(tokenData?.token)
+        }
+        getToken()
+    })
+
+    // console.log(token);
+
+
 
     const handleSubmit = async (e) => {
         e.preventDefault()
 
-        
+
         const formData = new FormData(e.currentTarget)
         const updatedData = Object.fromEntries(formData.entries())
 
@@ -35,6 +48,7 @@ export default function EditModal({ pet }) {
                 method: 'PATCH',
                 headers: {
                     'content-type': 'application/json',
+                    authorization: `Bearer ${token}`
 
                 },
                 body: JSON.stringify(updatedData)
