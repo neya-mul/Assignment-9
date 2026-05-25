@@ -28,12 +28,29 @@ export default function PetDetails({ pet }) {
 
     const [alreadyRequested, setAlreadyRequested] = useState(false)
     const [loading, setLoading] = useState(true)
+    const [token, setToken] = useState(null)
+
+
+    useEffect(() => {
+        const getToken = async () => {
+            const { data: tokenData } = await authClient.token()
+            setToken(tokenData?.token)
+        }
+        getToken()
+    })
+
+    // console.log(token);
+
 
 
     useEffect(() => {
         if (!user?.id) { setLoading(false); return }
 
-        fetch(`${process.env.NEXT_PUBLIC_SERVER_URL}adoption-requests?adopterId=${user.id}`)
+        fetch(`${process.env.NEXT_PUBLIC_SERVER_URL}adoption-requests?adopterId=${user.id}`,{
+            headers: {
+                authorization:`Bearer ${token}`
+            }
+        })
             .then(res => res.json())
             .then(data => {
                 const already = data.some(req => req.petId === _id)
@@ -55,7 +72,9 @@ export default function PetDetails({ pet }) {
         const formData = new FormData(e.currentTarget)
         const res = await fetch(`${process.env.NEXT_PUBLIC_SERVER_URL}adoption-requests`, {
             method: 'POST',
-            headers: { 'content-type': 'application/json' },
+            headers: { 'content-type': 'application/json',
+                authorization:`Bearer ${token}`
+             },
             body: JSON.stringify({
                 petId: _id,
                 petName,
@@ -263,7 +282,7 @@ export default function PetDetails({ pet }) {
                         {/* Submit */}
                         {alreadyRequested ? (
                             <div className="w-full h-12 mt-2 rounded-xl bg-[#C8DFC9]/40 border border-[#7A9E7E]/40 text-[#4A7A4E] font-semibold flex items-center justify-center gap-2 cursor-not-allowed select-none">
-                                ✅ Request Already Submitted
+                                Request Already Submitted
                             </div>
                         ) : (
                             <button
