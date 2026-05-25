@@ -1,8 +1,8 @@
 'use client'
 import { authClient } from '@/lib/auth-client'
 import React, { useEffect, useState } from 'react'
-import toast from 'react-hot-toast'
 import { MdDeleteOutline } from 'react-icons/md'
+import { toast } from 'react-toastify'
 
 export default function DeleteModal({ pet }) {
     const { _id, ownerName, petName } = pet

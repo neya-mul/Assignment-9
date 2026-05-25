@@ -137,7 +137,7 @@ export default function MyRequest() {
                 </span>
 
                 <div className="flex justify-center gap-3">
-                  <Link href={`/${req?.petId}`}>  <button className="bg-green-500 hover:bg-green-600 text-white px-5 py-2 rounded-xl text-sm font-medium transition">
+                  <Link href={`/details/${req?.petId}`}>  <button className="bg-green-500 hover:bg-green-600 text-white px-5 py-2 rounded-xl text-sm font-medium transition">
                     View
                   </button></Link>
 

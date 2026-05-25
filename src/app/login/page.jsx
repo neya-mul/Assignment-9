@@ -4,9 +4,9 @@ import { betterAuth } from 'better-auth'
 import Link from 'next/link'
 import { useRouter } from 'next/navigation'
 import React from 'react'
-import toast from 'react-hot-toast'
 import { FaGoogle } from 'react-icons/fa'
 import { FaPaw } from 'react-icons/fa'
+import { toast } from 'react-toastify'
 
 export default function Login() {
   const auth = betterAuth

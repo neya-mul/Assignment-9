@@ -3,8 +3,8 @@ import React, { useEffect, useState } from 'react'
 import { FaPaw } from 'react-icons/fa'
 import { MdEmail } from 'react-icons/md'
 import { IoCalendar } from 'react-icons/io5'
-import toast from 'react-hot-toast'
 import { authClient } from '@/lib/auth-client'
+import { toast } from 'react-toastify'
 
 export default function RequestModal({ pet }) {
     const [users, setUsers] = useState([])

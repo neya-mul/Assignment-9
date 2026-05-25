@@ -3,7 +3,8 @@ import { authClient } from '@/lib/auth-client';
 import Image from 'next/image';
 import { useRouter } from 'next/navigation';
 import React, { useEffect, useState } from 'react'
-import toast from 'react-hot-toast';
+import { toast } from 'react-toastify';
+// import toast from 'react-hot-toast';
 
 export default function PetDetails({ pet }) {
 
@@ -61,11 +62,15 @@ export default function PetDetails({ pet }) {
     }, [user?.id, _id])
 
 
+
+    console.log(ownerId);
+    console.log(user?.id)
+    
     const adoptButton = async (e) => {
         e.preventDefault()
 
         if (user?.id === ownerId) {
-            toast.info('This pet was added by you.')
+            toast('This pet was added by you.')
             return
         }
 
@@ -98,7 +103,7 @@ export default function PetDetails({ pet }) {
 
         if (data.insertedId) {
             setAlreadyRequested(true)
-            toast.success('Request sent successfully!')
+            toast('Request sent successfully!')
             router.push('/')
         }
     }
