@@ -4,6 +4,8 @@ import React, { useState } from 'react'
 // import AddPets from '../add-pets/page'
 // import MyRequest from '../my-requests/page'
 import { FaPaw, FaPlus, FaList, FaHeart } from 'react-icons/fa'
+import AddPets from '../add-pets/page'
+import MyRequest from '../my-requests/page'
 
 const navItems = [
   { key: 'list',        label: 'My List',      icon: <FaList /> },
