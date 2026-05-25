@@ -17,9 +17,16 @@ export const auth = betterAuth({
 
     secret: process.env.BETTER_AUTH_SECRET,
 
-    baseURL: "http://localhost:3000",
+    baseURL: [
+    "http://localhost:3000",
+    "https://assignment-9-sooty.vercel.app",
+  ],
 
-    trustedOrigins: ["http://localhost:3000"],
+    // trustedOrigins: ["http://localhost:3000"],
+    trustedOrigins: [
+    "http://localhost:3000",
+    "https://assignment-9-sooty.vercel.app",
+  ],
 
     socialProviders: {
         google: {

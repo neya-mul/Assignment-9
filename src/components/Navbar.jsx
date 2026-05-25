@@ -12,7 +12,7 @@ export default function Navbar() {
     
     const { data: session } = authClient.useSession()
     const user = session?.user
-    // console.log(user);
+    console.log(user);
     const router = useRouter()
     const logOutButton = async () => {
 
@@ -55,6 +55,9 @@ export default function Navbar() {
                     <NavLink href='/all-pets'>All Pets</NavLink>
                     {/* <Link className='mx-2 btn' href='/my-request'>My Requests</Link> */}
                     <NavLink href='/add-pets'>Add Pet</NavLink>
+                    <NavLink href='/dashboard'>Dashboard</NavLink>
+                    <NavLink href='/add-pets'>Add Pets</NavLink>
+                    {/* <button onClick={async ()=>await authClient.signOut()}>LLo</button> */}
                     {/* <Link className='mx-2 btn' href='/login'>Login</Link> */}
                 </ul>
             </div>

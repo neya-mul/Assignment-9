@@ -9,7 +9,7 @@ import { FaPaw } from 'react-icons/fa'
 import { toast } from 'react-toastify'
 
 export default function Login() {
-  const auth = betterAuth
+  // const auth = betterAuth
 
   const googleButton = async () => {
     await authClient.signIn.social({
@@ -31,7 +31,7 @@ export default function Login() {
       callbackURL: '/',
     });
 
-    console.log(data);
+    // console.log(data);
     if (error) {
       toast.error(error.message)
     } else {
@@ -124,6 +124,8 @@ export default function Login() {
           </button>
 
         </div>
+        console.log("You are logged in now");
+        
       </form>
     </div>
   )
