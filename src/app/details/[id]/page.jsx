@@ -10,14 +10,14 @@ export default async function Details({ params }) {
 
     const { id } = await params;
 
-    // if (
-    //     id === 'favicon.ico' ||
-    //     id === 'site.webmanifest' ||
-    //     id.startsWith('api') ||
-    //     id === 'my-requests'
-    // ) {
-    //     notFound();
-    // }
+    if (
+        id === 'favicon.ico' ||
+        id === 'site.webmanifest' ||
+        id.startsWith('api') ||
+        id === 'my-requests'
+    ) {
+        notFound();
+    }
 
 
     const { token } = await auth.api.getToken({
