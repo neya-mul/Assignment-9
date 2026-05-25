@@ -5,9 +5,9 @@ import { createAuthClient } from "better-auth/react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
-import toast from "react-hot-toast";
 import { FaGoogle } from "react-icons/fa";
 import { FaPaw } from "react-icons/fa";
+import { toast } from "react-toastify";
 
 export default function Register() {
   const authClient = createAuthClient()

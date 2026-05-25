@@ -4,7 +4,6 @@ import Image from 'next/image';
 import { useRouter } from 'next/navigation';
 import React, { useEffect, useState } from 'react'
 import { toast } from 'react-toastify';
-// import toast from 'react-hot-toast';
 
 export default function PetDetails({ pet }) {
 
@@ -202,7 +201,7 @@ export default function PetDetails({ pet }) {
                     {/* Form header */}
                     <div className="mb-6">
                         <span className="inline-flex items-center rounded-full bg-[#F2C4A0] border border-[#C4844A]/30 px-4 py-1.5 text-xs font-semibold text-[#3D2B1F] mb-3">
-                            🐾 Adoption Request
+                             Adoption Request
                         </span>
                         <h3 className="text-xl font-bold text-[#3D2B1F]">Apply to Adopt {petName}</h3>
                         <p className="text-sm text-[#9E7E6A] mt-1">Fill in your details and we'll connect you with the owner.</p>
@@ -212,7 +211,7 @@ export default function PetDetails({ pet }) {
 
                     {alreadyRequested && (
                         <div className="mb-6 flex items-center gap-3 bg-[#C8DFC9]/30 border border-[#7A9E7E]/40 rounded-2xl px-5 py-4">
-                            <span className="text-2xl">✅</span>
+                            <span className="text-2xl"></span>
                             <div>
                                 <p className="text-sm font-bold text-[#3D2B1F]">Request Already Sent</p>
                                 <p className="text-xs text-[#9E7E6A] mt-0.5">You've already applied to adopt {petName}. We'll notify you of any updates.</p>
