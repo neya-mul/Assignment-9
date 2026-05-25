@@ -13,8 +13,8 @@ export default async function Details({ params }) {
     if (
         id === 'favicon.ico' ||
         id === 'site.webmanifest' ||
-        id.startsWith('api') ||
-        id === 'my-requests'
+        id.startsWith('api') 
+        // id === 'my-requests'
     ) {
         notFound();
     }
