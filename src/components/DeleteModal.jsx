@@ -27,7 +27,7 @@ export default function DeleteModal({ pet }) {
         })
         await res.json()
         closeModal()
-        toast.warning('Pet deleted')
+        toast('Pet deleted')
         window.location.reload()
     }
 

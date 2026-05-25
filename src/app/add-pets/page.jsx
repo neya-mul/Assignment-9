@@ -1,6 +1,6 @@
 'use client'
 import { authClient } from '@/lib/auth-client'
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import { useRouter } from 'next/navigation'
 import { FaPaw } from 'react-icons/fa'
 import toast from 'react-hot-toast'
@@ -15,7 +15,24 @@ export default function AddPets() {
     const user = session?.user
     const name = user?.name
 
+
+    const [token, setToken] = useState(null)
+
+    useEffect(() => {
+        const getToken = async () => {
+            const { data: tokenData } = await authClient.token()
+            setToken(tokenData?.token)
+        }
+        getToken()
+    })
+
+    // console.log(token);
+
     const handleSubmit = async (e) => {
+        // const { data: tokenData } = await authClient.token()
+        // console.log(tokenData?.token);
+
+
         e.preventDefault()
         const formData = new FormData(e.currentTarget)
         const data = Object.fromEntries(formData.entries())
@@ -44,6 +61,7 @@ export default function AddPets() {
             method: 'POST',
             headers: {
                 'content-type': 'application/json',
+                authorization : `Bearer ${token}`
 
             },
 

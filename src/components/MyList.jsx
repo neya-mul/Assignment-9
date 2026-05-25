@@ -13,12 +13,12 @@ export default function MyList() {
 
 
   useEffect(() => {
-    if (session?.user?.id && token?.token) {
+    if (session?.user?.id ) {
       fetch(`${process.env.NEXT_PUBLIC_SERVER_URL}pets?ownerId=${session.user.id}`,)
         .then(res => res.json())
         .then(data => setPets(data))
     }
-  }, [session, token])
+  }, [session])
 
   // console.log(session)
   // console.log(pets)
