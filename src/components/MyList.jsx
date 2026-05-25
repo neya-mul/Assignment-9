@@ -9,16 +9,19 @@ export default function MyList() {
   const { data: session } = authClient.useSession()
   const [pets, setPets] = useState([])
 
+
+
+
   useEffect(() => {
-    if (session?.user?.id) {
-      fetch(`${process.env.NEXT_PUBLIC_SERVER_URL}pets?ownerId=${session.user.id}`)
+    if (session?.user?.id && token?.token) {
+      fetch(`${process.env.NEXT_PUBLIC_SERVER_URL}pets?ownerId=${session.user.id}`,)
         .then(res => res.json())
         .then(data => setPets(data))
     }
-  }, [session])
+  }, [session, token])
 
-  console.log(session)
-  console.log(pets)
+  // console.log(session)
+  // console.log(pets)
 
   return (
     <div className='mt-30'>

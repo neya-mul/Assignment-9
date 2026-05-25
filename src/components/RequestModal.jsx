@@ -4,6 +4,7 @@ import { FaPaw } from 'react-icons/fa'
 import { MdEmail } from 'react-icons/md'
 import { IoCalendar } from 'react-icons/io5'
 import toast from 'react-hot-toast'
+import { authClient } from '@/lib/auth-client'
 
 export default function RequestModal({ pet }) {
     const [users, setUsers] = useState([])
@@ -15,9 +16,13 @@ export default function RequestModal({ pet }) {
     }, [pet._id])
 
     const handleApprove = async (userId) => {
+      
         const res = await fetch(`${process.env.NEXT_PUBLIC_SERVER_URL}adoption-requests/${userId}`, {
             method: 'PATCH',
-            headers: { 'content-type': 'application/json' },
+            headers: {
+                'content-type': 'application/json',
+
+            },
             body: JSON.stringify({ status: 'Approved' })
         })
         await res.json()
@@ -26,9 +31,14 @@ export default function RequestModal({ pet }) {
     }
 
     const handleReject = async (userId) => {
+        const { data: tokenData } = await authClient.token()
+        console.log(tokenData);
         const res = await fetch(`${process.env.NEXT_PUBLIC_SERVER_URL}adoption-requests/${userId}`, {
             method: 'PATCH',
-            headers: { 'content-type': 'application/json' },
+            headers: {
+                'content-type': 'application/json',
+
+            },
             body: JSON.stringify({ status: 'Rejected' })
         })
         await res.json()
@@ -44,7 +54,7 @@ export default function RequestModal({ pet }) {
             >
                 <span className="absolute inset-0 -translate-x-full group-hover:translate-x-full bg-gradient-to-r from-transparent via-white/10 to-transparent transition-transform duration-700" />
                 <span className="relative flex items-center justify-center gap-1.5">
-                     Requests
+                    Requests
                     {users.length > 0 && (
                         <span className="inline-flex items-center justify-center w-4 h-4 rounded-full bg-[#C4844A] group-hover:bg-white text-white group-hover:text-[#C4844A] text-[10px] font-bold transition-colors duration-300">
                             {users.length}
@@ -111,13 +121,12 @@ export default function RequestModal({ pet }) {
                                     </div>
 
                                     {/* Status badge */}
-                                    <span className={`px-3 py-1 rounded-full text-xs font-bold border flex-shrink-0 ${
-                                        user.status === 'Approved'
-                                            ? 'bg-[#C8DFC9]/40 text-[#4A7A4E] border-[#7A9E7E]/30'
-                                            : user.status === 'Rejected'
+                                    <span className={`px-3 py-1 rounded-full text-xs font-bold border flex-shrink-0 ${user.status === 'Approved'
+                                        ? 'bg-[#C8DFC9]/40 text-[#4A7A4E] border-[#7A9E7E]/30'
+                                        : user.status === 'Rejected'
                                             ? 'bg-red-50 text-red-400 border-red-100'
                                             : 'bg-[#F5DBA8]/40 text-[#8B6914] border-[#E8A94F]/30'
-                                    }`}>
+                                        }`}>
                                         {user.status || 'Pending'}
                                     </span>
                                 </div>

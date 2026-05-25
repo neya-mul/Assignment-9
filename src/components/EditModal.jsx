@@ -21,15 +21,22 @@ export default function EditModal({ pet }) {
         if (modal) modal.close()
     }
 
+
+
     const handleSubmit = async (e) => {
         e.preventDefault()
+
+        
         const formData = new FormData(e.currentTarget)
         const updatedData = Object.fromEntries(formData.entries())
 
         try {
             const res = await fetch(`${process.env.NEXT_PUBLIC_SERVER_URL}pets/${_id}`, {
                 method: 'PATCH',
-                headers: { 'content-type': 'application/json' },
+                headers: {
+                    'content-type': 'application/json',
+
+                },
                 body: JSON.stringify(updatedData)
             })
             await res.json()
@@ -51,7 +58,7 @@ export default function EditModal({ pet }) {
 
                 {/* Content layer */}
                 <span className="relative flex items-center justify-center gap-1.5">
-                    Edit <span  className="inline-flex items-center justify-center w-4 h-4 rounded-full bg-[#C4844A] group-hover:bg-white text-white group-hover:text-[#C4844A] text-[10px] font-bold transition-colors duration-300"><MdModeEditOutline /></span>
+                    Edit <span className="inline-flex items-center justify-center w-4 h-4 rounded-full bg-[#C4844A] group-hover:bg-white text-white group-hover:text-[#C4844A] text-[10px] font-bold transition-colors duration-300"><MdModeEditOutline /></span>
                 </span>
             </button>
 

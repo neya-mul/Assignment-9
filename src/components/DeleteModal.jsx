@@ -16,9 +16,14 @@ export default function DeleteModal({ pet }) {
 
     const deleteButton = async (e) => {
         e.preventDefault()
+
+      
         const res = await fetch(`${process.env.NEXT_PUBLIC_SERVER_URL}pets/${_id}`, {
             method: 'DELETE',
-            headers: { 'content-type': 'application/json' }
+            headers: {
+                'content-type': 'application/json',
+
+            }
         })
         await res.json()
         closeModal()
@@ -34,9 +39,9 @@ export default function DeleteModal({ pet }) {
             >
                 <span className="absolute inset-0 -translate-x-full group-hover:translate-x-full bg-gradient-to-r from-transparent via-white/10 to-transparent transition-transform duration-700" />
                 <span className="relative flex items-center justify-center gap-1.5">
-                   
+
                     Delete
-                     <MdDeleteOutline className="text-base" />
+                    <MdDeleteOutline className="text-base" />
                 </span>
             </button>
 

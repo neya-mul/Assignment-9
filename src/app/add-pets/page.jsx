@@ -37,9 +37,16 @@ export default function AddPets() {
             adopted: false,
             createdAt: new Date()
         }
+
+
+
         const res = await fetch(`${process.env.NEXT_PUBLIC_SERVER_URL}pets`, {
             method: 'POST',
-            headers: { 'content-type': 'application/json' },
+            headers: {
+                'content-type': 'application/json',
+
+            },
+
             body: JSON.stringify(pet)
         })
         const result = await res.json()

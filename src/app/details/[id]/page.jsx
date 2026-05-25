@@ -1,14 +1,15 @@
 import React from 'react'
-import Image from 'next/image';
 import PetDetails from '@/components/cardComponents/PetDetails';
 import { notFound } from 'next/navigation';
+import { authClient } from '@/lib/auth-client';
+import { headers } from 'next/headers';
+import { auth } from '@/lib/auth';
+
 
 export default async function Details({ params }) {
 
     const { id } = await params;
-    // console.log("Current Pet ID:", id);
 
-    // 1. Guard against static asset and auth layout requests
     if (
         id === 'favicon.ico' ||
         id === 'site.webmanifest' ||
@@ -18,18 +19,30 @@ export default async function Details({ params }) {
         notFound();
     }
 
-    const res = await fetch(`${process.env.NEXT_PUBLIC_SERVER_URL}pets/${id}`, { cache: 'no-store' });
 
-    // If API request fails
+    const { token } = await auth.api.getToken({
+        headers: await headers()
+    })
+    // console.log(token);
+    
+
+
+    const res = await fetch(`${process.env.NEXT_PUBLIC_SERVER_URL}pets/${id}`, {
+        headers:{
+            authorization: `Beared ${token}`
+        }
+
+    });
+
+
     if (!res.ok) {
         notFound();
     }
 
     const pet = await res.json();
-    // console.log("Fetched Pet Data:", pet);
+    // console.log(pet);
 
-    // 2. CRITICAL FIX: Check if pet is null BEFORE destructuring properties from it!
-    // If pet doesn't exist
+
     if (!pet) {
         notFound();
     }
