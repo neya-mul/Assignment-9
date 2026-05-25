@@ -30,7 +30,7 @@ export default function CancelModal({ req, onDelete }) {
             >
                 <span className="absolute inset-0 -translate-x-full group-hover:translate-x-full bg-gradient-to-r from-transparent via-white/10 to-transparent transition-transform duration-700" />
                 <span className="relative">
-                    {req.status.toLowerCase() !== 'pending' ? req.status : 'Cancel Request'}
+                    {req.status.toLowerCase() !== 'pending' ? req.status : 'Cancel'}
                 </span>
             </button>
 

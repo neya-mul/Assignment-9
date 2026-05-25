@@ -1,15 +1,25 @@
+'use client'
 import Image from 'next/image';
 import Link from 'next/link';
 import React from 'react'
 import { FaArrowRightLong } from 'react-icons/fa6';
+import { motion } from 'framer-motion';
 
 export default function PetCard({ pet }) {
-    // console.log(pet);
-
 
     return (
-        <div className="flex justify-center max-w-[480px] w-full mx-auto items-center p-12 bg-[#F6F1E8] rounded-3xl min-h-[580px] transition-all duration-500 hover:bg-[#F0E8D8]">
-            <div className="group max-w-[420px] w-full bg-[#FFFDF8] rounded-2xl overflow-hidden border border-[#E2D8C5] shadow-[0_2px_16px_0_rgba(180,160,110,0.10)] transition-all duration-500 hover:-translate-y-3 hover:scale-[1.02] hover:shadow-[0_24px_48px_rgba(196,132,74,0.18)] hover:border-[#C4844A]/40">
+        <motion.div
+            className="flex justify-center max-w-[480px] w-full mx-auto items-center p-12 bg-[#F6F1E8] rounded-3xl min-h-[580px] transition-all duration-500 hover:bg-[#F0E8D8]"
+            initial={{ opacity: 0, y: 40 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, margin: '-60px' }}
+            transition={{ duration: 0.5, ease: 'easeOut' }}
+        >
+            <motion.div
+                className="group max-w-[420px] w-full bg-[#FFFDF8] rounded-2xl overflow-hidden border border-[#E2D8C5] shadow-[0_2px_16px_0_rgba(180,160,110,0.10)] transition-all duration-500 hover:-translate-y-3 hover:scale-[1.02] hover:shadow-[0_24px_48px_rgba(196,132,74,0.18)] hover:border-[#C4844A]/40"
+                whileHover={{ y: -8 }}
+                transition={{ duration: 0.3, ease: 'easeOut' }}
+            >
 
                 {/* Image */}
                 <figure className="m-0 overflow-hidden rounded-t-xl relative">
@@ -36,23 +46,50 @@ export default function PetCard({ pet }) {
                 <div className="p-7">
 
                     {/* Pet name */}
-                    <h2 className="text-[19px] font-medium text-[#3B3120] mb-2 transition-all duration-300 group-hover:text-[#C4844A] group-hover:translate-x-1">
+                    <motion.h2
+                        className="text-[19px] font-medium text-[#3B3120] mb-2 transition-all duration-300 group-hover:text-[#C4844A] group-hover:translate-x-1"
+                        initial={{ opacity: 0, x: -10 }}
+                        whileInView={{ opacity: 1, x: 0 }}
+                        viewport={{ once: true }}
+                        transition={{ duration: 0.4, delay: 0.1 }}
+                    >
                         {pet?.petName}
-                    </h2>
+                    </motion.h2>
 
                     {/* Description */}
-                    <p className="text-sm leading-relaxed text-[#7A6A50] mb-6 transition-all duration-300 group-hover:text-[#5A4A30]">
+                    <motion.p
+                        className="text-sm leading-relaxed text-[#7A6A50] mb-6 line-clamp-3 transition-all duration-300 group-hover:text-[#5A4A30]"
+                        initial={{ opacity: 0 }}
+                        whileInView={{ opacity: 1 }}
+                        viewport={{ once: true }}
+                        transition={{ duration: 0.4, delay: 0.2 }}
+                    >
                         {pet?.description}
-                    </p>
+                    </motion.p>
 
                     {/* Animated divider */}
-                    <div className="h-px bg-[#E2D8C5] mb-6 transition-all duration-500 group-hover:bg-[#C4844A]/40 group-hover:scale-x-110 origin-left" />
+                    <motion.div
+                        className="h-px bg-[#E2D8C5] mb-6 transition-all duration-500 group-hover:bg-[#C4844A]/40 group-hover:scale-x-110 origin-left"
+                        initial={{ scaleX: 0, originX: 0 }}
+                        whileInView={{ scaleX: 1 }}
+                        viewport={{ once: true }}
+                        transition={{ duration: 0.5, delay: 0.3 }}
+                    />
 
                     {/* Button */}
-                    <div className="flex justify-end">
+                    <motion.div
+                        className="flex justify-end"
+                        initial={{ opacity: 0, y: 10 }}
+                        whileInView={{ opacity: 1, y: 0 }}
+                        viewport={{ once: true }}
+                        transition={{ duration: 0.4, delay: 0.35 }}
+                    >
                         <Link className="w-full" href={`details/${pet?._id}`}>
-                            <button className="relative w-full overflow-hidden bg-[#7C5C2E] hover:bg-[#C4844A] btn border-none text-[#F6F1E8] rounded-lg px-5 py-3 text-sm font-medium cursor-pointer tracking-wide transition-all duration-300 group/btn hover:shadow-[0_8px_20px_rgba(196,132,74,0.35)] hover:scale-[1.02] active:scale-95">
-
+                            <motion.button
+                                className="relative w-full overflow-hidden bg-[#7C5C2E] hover:bg-[#C4844A] btn border-none text-[#F6F1E8] rounded-lg px-5 py-3 text-sm font-medium cursor-pointer tracking-wide transition-all duration-300 group/btn hover:shadow-[0_8px_20px_rgba(196,132,74,0.35)] active:scale-95"
+                                whileHover={{ scale: 1.02 }}
+                                whileTap={{ scale: 0.96 }}
+                            >
                                 {/* Shine sweep */}
                                 <span className="absolute inset-0 -translate-x-full group-hover/btn:translate-x-full bg-gradient-to-r from-transparent via-white/15 to-transparent transition-transform duration-700 ease-in-out" />
 
@@ -61,15 +98,20 @@ export default function PetCard({ pet }) {
 
                                 <span className="relative flex items-center justify-center gap-2">
                                     View Details
-                                    <span className="transition-all duration-300 group-hover/btn:translate-x-2 group-hover/btn:text-[#F2C4A0]"> <FaArrowRightLong />
- </span>
+                                    <motion.span
+                                        className="group-hover/btn:text-[#F2C4A0]"
+                                        whileHover={{ x: 4 }}
+                                        transition={{ duration: 0.2 }}
+                                    >
+                                        <FaArrowRightLong />
+                                    </motion.span>
                                 </span>
-                            </button>
+                            </motion.button>
                         </Link>
-                    </div>
+                    </motion.div>
 
                 </div>
-            </div>
-        </div>
+            </motion.div>
+        </motion.div>
     );
 }
