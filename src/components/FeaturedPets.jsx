@@ -81,7 +81,7 @@ export default function FeaturedPets() {
       </motion.div>
 
       {/* ── Pet Grid ── */}
-      <div className="container mx-auto px-4 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3">
+      <div className="container mx-auto px-4 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10">
         {pets.slice(0, 6).map((pet, ind) => (
           <motion.div
             key={ind}
