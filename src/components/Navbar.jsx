@@ -3,16 +3,16 @@ import { authClient } from '@/lib/auth-client'
 import Image from 'next/image'
 import Link from 'next/link'
 import { useRouter } from 'next/navigation'
-// import { useRouter } from 'next/router'
 import React from 'react'
 import NavLink from './NavLink'
+import { toast } from 'react-toastify'
 
 
 export default function Navbar() {
     
     const { data: session } = authClient.useSession()
     const user = session?.user
-    console.log(user);
+    // console.log(user);
     const router = useRouter()
     const logOutButton = async () => {
 
@@ -20,7 +20,7 @@ export default function Navbar() {
             fetchOptions: {
                 onSuccess: () => {
                     router.push("/login");
-                    // toast.info("Logged out successfully")
+                    toast.info("Logged out successfully")
                 },
             },
         });
@@ -42,7 +42,6 @@ export default function Navbar() {
 
                         <NavLink href='/'>Home</NavLink>
                         <NavLink href='/all-pets'>All Pets</NavLink>
-                        {/* <Link className='btn' href='/my-request'>My Requests</Link> */}
                         <NavLink href='/add-pets'>Add Pet</NavLink>
                     </ul>
                 </div>
@@ -53,11 +52,9 @@ export default function Navbar() {
 
                     <NavLink href='/'>Home</NavLink>
                     <NavLink href='/all-pets'>All Pets</NavLink>
-                    {/* <Link className='mx-2 btn' href='/my-request'>My Requests</Link> */}
                     <NavLink href='/add-pets'>Add Pet</NavLink>
                    
-                    {/* <button onClick={async ()=>await authClient.signOut()}>LLo</button> */}
-                    {/* <Link className='mx-2 btn' href='/login'>Login</Link> */}
+                  
                 </ul>
             </div>
             <div className="navbar-end">
