@@ -1,6 +1,14 @@
+'use client'
+
 import { FaCat, FaHandHoldingHeart } from "react-icons/fa";
 import { FaEarthAmericas } from "react-icons/fa6";
 import { IoHome } from "react-icons/io5";
+
+import { Swiper, SwiperSlide } from "swiper/react";
+import { Autoplay, Pagination } from "swiper/modules";
+
+import "swiper/css";
+import "swiper/css/pagination";
 
 const stats = [
   {
@@ -50,7 +58,7 @@ export default function Stats() {
         {/* Header */}
         <div className="mx-auto max-w-3xl text-center">
           <span className="inline-flex items-center rounded-full animate-bounce bg-[#F2C4A0] border border-[#C4844A]/30 px-5 py-2 text-sm font-semibold text-[#3D2B1F]">
-            Trusted by Pet Lovers 
+            Trusted by Pet Lovers
           </span>
 
           <h2 className="mt-6 text-4xl font-black tracking-tight text-[#3D2B1F] sm:text-5xl">
@@ -63,40 +71,64 @@ export default function Stats() {
           </p>
         </div>
 
-        {/* Stats Grid */}
-        <div className="mt-20 grid grid-cols-1 gap-8 sm:grid-cols-2 lg:grid-cols-4">
-          {stats.map((item, index) => (
-            <div
-              key={index}
-              className="group relative overflow-hidden rounded-3xl border border-[#F2C4A0]/50 bg-white p-8 shadow-md transition-all duration-500 hover:-translate-y-3 hover:shadow-2xl hover:shadow-[#C4844A]/10"
-            >
-              {/* Gradient Top Bar */}
-              <div className={`absolute inset-x-0 top-0 h-2 bg-linear-to-r ${item.topBar}`} />
+        {/* Swiper Slider */}
+        <div className="mt-20">
+          <Swiper
+            modules={[Autoplay, Pagination]}
+            spaceBetween={30}
+            loop={true}
+            autoplay={{
+              delay: 2500,
+              disableOnInteraction: false,
+            }}
+            pagination={{ clickable: true }}
+            breakpoints={{
+              0: {
+                slidesPerView: 1,
+              },
+              640: {
+                slidesPerView: 2,
+              },
+              1024: {
+                slidesPerView: 4,
+              },
+            }}
+            className="pb-14"
+          >
+            {stats.map((item, index) => (
+              <SwiperSlide key={index}>
+                <div className="group relative overflow-hidden rounded-3xl border border-[#F2C4A0]/50 bg-white p-8 shadow-md transition-all duration-500 hover:-translate-y-3 hover:shadow-2xl hover:shadow-[#C4844A]/10">
 
-              {/* Glow Circle */}
-              <div className={`absolute -right-10 -top-10 h-32 w-32 rounded-full ${item.glow} opacity-40 blur-2xl transition-all duration-500 group-hover:scale-150`} />
+                  {/* Gradient Top Bar */}
+                  <div className={`absolute inset-x-0 top-0 h-2 bg-linear-to-r ${item.topBar}`} />
 
-              <div className="relative z-10">
+                  {/* Glow Circle */}
+                  <div className={`absolute -right-10 -top-10 h-32 w-32 rounded-full ${item.glow} opacity-40 blur-2xl transition-all duration-500 group-hover:scale-150`} />
 
-                {/* Icon */}
-                <div className={`inline-flex h-16 w-16 items-center justify-center rounded-2xl bg-linear-to-br ${item.iconBg} text-white text-3xl shadow-lg`}>
-                  {item.icon}
+                  <div className="relative z-10">
+
+                    {/* Icon */}
+                    <div className={`inline-flex h-16 w-16 items-center justify-center rounded-2xl bg-linear-to-br ${item.iconBg} text-white text-3xl shadow-lg`}>
+                      {item.icon}
+                    </div>
+
+                    {/* Number */}
+                    <h3 className="mt-6 text-5xl font-black tracking-tight text-[#3D2B1F]">
+                      {item.value}
+                    </h3>
+
+                    {/* Label */}
+                    <p className="mt-3 text-lg font-medium text-[#9E7E6A]">
+                      {item.label}
+                    </p>
+
+                  </div>
                 </div>
-
-                {/* Number */}
-                <h3 className="mt-6 text-5xl font-black tracking-tight text-[#3D2B1F]">
-                  {item.value}
-                </h3>
-
-                {/* Label */}
-                <p className="mt-3 text-lg font-medium text-[#9E7E6A]">
-                  {item.label}
-                </p>
-
-              </div>
-            </div>
-          ))}
+              </SwiperSlide>
+            ))}
+          </Swiper>
         </div>
+
       </div>
     </div>
   );

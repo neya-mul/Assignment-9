@@ -23,7 +23,7 @@ export default function AddPets() {
             setToken(tokenData?.token)
         }
         getToken()
-    }, []) 
+    }, [])
 
     const handleSubmit = async (e) => {
         e.preventDefault()
@@ -46,6 +46,7 @@ export default function AddPets() {
             ownerId: user?.id || "unknown_id",
             adopted: false,
             createdAt: new Date()
+
         }
 
         const res = await fetch(`${process.env.NEXT_PUBLIC_SERVER_URL}pets`, {
@@ -58,10 +59,15 @@ export default function AddPets() {
         })
         const result = await res.json()
         if (result.insertedId) {
+            // router.refresh()
+            window.location.reload()
+
             toast.success('Pet added successfully!')
-            router.refresh()
-            router.push('/')
+
+
+            // router.push('/')
         }
+
     }
 
     const fadeUp = (delay = 0) => ({
