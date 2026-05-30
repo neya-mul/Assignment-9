@@ -9,7 +9,7 @@ export default function Banner() {
     return (
         // 👇 overflow-hidden stops horizontal scroll from x animations
         <div className='bg-[#fcf0de] px-4 md:px-8 overflow-hidden'>
-            <div className="min-h-screen text-center lg:text-left py-24 lg:py-0 flex flex-col lg:flex-row gap-10 lg:gap-20 w-full justify-around container mx-auto items-center">
+            <div className="min-h-screen text-center lg:text-left py-24 lg:py-0 flex flex-col-reverse lg:flex-row gap-10 lg:gap-20 w-full justify-around container mx-auto items-center">
 
                 {/* ── Left text side ── */}
                 <motion.div
@@ -112,7 +112,7 @@ export default function Banner() {
 
                 {/* ── Right image side ── */}
                 <motion.div
-                    className="relative w-full max-w-[240px] sm:max-w-[320px] md:max-w-[380px] lg:max-w-[500px] aspect-square mx-auto flex-shrink-0"
+                    className="relative w-full max-w-[440px]  border-black sm:max-w-[320px] md:max-w-[380px] lg:max-w-[500px] aspect-square mx-auto lg:mx-0 flex-shrink-0"
                     // 👇 No x slide on mobile — only fade up
                     initial={{ opacity: 0, y: 30 }}
                     animate={{ opacity: 1, y: 0 }}
