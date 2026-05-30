@@ -47,7 +47,7 @@ export default function Navbar() {
                 </div>
 
                 {/* ── Desktop Nav ── */}
-                <div className="navbar-center hidden lg:flex">
+                <div className="navbar-center hidden lg:flex justify-center">
                     <ul className="flex items-center gap-1">
                         {navLinks.map(link => (
                             <li key={link.href}>
@@ -118,7 +118,7 @@ export default function Navbar() {
 
                                     {/* Dashboard */}
                                     <div className="p-2 space-y-1">
-                                        <li>
+                                        <li >
                                             <Link
                                                 href="/dashboard"
                                                 className="flex items-center gap-3 px-3 py-2.5 rounded-xl text-sm text-[#3D2B1F] hover:bg-[#F6F1E8] hover:text-[#C4844A] transition-all duration-200 font-medium"

@@ -1,7 +1,7 @@
 import React from 'react'
 import PetDetails from '@/components/cardComponents/PetDetails';
 import { notFound } from 'next/navigation';
-import { authClient } from '@/lib/auth-client';
+// import { authClient } from '@/lib/auth-client';
 import { headers } from 'next/headers';
 import { auth } from '@/lib/auth';
 
@@ -10,14 +10,14 @@ export default async function Details({ params }) {
 
     const { id } = await params;
 
-    if (
-        id === 'favicon.ico' ||
-        id === 'site.webmanifest' ||
-        id.startsWith('api') 
-        // id === 'my-requests'
-    ) {
-        notFound();
-    }
+    // if (
+    //     id === 'favicon.ico' ||
+    //     id === 'site.webmanifest' ||
+    //     id.startsWith('api') 
+    //     // id === 'my-requests'
+    // ) {
+    //     notFound();
+    // }
 
 
     const { token } = await auth.api.getToken({
@@ -35,17 +35,17 @@ export default async function Details({ params }) {
     });
 
 
-    if (!res.ok) {
-        notFound();
-    }
+    // if (!res.ok) {
+    //     notFound();
+    // }
 
     const pet = await res.json();
     // console.log(pet);
 
 
-    if (!pet) {
-        notFound();
-    }
+    // if (!pet) {
+    //     notFound();
+    // }
 
 
     return (
